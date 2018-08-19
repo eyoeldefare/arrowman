@@ -2,18 +2,21 @@ package entry;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import game_levels.GameLevelsManager;
+
 public class Panel extends JPanel implements Runnable, KeyListener {
 
 	private static final long serialVersionUID = 1L;
 
 	// Class properties
-	public static final int WIDTH = 500, HEIGHT = 300, SCALE = 2;
+	public static final int WIDTH = 600, HEIGHT = 400, SCALE = 2;
 
 	// Thread
 	private Thread thread;
@@ -23,8 +26,11 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 
 	// Graphics
 	private BufferedImage image;
+	private Graphics2D graphics;
 
 	// Custom class references
+
+	private GameLevelsManager gameLevelsManager;
 
 	// Constructor
 	public Panel() {
@@ -42,32 +48,33 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 	 */
 
 	private void init() {
-		// init our image demention and type
+		// init our image dimension and type
 		this.image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-		// the game started
+		this.graphics = (Graphics2D) this.image.getGraphics();
+		// This instance will manage the level changes of our game
+		this.gameLevelsManager = new GameLevelsManager();
+		// the game has started
 		this.gameStarted = true;
-		// This instance will manage the state changes of our game
-
 	}
 
 	private void draw() {
-
+		this.gameLevelsManager.draw(this.graphics);
 	}
 
 	private void update() {
-
+		this.gameLevelsManager.update();
 	}
 
 	private void render() {
 		/*
 		 * "Abstract base class forall graphics contexts that allow an application to
-		 * draw ontocomponents "
+		 * draw onto components "
 		 * 
-		 * Here we are calling Graphics concret method getGraphics() that allows us to
+		 * Here we are calling Graphics concrete method getGraphics() that allows us to
 		 * draw our image to our component which is the panel.
 		 * 
-		 * Make sure to dispose of the graphics afterward since we want a new image
-		 * drawn to the panel while the old component/object is disposed of.
+		 * Make sure to dispose of the graphics afterward since we want a new image to
+		 * be drawn to the panel while the old component/object is disposed of.
 		 */
 
 		Graphics graphics = getGraphics();
@@ -83,11 +90,12 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 		 * listeners. "
 		 */
 		super.addNotify();
-		// If the thread is null and no thread is running, create a new thread object
+		// If the thread is null and it means no thread is running, so create a new
+		// thread object
 		if (this.thread == null) {
 			// new thread object which runs our run() method bellow when its active.
 			this.thread = new Thread(this);
-			// also start the key listeners on our panel object
+			// also start the key listeners on our panel object/component
 			super.addKeyListener(this);
 			// finally start the thread
 			this.thread.start();
@@ -100,22 +108,21 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 	/*
 	 * This method is fired whenever our thread is running so we will manage the
 	 * thread here within the while loop to manage when the run() method should be
-	 * called (which is when the thread is not asleep) (non-Javadoc)
+	 * called (which is when the thread is not asleep)
 	 * 
 	 * @see java.lang.Runnable#run()
 	 */
 
 	@Override
 	public void run() {
-		// call init
+		// call init method here to initialize
 		this.init();
 
-		// time managements for the game. Directs the pace of the game
+		// These are time managements for the game. Directs the pace of the game
 		long startTime, elapsedTime, sleep;
 
 		while (this.gameStarted) {
 			// The moment the game starts, we start our timer
-			// startTime
 			startTime = System.nanoTime();
 			// In this period, we update, draw, and render
 			// whatever is happening in our
@@ -125,7 +132,7 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 			this.render();
 
 			// Finally, get the time elapsed after the update, draw,
-			// and render have occured
+			// and render have occurred
 			elapsedTime = System.nanoTime() - startTime;
 
 			// time is the time needed we set above for running a 30
@@ -137,17 +144,17 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 
 				// Remember the run() method is called whenever our
 				// thread is active and not null.
+				// Sleep the thread when nothing is happening in that period
 
 				Thread.sleep(sleep);
 			} catch (Exception ex) {
 				ex.printStackTrace();
-				;
 			}
 
 		}
 	}
 
-	/* There are the key listeners for the keyboard */
+	/* These are the key listeners for the keyboard */
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 
