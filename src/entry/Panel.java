@@ -16,7 +16,7 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 	private static final long serialVersionUID = 1L;
 
 	// Class properties
-	public static final int WIDTH = 600, HEIGHT = 400, SCALE = 2;
+	public static final int WIDTH = 800, HEIGHT = 400, SCALE = 1;
 
 	// Thread
 	private Thread thread;
@@ -157,12 +157,12 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 	/* These are the key listeners for the keyboard */
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-
+		this.gameLevelsManager.keyPressed(arg0.getKeyCode());
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-
+		this.gameLevelsManager.keyReleased(arg0.getKeyCode());
 	}
 
 	@Override
