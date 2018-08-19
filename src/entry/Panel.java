@@ -21,7 +21,12 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 	// Thread
 	private Thread thread;
 	private boolean gameStarted;
-	private int fps = 30;
+	
+	/*Increase this frame per second number to get the best result,
+	 * the problem is, it very CPU intensive and might cause lag.
+	 * For now I will set it from 30 to 80 to get the best result.
+	 * */ 
+	private int fps = 80; 
 	private long time = 1000 / fps;
 
 	// Graphics
@@ -42,7 +47,7 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 	}
 
 	/*
-	 * To organize the codebase, all initializations, drawings, updates, etc are
+	 * To organize the code-base, all initializations, drawings, updates, etc are
 	 * coupled into methods as follow
 	 * 
 	 */

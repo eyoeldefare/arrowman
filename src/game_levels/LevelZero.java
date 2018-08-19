@@ -32,9 +32,10 @@ public class LevelZero extends GameLevels {
 	// Constructor
 	public LevelZero() {
 		try {
-
-			this.background = new Background("/background/bg-3.jpg");
-
+			//bg
+			this.background = new Background("/background/bg-0.jpg");
+			this.background.setDx(-0.5);
+			
 			this.tColor = new Color(222, 243, 249);
 			this.tFont = new Font("Monospaced", Font.BOLD, 30);
 			this.dFont = new Font("Monospaced", Font.PLAIN, 16);
@@ -77,7 +78,7 @@ public class LevelZero extends GameLevels {
 
 	@Override
 	public void update() {
-
+		this.background.update();
 	}
 
 	@Override
@@ -119,17 +120,17 @@ public class LevelZero extends GameLevels {
 	// We will handle the options logic here. It will either start
 	// the game or exit the game
 	private void optionSelect() {
-		if(this.option==0)
-			//If the option is 0, it means we selected the option 
-			//"START" in our array, options. So we set the level 
-			//to 1 in our gamelevelManager so level 1 starts.
+		if (this.option == 0)
+			// If the option is 0, it means we selected the option
+			// "START" in our array, options. So we set the level
+			// to 1 in our gamelevelManager so level 1 starts.
 			this.gameLevelManager.setLevel(1);
-		
-		if(this.option==1)
-			//If the person selects the second option, it means he wants to exist
-			// So we exit him from the game 
+
+		if (this.option == 1)
+			// If the person selects the second option, it means he wants to exist
+			// So we exit him from the game
 			System.exit(0);
-		
+
 	}
 
 }

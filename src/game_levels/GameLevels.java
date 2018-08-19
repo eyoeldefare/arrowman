@@ -13,4 +13,5 @@ public abstract class GameLevels {
 	public abstract void keyPressed(int key);
 
 	public abstract void keyReleased(int key);
+
 }

@@ -11,14 +11,11 @@ public class GameLevelsManager extends GameLevels {
 
 	private int level;
 	private GameLevels[] levels;
-
+	
 	// Constructor
 	public GameLevelsManager() {
 		// The levels will store all the game levels
 		this.levels = new GameLevels[4];
-		// Every level will start from the menu
-		this.level = 0;
-
 		// Add all the levels
 		this.levels[0] = new LevelZero();
 		this.levels[1] = new LevelOne();
@@ -30,16 +27,20 @@ public class GameLevelsManager extends GameLevels {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	
-	//We are just init, drawing, updating, and handling the keyboard 
-	//pressing events based on the level we are on.
-	//Note the level is being set from other classes that will
+
+	public int getLevel() {
+		return level;
+	}
+
+	// We are just init, drawing, updating, and handling the keyboard
+	// pressing events based on the level we are on.
+	// Note the level is being set from other classes that will
 	// handle whether we need to move to the next level or not.
 	@Override
 	public void init() {
 		for (int i = 0; i < this.levels.length; i++) {
-			if (i == this.level) {
-				this.levels[this.level].init();
+			if (i == this.getLevel()) {
+				this.levels[this.getLevel()].init();
 			}
 		}
 	}
@@ -47,8 +48,9 @@ public class GameLevelsManager extends GameLevels {
 	@Override
 	public void draw(Graphics2D graphics) {
 		for (int i = 0; i < this.levels.length; i++) {
-			if (i == this.level) {
-				this.levels[this.level].draw(graphics);
+
+			if (i == this.getLevel()) {
+				this.levels[this.getLevel()].draw(graphics);
 			}
 		}
 	}
@@ -56,8 +58,8 @@ public class GameLevelsManager extends GameLevels {
 	@Override
 	public void update() {
 		for (int i = 0; i < this.levels.length; i++) {
-			if (i == this.level) {
-				this.levels[this.level].update();
+			if (i == this.getLevel()) {
+				this.levels[this.getLevel()].update();
 			}
 		}
 	}
@@ -65,8 +67,8 @@ public class GameLevelsManager extends GameLevels {
 	@Override
 	public void keyPressed(int key) {
 		for (int i = 0; i < this.levels.length; i++) {
-			if (i == this.level) {
-				this.levels[this.level].keyPressed(key);
+			if (i == this.getLevel()) {
+				this.levels[this.getLevel()].keyPressed(key);
 			}
 		}
 	}
@@ -74,8 +76,8 @@ public class GameLevelsManager extends GameLevels {
 	@Override
 	public void keyReleased(int key) {
 		for (int i = 0; i < this.levels.length; i++) {
-			if (i == this.level) {
-				this.levels[this.level].keyReleased(key);
+			if (i == this.getLevel()) {
+				this.levels[this.getLevel()].keyReleased(key);
 			}
 		}
 	}
