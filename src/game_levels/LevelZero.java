@@ -26,16 +26,21 @@ public class LevelZero extends GameLevels {
 	private Color tColor;
 	private Font tFont, dFont;
 
-	// Custome class instances
+	// Custom class instances
 	private GameLevelsManager gameLevelManager;
 
 	// Constructor
-	public LevelZero() {
+	public LevelZero(GameLevelsManager gameLevelManager) {
+		// When we instantiate LevelZero in GameLevelsManager, the GameLevelsManager constructor will be passed into 
+		// LevelZero when its first created in which case we can use here to access its methods. The benefit of doing 
+		// this is, we create our Levels with the current state of Level Manager.
+		
+		this.gameLevelManager = gameLevelManager;
 		try {
-			//bg
+			// bg
 			this.background = new Background("/background/bg-0.jpg");
 			this.background.setDx(-0.5);
-			
+
 			this.tColor = new Color(222, 243, 249);
 			this.tFont = new Font("Monospaced", Font.BOLD, 30);
 			this.dFont = new Font("Monospaced", Font.PLAIN, 16);

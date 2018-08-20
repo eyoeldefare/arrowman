@@ -20,7 +20,7 @@ public class LevelOne extends GameLevels {
 	// Constructor
 	public LevelOne() {
 		// init everything here when the constructor first called
-		this.background = new Background("/background/bg-0.jpg");
+		this.background = new Background("/background/bg-1.jpg");
 		this.arrowMan = new ArrowMan();
 		this.zombies = new Zombies[this.zombieCount];
 		this.arrows = new Arrows[this.arrowCount];
