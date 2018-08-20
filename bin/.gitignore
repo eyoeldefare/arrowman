@@ -1,8 +1,3 @@
-/.project
-/background/
-/entry/
-/game_entities/
+/player/
 /game_levels/
-/sprites/
-/zombies/
-/arrows/
+/game_entities/

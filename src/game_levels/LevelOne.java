@@ -23,12 +23,13 @@ public class LevelOne extends GameLevels {
 		this.background = new Background("/background/bg-1.jpg");
 		this.arrowMan = new ArrowMan();
 		this.zombies = new Zombies[this.zombieCount];
-		this.arrows = new Arrows[this.arrowCount];
+		this.arrows = new Arrows[this.arrowCount];		
+		
+		
 	}
 
 	@Override
-	public void init() {
-	}
+	public void init() {}
 
 	@Override
 	public void draw(Graphics2D graphics) {
