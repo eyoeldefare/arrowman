@@ -18,7 +18,7 @@ public class GameLevelsManager extends GameLevels {
 		this.levels = new GameLevels[4];
 		// Add all the levels
 		this.levels[0] = new LevelZero(this);
-		this.levels[1] = new LevelOne();
+		this.levels[1] = new LevelOne(this);
 		this.levels[2] = new LevelTwo();
 		this.levels[3] = new LevelThree();
 	}
