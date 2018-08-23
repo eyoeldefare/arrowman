@@ -7,8 +7,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 public class ArrowMan extends Entities {
-	// Pos
-	private double x, y, dx, dy;
+
 	// Movement
 	private boolean left, right, up, down;
 	private int speed;
@@ -19,6 +18,7 @@ public class ArrowMan extends Entities {
 
 	// Constructor
 	public ArrowMan() {
+		super();
 		// We need the body and legs
 		int bodyParts = 2;
 		// Store the body parts in a simple Image array
@@ -35,7 +35,53 @@ public class ArrowMan extends Entities {
 		}
 	}
 
-	// Setter and getter for movement
+	@Override
+	public void init() {
+	}
+
+	@Override
+	public void draw(Graphics2D graphics) {
+		// Draw the parts
+		this.drawLegs(graphics);
+		this.drawBody(graphics);
+
+		
+
+	}
+
+	@Override
+	public void update() {
+		super.calcBounds();
+		double max = 0.4;
+		if (this.left) {
+			super.dx -= max / 2;
+			if (super.dx < -max)
+				super.dx = -max;
+			super.x += super.dx;
+		} else if (this.right) {
+			super.dx += max / 2;
+			if (super.dx > max)
+				super.dx = max;
+			super.x += super.dx;
+		}
+
+	}
+
+	// Local logics
+	private void drawBody(Graphics2D graphics) {
+		int x_offset = 2, y_offset = 14;
+		graphics.drawImage(this.playerParts[0], (int) (super.x - x_offset), (int) (super.y + y_offset), (int) (B_WIDTH),
+				(int) (B_HEIGHT), null);
+
+	}
+
+	private void drawLegs(Graphics2D graphics) {
+		int y_offset = 50;
+		graphics.drawImage(this.playerParts[1], (int) (super.x), (int) (super.y + y_offset), L_WIDTH, L_HEIGHT, null);
+
+	}
+
+	// Setters and getters
 	public boolean isLeft() {
 		return left;
 	}
@@ -66,61 +112,6 @@ public class ArrowMan extends Entities {
 
 	public void setDown(boolean down) {
 		this.down = down;
-	}
-
-	@Override
-	public void init() {
-	}
-
-	@Override
-	public void draw(Graphics2D graphics) {
-		// Draw the parts
-		this.drawLegs(graphics);
-		this.drawBody(graphics);
-
-	}
-
-	// set the position
-	public void setPosition(double x, double y) {
-		this.x = x;
-		this.y = y;
-	}
-
-	// set vector
-	public void setVector(double dx, double dy) {
-		this.dx = dx;
-		this.dy = dy;
-	}
-
-	private void drawBody(Graphics2D graphics) {
-		int x_offset = 2, y_offset = 14;
-		graphics.drawImage(this.playerParts[0], (int) (this.x - x_offset), (int) (this.y + y_offset), (int) (B_WIDTH),
-				(int) (B_HEIGHT), null);
-
-	}
-
-	private void drawLegs(Graphics2D graphics) {
-		int y_offset = 50;
-		graphics.drawImage(this.playerParts[1], (int) (this.x), (int) (this.y + y_offset), L_WIDTH, L_HEIGHT, null);
-
-	}
-
-	@Override
-	public void update() {
-
-		if (this.left) {
-			System.out.println(this.left);
-			dx -= 0.3;
-		} else if (this.right) {
-			dx += 0.3;
-		} else if (this.up) {
-			dy -= 0.3;
-		} else if (this.down) {
-			dy += 0.3;
-		}
-
-		this.x += this.dx;
-		this.y += this.dy;
 	}
 
 }
