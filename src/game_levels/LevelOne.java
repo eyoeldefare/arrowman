@@ -7,6 +7,7 @@ import game_entities.ArrowMan;
 import game_entities.Arrows;
 import game_entities.Zombies;
 import sprites.Background;
+import sprites.Drawer;
 
 public class LevelOne extends GameLevels {
 
@@ -15,6 +16,7 @@ public class LevelOne extends GameLevels {
 	private Zombies[] zombies;
 	private Arrows[] arrows;
 	private Background background;
+	private Drawer drawer;
 	private int zombieCount;
 	private int arrowCount;
 
@@ -22,6 +24,7 @@ public class LevelOne extends GameLevels {
 	public LevelOne(GameLevelsManager gameLevelManager) {
 		// init everything here when the constructor first called
 		this.background = new Background("/background/bg-1.jpg");
+		this.drawer = new Drawer();
 		this.arrowMan = new ArrowMan();
 		this.arrowMan.setPosition(0, 300);
 		this.zombies = new Zombies[this.zombieCount];
@@ -36,6 +39,7 @@ public class LevelOne extends GameLevels {
 	@Override
 	public void draw(Graphics2D graphics) {
 		this.background.draw(graphics);
+		this.drawer.draw(graphics);
 		this.arrowMan.draw(graphics);
 	}
 
