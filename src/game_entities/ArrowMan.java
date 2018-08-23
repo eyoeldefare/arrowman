@@ -18,6 +18,7 @@ public class ArrowMan extends Entities {
 
 	// Constructor
 	public ArrowMan() {
+		
 		super();
 		// We need the body and legs
 		int bodyParts = 2;

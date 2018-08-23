@@ -1,6 +1,7 @@
 package game_entities;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 import entry.Panel;
 
@@ -32,11 +33,31 @@ public abstract class Entities {
 	// calc the bounds play can move
 	protected void calcBounds() {
 		int windowWidth = Panel.WIDTH;
-		int windowHeight = Panel.HEIGHT;
 		if (this.x > windowWidth)
 			this.x = windowWidth - 50;
 		if (this.x < 20)
 			this.x = 20;
 	}
+	
+	//Collision
+	
+	public Rectangle getRect() {
+		return null;
+	}
+
+	// Getters
+	public double getX() {
+		return x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public double getDx() {
+		return dx;
+	}
+	
+
 
 }

@@ -1,6 +1,7 @@
 package game_levels;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 import game_entities.ArrowMan;
@@ -23,11 +24,16 @@ public class LevelOne extends GameLevels {
 	// Constructor
 	public LevelOne(GameLevelsManager gameLevelManager) {
 		// init everything here when the constructor first called
+
 		this.background = new Background("/background/bg-1.jpg");
+
 		this.drawer = new Drawer();
+
 		this.arrowMan = new ArrowMan();
 		this.arrowMan.setPosition(0, 300);
+
 		this.zombies = new Zombies[this.zombieCount];
+
 		this.arrows = new Arrows[this.arrowCount];
 
 	}
@@ -46,6 +52,7 @@ public class LevelOne extends GameLevels {
 	@Override
 	public void update() {
 		this.arrowMan.update();
+
 	}
 
 	@Override
@@ -70,4 +77,6 @@ public class LevelOne extends GameLevels {
 		}
 
 	}
+	
+	
 }

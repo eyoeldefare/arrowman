@@ -8,21 +8,39 @@ import java.awt.geom.Line2D;
 // are walking on a ground in the background image
 
 public class Drawer {
-	Color color = new Color(19, 20, 45, 155);
+	private Line2D line;
+	private Line2D line1;
+	private Line2D line2;
 
-	Line2D line = new Line2D.Double(0, 350, 350, 360); 
-	Line2D line1 = new Line2D.Double(350, 360, 550, 310);
-	Line2D line2 = new Line2D.Double(550, 310, 800, 345);
-	
+	public Drawer() {
+		this.line = new Line2D.Double(0, 350, 350, 360);
+		this.line1 = new Line2D.Double(350, 360, 550, 310);
+		this.line2 = new Line2D.Double(550, 310, 800, 345);
+	}
+
 	public void draw(Graphics2D graphics) {
 
-		graphics.setColor(Color.white); 
+		graphics.setColor(Color.white);
 		graphics.draw(line);
 		graphics.draw(line1);
 		graphics.draw(line2);
+
 	}
 
 	public void update() {
 
+	}
+
+	// Getters for the lines
+	public Line2D getLine() {
+		return line;
+	}
+
+	public Line2D getLine1() {
+		return line1;
+	}
+
+	public Line2D getLine2() {
+		return line2;
 	}
 }
