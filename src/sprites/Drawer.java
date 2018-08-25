@@ -2,6 +2,7 @@ package sprites;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.Line2D;
 
 // This class will help us mimic the player and zombie objects
