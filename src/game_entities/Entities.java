@@ -13,7 +13,7 @@ public abstract class Entities {
 	// Constructor
 	protected Entities() {
 	}
- 
+
 	protected abstract void init();
 
 	protected abstract void draw(Graphics2D graphics);
@@ -34,17 +34,16 @@ public abstract class Entities {
 	// calculate the bounds for entities
 	protected void calcBounds() {
 		int windowWidth = Panel.WIDTH;
-		if (this.x > windowWidth - 20)
-			this.x = windowWidth - 20;
+		if (this.x > windowWidth - 100)
+			this.x = windowWidth - 100;
 		if (this.x < 20)
 			this.x = 20;
 	}
 
-	// Collision
-
+	// Rectangle or Ellipse2D for collision
 	public Rectangle createRect() {
 		return new Rectangle((int) this.x, (int) this.y, this.collisionWidth, this.collisionHeight); // x, y, width, //
-																										// height
+																										// // // height
 	}
 
 	// Getters
@@ -59,7 +58,7 @@ public abstract class Entities {
 	public double getDx() {
 		return dx;
 	}
-	
+
 	public double getDy() {
 		return dy;
 	}

@@ -1,6 +1,5 @@
 package game_entities;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -16,12 +15,12 @@ public class ArrowMan extends Entities {
 	private static final int B_WIDTH = 37, B_HEIGHT = 45; // 118 * 141 - w * h
 	private static final int L_WIDTH = 25, L_HEIGHT = 19; // 76 * 64 - w * h
 
-	// Constructor 
+	// Constructor
 	public ArrowMan() {
 
 		super();
 		super.collisionWidth = 37;
-		super.collisionHeight = 65;
+		super.collisionHeight = 60;
 		super.dy = .2;
 		// We need the body and legs
 		int bodyParts = 2;
@@ -49,18 +48,14 @@ public class ArrowMan extends Entities {
 		this.drawLegs(graphics);
 		this.drawBody(graphics);
 
-		// Draw the rectangle around player
-		super.createRect();
-
 		// for testing reasons
-		graphics.setColor(Color.BLACK);
-		graphics.drawRect((int) super.x, (int) super.y, super.collisionWidth, super.collisionHeight);
-
-	}
+		//graphics.setColor(Color.white);
+		graphics.draw(super.createRect());
+	} 
 
 	@Override
 	public void update() {
-		double max = 0.4;
+		double max = 0.7;
 		//
 		super.calcBounds();
 
@@ -76,7 +71,6 @@ public class ArrowMan extends Entities {
 			super.x += super.dx;
 		}
 		super.y += super.dy;
-
 	}
 
 	// Local logics

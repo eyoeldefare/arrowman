@@ -2,29 +2,32 @@ package sprites;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.geom.Line2D;
 
 // This class will help us mimic the player and zombie objects
 // are walking on a ground in the background image
 
-public class Drawer {
-	private Line2D line;
+public class Ground {
 	private Line2D line1;
 	private Line2D line2;
+	private Line2D line3;
+	private Line2D line4;
+	Color cLine = new Color(0, 0, 0, 0);
 
-	public Drawer() {
-		this.line = new Line2D.Double(0, 350, 350, 360);
-		this.line1 = new Line2D.Double(350, 360, 550, 310);
-		this.line2 = new Line2D.Double(550, 310, 800, 345);
+	public Ground() {
+		this.line1 = new Line2D.Double(0, 350, 350, 353);
+		this.line2 = new Line2D.Double(350, 363, 550, 310);
+		this.line3 = new Line2D.Double(550, 307, 708, 320);
+		this.line4 = new Line2D.Double(710, 324, 800, 350);
 	}
 
 	public void draw(Graphics2D graphics) {
 
-		graphics.setColor(Color.white);
-		graphics.draw(line);
+		graphics.setColor(this.cLine);
 		graphics.draw(line1);
 		graphics.draw(line2);
+		graphics.draw(line3);
+		graphics.draw(line4);
 
 	}
 
@@ -33,15 +36,19 @@ public class Drawer {
 	}
 
 	// Getters for the lines
-	public Line2D getLine() {
-		return line;
-	}
-
 	public Line2D getLine1() {
 		return line1;
 	}
 
 	public Line2D getLine2() {
 		return line2;
+	}
+
+	public Line2D getLine3() {
+		return line3;
+	}
+
+	public Line2D getLine4() {
+		return line4;
 	}
 }
