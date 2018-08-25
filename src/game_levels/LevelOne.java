@@ -7,14 +7,14 @@ import java.awt.geom.Line2D;
 
 import game_entities.ArrowMan;
 import game_entities.Arrows;
-import game_entities.Zombies;
+import game_entities.Zombie;
 import sprites.Background;
 import sprites.Ground;
 
 public class LevelOne extends GameLevels {
 
 	private ArrowMan arrowMan;
-	private Zombies[] zombies;
+	private Zombie zombie;
 	private Arrows[] arrows;
 	private Background background;
 	private Ground drawer;
@@ -30,10 +30,11 @@ public class LevelOne extends GameLevels {
 		this.drawer = new Ground();
 
 		this.arrowMan = new ArrowMan();
-		this.arrowMan.setPosition(500, 200);
+		this.arrowMan.setPosition(0, 282);
 
-		this.zombies = new Zombies[this.zombieCount];
-
+		this.zombie = new Zombie();
+		this.zombie.setPosition(700, 282);
+ 
 		this.arrows = new Arrows[this.arrowCount];
 
 	}
@@ -47,6 +48,7 @@ public class LevelOne extends GameLevels {
 		this.background.draw(graphics);
 		this.drawer.draw(graphics);
 		this.arrowMan.draw(graphics);
+		this.zombie.draw(graphics);
 	}
 
 	@Override

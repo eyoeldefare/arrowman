@@ -16,7 +16,7 @@ public class ArrowMan extends Entities {
 	private static final int L_WIDTH = 25, L_HEIGHT = 19; // 76 * 64 - w * h
 
 	// Constructor
-	public ArrowMan() {
+	public ArrowMan() { 
 
 		super();
 		super.collisionWidth = 37;
@@ -74,6 +74,7 @@ public class ArrowMan extends Entities {
 	}
 
 	// Local logics
+	
 	private void drawBody(Graphics2D graphics) {
 		int x_offset = 2, y_offset = 14;
 		graphics.drawImage(this.playerParts[0], (int) (super.x - x_offset), (int) (super.y + y_offset), (int) (B_WIDTH),

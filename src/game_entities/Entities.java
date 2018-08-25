@@ -8,6 +8,8 @@ import entry.Panel;
 public abstract class Entities {
 
 	protected double x, y, dx, dy;
+	protected boolean dead;
+	protected int lives;
 	protected int collisionWidth, collisionHeight;
 
 	// Constructor
