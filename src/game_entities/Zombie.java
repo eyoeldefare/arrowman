@@ -10,6 +10,7 @@ public class Zombie extends Entities {
 
 	private Image[] zombiesDie, zombiesWalk, zombiesAppear, zombiesAttack;
 	private int zombieCount;
+	private final static int WIDTH = 44, HEIGHT = 57;
 
 	// frames manipulator
 	private int frame;
@@ -31,22 +32,22 @@ public class Zombie extends Entities {
 			// die
 			for (int d = 1; d <= die; d++) {
 				BufferedImage image = ImageIO.read(getClass().getResource("/zombies/die/die_" + d + ".png"));
-				this.zombiesAppear[d - 1] = (Image) image.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+				this.zombiesAppear[d - 1] = (Image) image.getScaledInstance(WIDTH, HEIGHT, Image.SCALE_SMOOTH);
 			}
 			// walk
 			for (int w = 1; w <= walk; w++) {
 				BufferedImage image = ImageIO.read(getClass().getResource("/zombies/walk/go_" + w + ".png"));
-				this.zombiesAppear[w - 1] = (Image) image.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+				this.zombiesAppear[w - 1] = (Image) image.getScaledInstance(WIDTH, HEIGHT, Image.SCALE_SMOOTH);
 			}
 			// appear
 			for (int ap = 1; ap <= appear; ap++) {
 				BufferedImage image = ImageIO.read(getClass().getResource("/zombies/appear/appear_" + ap + ".png"));
-				this.zombiesAppear[ap - 1] = (Image) image.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+				this.zombiesAppear[ap - 1] = (Image) image.getScaledInstance(WIDTH, HEIGHT, Image.SCALE_SMOOTH);
 			}
 			// attack
 			for (int at = 1; at <= attack; at++) {
 				BufferedImage image = ImageIO.read(getClass().getResource("/zombies/attack/hit_" + at + ".png"));
-				this.zombiesAppear[at - 1] = (Image) image.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+				this.zombiesAppear[at - 1] = (Image) image.getScaledInstance(WIDTH, HEIGHT, Image.SCALE_SMOOTH);
 			}
 
 		} catch (Exception ex) {
@@ -63,7 +64,7 @@ public class Zombie extends Entities {
 	public void draw(Graphics2D graphics) {
 		// appearance
 		for (int a = 0; a < this.zombiesAppear.length; a++) {
-			graphics.drawImage(this.zombiesAppear[a], (int) (700), (int) (super.y), 45, 45, null);
+			graphics.drawImage(this.zombiesAppear[a], (int) (super.x), (int) (super.y), WIDTH, HEIGHT, null);
 		}
 	}
 

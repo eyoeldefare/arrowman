@@ -18,6 +18,7 @@ public class LevelOne extends GameLevels {
 	private Arrows[] arrows;
 	private Background background;
 	private Ground drawer;
+
 	private int zombieCount;
 	private int arrowCount;
 
@@ -34,7 +35,7 @@ public class LevelOne extends GameLevels {
 
 		this.zombie = new Zombie();
 		this.zombie.setPosition(700, 282);
- 
+
 		this.arrows = new Arrows[this.arrowCount];
 
 	}
@@ -43,6 +44,7 @@ public class LevelOne extends GameLevels {
 	public void init() {
 	}
 
+	// Drawing the listed objects
 	@Override
 	public void draw(Graphics2D graphics) {
 		this.background.draw(graphics);
@@ -51,15 +53,24 @@ public class LevelOne extends GameLevels {
 		this.zombie.draw(graphics);
 	}
 
+	// Updating Objects
 	@Override
 	public void update() {
 		this.arrowMan.update();
+
+		// Referencing rectangle object we defined in arrowman - this rectangle
+		// encapsulated the arrowman bounds
 		Rectangle rArrowman = this.arrowMan.createRect();
+		// Here we are referencing the lines we draw on the ground to mimic a ground in
+		// Ground class.
 		Line2D ground1 = this.drawer.getLine1();
 		Line2D ground2 = this.drawer.getLine2();
 		Line2D ground3 = this.drawer.getLine3();
 		Line2D ground4 = this.drawer.getLine4();
 		// check if the player and the ground made contact
+		// and set the arrowman's y position to where the contact we made
+		// Do it for 4 of the grounds we built
+		
 		if (ground1.intersects(rArrowman)) {
 			this.arrowMan.setY(this.arrowMan.getY() - 1);
 		}
@@ -76,6 +87,7 @@ public class LevelOne extends GameLevels {
 
 	}
 
+	//Key Events checker
 	@Override
 	public void keyPressed(int key) {
 		if (key == KeyEvent.VK_A) {
