@@ -5,8 +5,12 @@ import java.awt.Rectangle;
 
 import entry.Panel;
 
+/*
+	This is our abstract super class that will be inherited by all entities 
+*/
 public abstract class Entities {
 
+	// props
 	protected double x, y, dx, dy;
 	protected boolean dead;
 	protected int lives;
@@ -16,6 +20,7 @@ public abstract class Entities {
 	protected Entities() {
 	}
 
+	// We will implement these abstract methods in each entity classes
 	protected abstract void init();
 
 	protected abstract void draw(Graphics2D graphics);
@@ -28,7 +33,8 @@ public abstract class Entities {
 		this.y = y;
 	}
 
-	// set vector
+	// set vector, we mainly will be working in the x direction in this game as it
+	// doesn't seem needed to include y vector for this particular game.
 	protected void setVector(double dx, double dy) {
 		this.dx = dx;
 	}
@@ -42,7 +48,7 @@ public abstract class Entities {
 			this.x = 20;
 	}
 
-	// Rectangle or Ellipse2D for collision
+	// Create Rectangle for Collision
 	public Rectangle createRect() {
 		return new Rectangle((int) this.x, (int) this.y, this.collisionWidth, this.collisionHeight); // x, y, width, //
 																										// // // height

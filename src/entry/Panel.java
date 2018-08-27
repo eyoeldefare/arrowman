@@ -26,7 +26,7 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 	 * the problem is, it very CPU intensive and might cause lag.
 	 * For now I will set it from 30 to 80 to get the best result.
 	 * */ 
-	private int fps = 80; 
+	private int fps = 70; 
 	private long time = 1000 / fps;
 
 	// Graphics

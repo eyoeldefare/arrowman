@@ -4,9 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Line2D;
-
 import game_entities.ArrowMan;
-import game_entities.Arrows;
 import game_entities.Zombie;
 import sprites.Background;
 import sprites.Ground;
@@ -15,13 +13,9 @@ public class LevelOne extends GameLevels {
 
 	private ArrowMan arrowMan;
 	private Zombie zombie;
-	private Arrows[] arrows;
 	private Background background;
 	private Ground drawer;
-
-	private int zombieCount;
-	private int arrowCount;
-
+	
 	// Constructor
 	public LevelOne(GameLevelsManager gameLevelManager) {
 		// init everything here when the constructor first called
@@ -34,10 +28,7 @@ public class LevelOne extends GameLevels {
 		this.arrowMan.setPosition(0, 282);
 
 		this.zombie = new Zombie();
-		this.zombie.setPosition(700, 282);
-
-		this.arrows = new Arrows[this.arrowCount];
-
+		this.zombie.setPosition(650, 259); 
 	}
 
 	@Override
@@ -70,7 +61,7 @@ public class LevelOne extends GameLevels {
 		// check if the player and the ground made contact
 		// and set the arrowman's y position to where the contact we made
 		// Do it for 4 of the grounds we built
-		
+
 		if (ground1.intersects(rArrowman)) {
 			this.arrowMan.setY(this.arrowMan.getY() - 1);
 		}
@@ -85,9 +76,12 @@ public class LevelOne extends GameLevels {
 
 		}
 
+		// Zombie stuff
+		this.zombie.update();
+
 	}
 
-	//Key Events checker
+	// Key Events checker
 	@Override
 	public void keyPressed(int key) {
 		if (key == KeyEvent.VK_A) {

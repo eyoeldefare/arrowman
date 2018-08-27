@@ -14,7 +14,14 @@ public class Ground {
 	private Line2D line4;
 	Color cLine = new Color(0, 0, 0, 0);
 
+	// constructor
 	public Ground() {
+		/*
+		 * These lines just represent a ground. They are an attempt to draw on the
+		 * ground. If you want to see what the lines look like, change the this.cLine =
+		 * Color.white or some visiable color, which will show you what the ground looks
+		 * like.
+		 */
 		this.line1 = new Line2D.Double(0, 350, 350, 353);
 		this.line2 = new Line2D.Double(350, 363, 550, 310);
 		this.line3 = new Line2D.Double(550, 307, 708, 320);
@@ -30,11 +37,7 @@ public class Ground {
 		graphics.draw(line4);
 
 	}
-
-	public void update() {
-
-	}
-
+	
 	// Getters for the lines
 	public Line2D getLine1() {
 		return line1;
