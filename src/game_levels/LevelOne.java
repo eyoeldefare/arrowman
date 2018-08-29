@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Line2D;
+
+import game_entities.Actions;
 import game_entities.ArrowMan;
 import game_entities.Zombie;
 import sprites.Background;
@@ -15,6 +17,12 @@ public class LevelOne extends GameLevels {
 	private Zombie zombie;
 	private Background background;
 	private Ground drawer;
+
+	// Ground stuff
+	Line2D ground1;
+	Line2D ground2;
+	Line2D ground3;
+	Line2D ground4;
 
 	// Constructor
 	public LevelOne(GameLevelsManager gameLevelManager) {
@@ -47,53 +55,73 @@ public class LevelOne extends GameLevels {
 	// Updating Objects
 	@Override
 	public void update() {
+		// Get the reference for ground objects (which are lines) from the drawer class
+		// So we can check their collision with the rectangle around the arrowman and
+		// zombie.
+		this.ground1 = this.drawer.getLine1();
+		this.ground2 = this.drawer.getLine2();
+		this.ground3 = this.drawer.getLine3();
+		this.ground4 = this.drawer.getLine4();
+		// Update
 		this.arrowMan.update();
 		this.zombie.update();
 
-		// Referencing rectangle object we defined in arrowman - this rectangle
-		// encapsulated the arrowman bounds
+		// Collisions
+		this.arrowmanXGround();
+		this.zombieXGround();
+		this.zombieXArrowman();
+
+	}
+
+	// Local logic
+
+	private void arrowmanXGround() {
+
+		Rectangle rArrowman = this.arrowMan.createRect();
+
+		if (this.ground1.intersects(rArrowman)) {
+			this.arrowMan.setY(this.arrowMan.getY() - 1);
+		}
+		if (this.ground2.intersects(rArrowman)) {
+			this.arrowMan.setY(this.arrowMan.getY() - 1);
+		}
+		if (this.ground3.intersects(rArrowman)) {
+			this.arrowMan.setY(this.arrowMan.getY() - 1);
+		}
+		if (this.ground4.intersects(rArrowman)) {
+			this.arrowMan.setY(this.arrowMan.getY() - 1);
+		}
+	}
+
+	private void zombieXGround() {
+
+		Rectangle rZombie = this.zombie.createRect();
+
+		if (this.ground1.intersects(rZombie)) {
+			this.zombie.setY(this.zombie.getY() - 1);
+		}
+		if (this.ground2.intersects(rZombie)) {
+			this.zombie.setY(this.zombie.getY() - 1);
+
+		}
+		if (this.ground3.intersects(rZombie)) {
+			this.zombie.setY(this.zombie.getY() - 1);
+
+		}
+		if (this.ground4.intersects(rZombie)) {
+			this.zombie.setY(this.zombie.getY() - 1);
+
+		}
+	}
+
+	private void zombieXArrowman() {
+		// the zombie and arrowman made interaction
 		Rectangle rArrowman = this.arrowMan.createRect();
 		Rectangle rZombie = this.zombie.createRect();
-		// Here we are referencing the lines we draw on the ground to mimic a ground in
-		// Ground class.
-		Line2D ground1 = this.drawer.getLine1();
-		Line2D ground2 = this.drawer.getLine2();
-		Line2D ground3 = this.drawer.getLine3();
-		Line2D ground4 = this.drawer.getLine4();
-		// check if the player and the ground made contact
-		// and set the arrowman's y position to where the contact we made
-		// Do it for 4 of the grounds we built
 
-		if (ground1.intersects(rArrowman)) {
-			this.arrowMan.setY(this.arrowMan.getY() - 1);
+		if (rArrowman.intersects(rZombie)) {
+			this.zombie.setAction(Actions.ATTACKING);
 		}
-		if (ground2.intersects(rArrowman)) {
-			this.arrowMan.setY(this.arrowMan.getY() - 1);
-		}
-		if (ground3.intersects(rArrowman)) {
-			this.arrowMan.setY(this.arrowMan.getY() - 1);
-		}
-		if (ground4.intersects(rArrowman)) {
-			this.arrowMan.setY(this.arrowMan.getY() - 1);
-		}
-
-		// Zombie
-		if (ground1.intersects(rZombie)) {
-			this.zombie.setY(this.zombie.getY() - 1);
-		}
-		if (ground2.intersects(rZombie)) {
-			this.zombie.setY(this.zombie.getY() - 1);
-
-		}
-		if (ground3.intersects(rZombie)) {
-			this.zombie.setY(this.zombie.getY() - 1);
-
-		}
-		if (ground4.intersects(rZombie)) {
-			this.zombie.setY(this.zombie.getY() - 1);
-
-		}
-
 	}
 
 	// Key Events checker

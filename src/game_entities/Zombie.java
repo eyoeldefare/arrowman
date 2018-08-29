@@ -6,22 +6,6 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
-//Here we are creating enum to keep our code clean and easy. 
-//The Actions has 4 props with constant variables.
-//We are able to call these constants throught the get method "value()" when we want
-enum Actions {
-	APPEARING(0), WALKING(1), ATTACKING(2), DYING(3);
-	private final int action;
-
-	Actions(int action) {
-		this.action = action;
-	}
-
-	int value() {
-		return this.action;
-	}
-}
-
 public class Zombie extends Entities {
 
 	// Stores the zombie frames
@@ -132,9 +116,25 @@ public class Zombie extends Entities {
 			super.y += super.dy;
 
 		}
+
+		if (this.action == Actions.ATTACKING) {
+			this.frameController.setPlayedAlready(false);
+			
+			this.frameController.setFrames(this.zombieFrames[Actions.ATTACKING.value()]);
+		}
+
 		// Update the frames
 		this.frameController.update();
 
+	}
+
+	// Setters and getters
+	public Actions getAction() {
+		return action;
+	}
+
+	public void setAction(Actions action) {
+		this.action = action;
 	}
 
 }

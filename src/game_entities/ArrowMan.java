@@ -86,7 +86,6 @@ public class ArrowMan extends Entities {
 	 * 
 	 * Local Logics
 	 * 
-	 * 
 	 */
 	// draw the body
 	private void drawBody(Graphics2D graphics) {
