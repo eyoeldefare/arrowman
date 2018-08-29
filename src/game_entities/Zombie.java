@@ -37,6 +37,9 @@ public class Zombie extends Entities {
 	public Zombie() {
 		// init the super class
 		super();
+		super.dx = -.5;
+		super.collisionHeight = HEIGHT - 6;
+		super.collisionWidth = WIDTH;
 
 		// We will have 4 images with different frames
 		this.zombieFrames = new Image[4][];
@@ -99,14 +102,18 @@ public class Zombie extends Entities {
 	public void draw(Graphics2D graphics) {
 		// draw the image from the frame controller
 		graphics.drawImage(this.frameController.getImage(), (int) (super.x), (int) (super.y), WIDTH, HEIGHT, null);
+		graphics.draw(super.createRect());
 	}
 
 	@Override
 	public void update() {
+		// calc the bounds
+		super.calcBounds();
 		// First action is APPEARING, and so we check if the frame has gone through
 		// playing all the images. If so, we don't need to repeat things so we will stop
 		// it and move on to the next stage which is Walking toward the player after
 		// appearing.
+
 		if (this.action == Actions.APPEARING) {
 			if (this.frameController.getPlayedAlready() == true) {
 				this.action = Actions.WALKING;
@@ -121,6 +128,8 @@ public class Zombie extends Entities {
 				this.frameController.setFrames(this.zombieFrames[Actions.WALKING.value()]);
 				this.frameController.setDelay(200);
 			}
+			super.x += super.dx;
+			super.y += super.dy;
 
 		}
 		// Update the frames

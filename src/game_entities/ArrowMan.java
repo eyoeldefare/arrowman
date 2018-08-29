@@ -10,32 +10,32 @@ public class ArrowMan extends Entities {
 
 	// Movement
 	private boolean left, right, up, down;
-	
-	//This is to store the body and legs of our player
+
+	// This is to store the body and legs of our player
 	private Image[] playerParts;
-	
-	//We will declare the body and legs as class static variables 
+
+	// We will declare the body and legs as class static variables
 	private static final int B_WIDTH = 37, B_HEIGHT = 45; // 118 * 141 - w * h
 	private static final int L_WIDTH = 25, L_HEIGHT = 20; // 76 * 64 - w * h
 
 	// Constructor
 	public ArrowMan() {
-		
-		//Calling our superclass and setting respective variables
+
+		// Calling our superclass and setting respective variables
 		super();
-		super.collisionWidth = 37;
-		super.collisionHeight = 60;
-		super.dy = .2;
-				
-		// Store the body parts in a simple Image array. You can also use ArrayList, I choose 
+		super.collisionWidth = B_WIDTH;
+		super.collisionHeight = B_HEIGHT + L_HEIGHT;
+
+		// Store the body parts in a simple Image array. You can also use ArrayList, I
+		// choose
 		// array because its a bit faster than array list
 		this.playerParts = new Image[2];
-		
+
 		try {
 			// Load body parts, make sure to use try to catch i/o exception
 			BufferedImage img1 = ImageIO.read(getClass().getResource("/player/p_1.png"));
 			BufferedImage img2 = ImageIO.read(getClass().getResource("/player/p_2.png"));
-			//Put the images inside a simple array
+			// Put the images inside a simple array
 			this.playerParts[0] = (Image) img1.getScaledInstance(B_WIDTH, B_HEIGHT, Image.SCALE_SMOOTH);
 			this.playerParts[1] = (Image) img2.getScaledInstance(L_WIDTH, L_HEIGHT, Image.SCALE_SMOOTH);
 
@@ -45,7 +45,8 @@ public class ArrowMan extends Entities {
 	}
 
 	@Override
-	public void init() {}
+	public void init() {
+	}
 
 	@Override
 	public void draw(Graphics2D graphics) {
@@ -59,12 +60,12 @@ public class ArrowMan extends Entities {
 
 	@Override
 	public void update() {
-		//This will serve as our maximum speed for now the arrowman can travel
+		// This will serve as our maximum speed for now the arrowman can travel
 		double max = 0.7;
-		//Make sure the arrow-man doesn't exit the panel window
+		// Make sure the arrow-man doesn't exit the panel window
 		super.calcBounds();
-		
-		//Do movements when the arrow-man moves
+
+		// Do movements when the arrow-man moves
 		if (this.left) {
 			super.dx -= max / 2;
 			if (super.dx < -max)
@@ -76,27 +77,27 @@ public class ArrowMan extends Entities {
 				super.dx = max;
 			super.x += super.dx;
 		}
-		
-		//This will serve as our gravity which will occure at all time
+
+		// This will serve as our gravity which will occure at all time
 		super.y += super.dy;
 	}
 
-/*	
- * 
- * Local Logics
- * 
- * 
-*/	
-	//draw the body 
+	/*
+	 * 
+	 * Local Logics
+	 * 
+	 * 
+	 */
+	// draw the body
 	private void drawBody(Graphics2D graphics) {
-		
+
 		int x_offset = 2, y_offset = 14;
 		graphics.drawImage(this.playerParts[0], (int) (super.x - x_offset), (int) (super.y + y_offset), (int) (B_WIDTH),
 				(int) (B_HEIGHT), null);
 
 	}
-	
-	//draw the legs
+
+	// draw the legs
 	private void drawLegs(Graphics2D graphics) {
 		int y_offset = 50;
 		graphics.drawImage(this.playerParts[1], (int) (super.x), (int) (super.y + y_offset), L_WIDTH, L_HEIGHT, null);

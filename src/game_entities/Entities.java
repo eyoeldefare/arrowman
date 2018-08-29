@@ -31,6 +31,7 @@ public abstract class Entities {
 	public void setPosition(double x, double y) {
 		this.x = x;
 		this.y = y;
+		this.dy = .2;
 	}
 
 	// set vector, we mainly will be working in the x direction in this game as it

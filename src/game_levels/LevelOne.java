@@ -15,7 +15,7 @@ public class LevelOne extends GameLevels {
 	private Zombie zombie;
 	private Background background;
 	private Ground drawer;
-	
+
 	// Constructor
 	public LevelOne(GameLevelsManager gameLevelManager) {
 		// init everything here when the constructor first called
@@ -28,7 +28,7 @@ public class LevelOne extends GameLevels {
 		this.arrowMan.setPosition(0, 282);
 
 		this.zombie = new Zombie();
-		this.zombie.setPosition(650, 259); 
+		this.zombie.setPosition(650, 259);
 	}
 
 	@Override
@@ -48,10 +48,12 @@ public class LevelOne extends GameLevels {
 	@Override
 	public void update() {
 		this.arrowMan.update();
+		this.zombie.update();
 
 		// Referencing rectangle object we defined in arrowman - this rectangle
 		// encapsulated the arrowman bounds
 		Rectangle rArrowman = this.arrowMan.createRect();
+		Rectangle rZombie = this.zombie.createRect();
 		// Here we are referencing the lines we draw on the ground to mimic a ground in
 		// Ground class.
 		Line2D ground1 = this.drawer.getLine1();
@@ -73,11 +75,24 @@ public class LevelOne extends GameLevels {
 		}
 		if (ground4.intersects(rArrowman)) {
 			this.arrowMan.setY(this.arrowMan.getY() - 1);
-
 		}
 
-		// Zombie stuff
-		this.zombie.update();
+		// Zombie
+		if (ground1.intersects(rZombie)) {
+			this.zombie.setY(this.zombie.getY() - 1);
+		}
+		if (ground2.intersects(rZombie)) {
+			this.zombie.setY(this.zombie.getY() - 1);
+
+		}
+		if (ground3.intersects(rZombie)) {
+			this.zombie.setY(this.zombie.getY() - 1);
+
+		}
+		if (ground4.intersects(rZombie)) {
+			this.zombie.setY(this.zombie.getY() - 1);
+
+		}
 
 	}
 

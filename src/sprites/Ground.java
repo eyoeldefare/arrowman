@@ -37,7 +37,7 @@ public class Ground {
 		graphics.draw(line4);
 
 	}
-	
+
 	// Getters for the lines
 	public Line2D getLine1() {
 		return line1;
