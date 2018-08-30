@@ -22,8 +22,8 @@ public class Ground {
 		 * Color.white or some visiable color, which will show you what the ground looks
 		 * like.
 		 */
-		this.line1 = new Line2D.Double(0, 350, 350, 353);
-		this.line2 = new Line2D.Double(350, 363, 550, 310);
+		this.line1 = new Line2D.Double(0, 353, 350, 353);
+		this.line2 = new Line2D.Double(350, 361, 550, 308);
 		this.line3 = new Line2D.Double(550, 307, 708, 320);
 		this.line4 = new Line2D.Double(710, 324, 800, 350);
 	}

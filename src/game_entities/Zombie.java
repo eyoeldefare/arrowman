@@ -120,10 +120,12 @@ public class Zombie extends Entities {
 
 		if (this.action == Actions.ATTACKING) {
 			// This means the frame is complete and to start a new
+
 			if (this.frameController.getPlayedAlready() == true) {
 				this.frameController.setFrames(this.zombieFrames[Actions.ATTACKING.value()]);
-				this.frameController.setDelay(200);
+				this.frameController.setDelay(100);
 			}
+
 			this.action = Actions.WALKING;
 		}
 

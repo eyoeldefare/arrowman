@@ -71,6 +71,9 @@ public class LevelOne extends GameLevels {
 		this.zombieXGround();
 		this.zombieXArrowman();
 
+		// Arrowman shall not pass
+		this.playerShallNotPass();
+
 	}
 
 	// Local logic
@@ -121,6 +124,16 @@ public class LevelOne extends GameLevels {
 
 		if (rArrowman.intersects(rZombie)) {
 			this.zombie.setAction(Actions.ATTACKING);
+		}
+	}
+
+	private void playerShallNotPass() {
+		// the arrowman shall not pass the zombie
+		double arrowmanXDirection = this.arrowMan.getX();
+		double zombieXDirection = this.zombie.getX();
+
+		if (arrowmanXDirection >= zombieXDirection) {
+			this.arrowMan.setX(arrowmanXDirection - 10);
 		}
 	}
 
