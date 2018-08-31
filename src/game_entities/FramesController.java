@@ -5,6 +5,7 @@ import java.awt.Image;
 public class FramesController {
 
 	private Image[] frames;
+
 	private int frame;
 	private long startTime;
 	private long delay;
@@ -42,7 +43,7 @@ public class FramesController {
 		// Make sure we are not out of bound from our array/
 		if (this.frame == this.frames.length) {
 			this.frame = 0;
-			//By this point we are finished playing every image in the stack 
+			// By this point we are finished playing every image in the stack
 			this.playedAlready = true;
 		}
 	}
@@ -70,6 +71,10 @@ public class FramesController {
 
 	public void setPlayedAlready(boolean played) {
 		this.playedAlready = played;
+	}
+
+	public Image[] getFrames() {
+		return frames;
 	}
 
 	// Get the current image

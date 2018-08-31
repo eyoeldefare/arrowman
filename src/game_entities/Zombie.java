@@ -108,7 +108,6 @@ public class Zombie extends Entities {
 		// In which case, we will make sure the zombie stops walking, and starts
 		// attacking.
 		if (this.action == Actions.WALKING) {
-			// Everytime a frame is complete, playedAlready become true
 			if (this.frameController.getPlayedAlready() == true) {
 				this.frameController.setFrames(this.zombieFrames[Actions.WALKING.value()]);
 				this.frameController.setDelay(200);
@@ -118,12 +117,15 @@ public class Zombie extends Entities {
 
 		}
 
+		// Here for attacking, we want attacking to occur only when the zombie gets near
+		// the arrowman
 		if (this.action == Actions.ATTACKING) {
-			// This means the frame is complete and to start a new
-
-			if (this.frameController.getPlayedAlready() == true) {
+			if (this.frameController.getPlayedAlready() == false) {
 				this.frameController.setFrames(this.zombieFrames[Actions.ATTACKING.value()]);
 				this.frameController.setDelay(100);
+
+				this.frameController.setFrame(this.frameController.getFrames().length);
+
 			}
 
 			this.action = Actions.WALKING;
