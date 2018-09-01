@@ -1,17 +1,176 @@
 package game_levels;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.geom.Line2D;
+
+import game_entities.Actions;
+import game_entities.ArrowMan;
+import game_entities.Zombie;
+import sprites.ArrowCount;
+import sprites.Background;
+import sprites.Ground;
+import sprites.LivesCount;
 
 public abstract class GameLevels {
 
-	public abstract void init();
+	//Custom classes
+	protected ArrowMan arrowMan;
+	protected Zombie zombie;
+	protected Background background;
+	protected Ground drawer;
+	protected LivesCount livesCount;
+	protected ArrowCount arrowCount;
+	protected GameLevelsManager gameLevelManager;
 
-	public abstract void draw(Graphics2D graphics);
+	// The 4 Grounds each Levels will have
+	protected Line2D ground1;
+	protected Line2D ground2;
+	protected Line2D ground3;
+	protected Line2D ground4;
 
-	public abstract void update();
+	protected GameLevels(GameLevelsManager gameLevelManager, String bg, String lc, String ac) {
+		
+		this.gameLevelManager = gameLevelManager;
+		
+		if (bg != null)
+			this.background = new Background(bg);
+		if (lc != null)
+			this.livesCount = new LivesCount(lc);
+		if (ac != null)
+			this.arrowCount = new ArrowCount(ac);
 
-	public abstract void keyPressed(int key);
+		this.drawer = new Ground();
 
-	public abstract void keyReleased(int key);
+		this.arrowMan = new ArrowMan();
+		this.arrowMan.setPosition(0, 282);
+
+		this.zombie = new Zombie();
+		this.zombie.setPosition(650, 259);
+	}
+
+	// abstracts
+	protected abstract void init();
+
+	protected abstract void keyPressed(int key);
+
+	protected abstract void keyReleased(int key);
+
+	// Drawing the listed objects
+	protected void draw(Graphics2D graphics) {
+		this.background.draw(graphics);
+		this.drawer.draw(graphics);
+		this.arrowMan.draw(graphics);
+		this.zombie.draw(graphics);
+		this.livesCount.draw(graphics);
+		this.arrowCount.draw(graphics);
+	}
+
+	// Every level will update their level according to this super class
+
+	protected void update() {
+		// Get the reference for ground objects (which are lines) from the drawer class
+		// So we can check their collision with the rectangle around the arrowman and
+		// zombie.
+		this.ground1 = this.drawer.getLine1();
+		this.ground2 = this.drawer.getLine2();
+		this.ground3 = this.drawer.getLine3();
+		this.ground4 = this.drawer.getLine4();
+
+		// Update
+		this.arrowMan.update();
+		this.zombie.update();
+		this.livesCount.update();
+		this.arrowCount.update();
+
+		// Collisions
+		this.arrowmanXGround();
+		this.zombieXGround();
+		this.zombieXArrowman();
+
+		// Arrowman shall not pass
+		this.playerShallNotPass();
+
+	}
+	
+	//Arrowman must have died - game over
+	protected void gameOver(int setLevel) {
+		if (this.livesCount.isDead()) {
+			this.livesCount = new LivesCount("/standalones/d_heart.gif");
+			this.arrowCount = new ArrowCount("/standalones/d_arrow.png");
+
+			this.arrowMan = new ArrowMan();
+			this.arrowMan.setPosition(0, 282);
+
+			this.zombie = new Zombie();
+			this.zombie.setPosition(650, 259);
+
+			this.gameLevelManager.setLevel(setLevel);
+		}
+	}
+	
+	//The arrowman made contact with the ground due to gravity
+
+	protected void arrowmanXGround() {
+
+		Rectangle rArrowman = this.arrowMan.createRect();
+
+		if (this.ground1.intersects(rArrowman)) {
+			this.arrowMan.setY(this.arrowMan.getY() - 1);
+		}
+		if (this.ground2.intersects(rArrowman)) {
+			this.arrowMan.setY(this.arrowMan.getY() - 1);
+		}
+		if (this.ground3.intersects(rArrowman)) {
+			this.arrowMan.setY(this.arrowMan.getY() - 1);
+		}
+		if (this.ground4.intersects(rArrowman)) {
+			this.arrowMan.setY(this.arrowMan.getY() - 1);
+		}
+	}
+	
+	//The zombie made contact with the ground due to gravity
+	protected void zombieXGround() {
+
+		Rectangle rZombie = this.zombie.createRect();
+
+		if (this.ground1.intersects(rZombie)) {
+			this.zombie.setY(this.zombie.getY() - 1);
+		}
+		if (this.ground2.intersects(rZombie)) {
+			this.zombie.setY(this.zombie.getY() - 1);
+
+		}
+		if (this.ground3.intersects(rZombie)) {
+			this.zombie.setY(this.zombie.getY() - 1);
+
+		}
+		if (this.ground4.intersects(rZombie)) {
+			this.zombie.setY(this.zombie.getY() - 1);
+
+		}
+	}
+
+	protected void zombieXArrowman() {
+		// the zombie and arrowman made interaction
+		Rectangle rArrowman = this.arrowMan.createRect();
+		Rectangle rZombie = this.zombie.createRect();
+		if (rArrowman.intersects(rZombie)) {
+			this.zombie.setAction(Actions.ATTACKING);
+		} else {
+			this.arrowMan.setBeingAttacked();
+			this.livesCount.setAttacked(true);
+		}
+	}
+
+	protected void playerShallNotPass() {
+		// the arrowman shall not pass the zombie
+		double arrowmanXDirection = this.arrowMan.getX();
+		double zombieXDirection = this.zombie.getX();
+
+		if (arrowmanXDirection >= zombieXDirection) {
+			this.arrowMan.setX(arrowmanXDirection - 1);
+		}
+	}
 
 }

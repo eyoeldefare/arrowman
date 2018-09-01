@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
  * Every level will be stored in some kind of collection and this class will determine 
  * which level shall be displayed based on the situation.
  * */
-public class GameLevelsManager extends GameLevels {
+public class GameLevelsManager {
 
 	private int level;
 	private GameLevels[] levels;
@@ -19,8 +19,8 @@ public class GameLevelsManager extends GameLevels {
 		// Add all the levels
 		this.levels[0] = new LevelZero(this);
 		this.levels[1] = new LevelOne(this);
-		this.levels[2] = new LevelTwo();
-		this.levels[3] = new LevelThree();
+		this.levels[2] = new LevelTwo(this);
+		this.levels[3] = new LevelThree(this);
 	}
 
 	// We will need a way to set the level eg. when finishing a level
@@ -37,7 +37,6 @@ public class GameLevelsManager extends GameLevels {
 	// pressing events based on the level we are on.
 	// Note the level is being set from other classes that will
 	// handle whether we need to move to the next level or not.
-	@Override
 	public void init() {
 		for (int i = 0; i < this.levels.length; i++) {
 			if (i == this.getLevel()) {
@@ -46,7 +45,6 @@ public class GameLevelsManager extends GameLevels {
 		}
 	}
 
-	@Override
 	public void draw(Graphics2D graphics) {
 		for (int i = 0; i < this.levels.length; i++) {
 
@@ -56,7 +54,6 @@ public class GameLevelsManager extends GameLevels {
 		}
 	}
 
-	@Override
 	public void update() {
 		for (int i = 0; i < this.levels.length; i++) {
 			if (i == this.getLevel()) {
@@ -65,7 +62,6 @@ public class GameLevelsManager extends GameLevels {
 		}
 	}
 
-	@Override
 	public void keyPressed(int key) {
 		for (int i = 0; i < this.levels.length; i++) {
 			if (i == this.getLevel()) {
@@ -74,7 +70,6 @@ public class GameLevelsManager extends GameLevels {
 		}
 	}
 
-	@Override
 	public void keyReleased(int key) {
 		for (int i = 0; i < this.levels.length; i++) {
 			if (i == this.getLevel()) {

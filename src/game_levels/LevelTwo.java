@@ -5,8 +5,8 @@ import java.awt.Graphics2D;
 public class LevelTwo extends GameLevels {
 
 	// Constructor
-	public LevelTwo() {
-
+	public LevelTwo(GameLevelsManager gameLevelManager) {
+		super(gameLevelManager, null, null, null);
 	}
 
 	@Override
