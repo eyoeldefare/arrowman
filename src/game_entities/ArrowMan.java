@@ -26,7 +26,7 @@ public class ArrowMan extends Entities {
 
 		// Calling our superclass and setting respective variables
 		super();
-		super.collisionWidth = B_WIDTH;
+		super.collisionWidth = B_WIDTH - 10;
 		super.collisionHeight = B_HEIGHT + L_HEIGHT;
 
 		// Store the body parts in a simple Image array. You can also use ArrayList, I
@@ -84,7 +84,8 @@ public class ArrowMan extends Entities {
 		// This will serve as our gravity which will occur at all time
 		super.y += super.dy;
 
-		// This will set the delay when the arrowman is attacked to match it with the animation of the attacker/zombie
+		// This will set the delay when the arrowman is attacked to match it with the
+		// animation of the attacker/zombie
 		long elapsed = (System.nanoTime() - this.beingAttacked) / 1000000;
 		if (this.beingAttacked != 0 && elapsed > 700) {
 			super.x = super.x - 15;

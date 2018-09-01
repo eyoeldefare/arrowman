@@ -11,7 +11,7 @@ public class GameLevelsManager extends GameLevels {
 
 	private int level;
 	private GameLevels[] levels;
-	
+
 	// Constructor
 	public GameLevelsManager() {
 		// The levels will store all the game levels
@@ -24,12 +24,13 @@ public class GameLevelsManager extends GameLevels {
 	}
 
 	// We will need a way to set the level eg. when finishing a level
-	public void setLevel(int level) {
-		this.level = level;
-	}
 
 	public int getLevel() {
 		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 	// We are just init, drawing, updating, and handling the keyboard

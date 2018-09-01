@@ -8,8 +8,10 @@ import java.awt.geom.Line2D;
 import game_entities.Actions;
 import game_entities.ArrowMan;
 import game_entities.Zombie;
+import sprites.ArrowCount;
 import sprites.Background;
 import sprites.Ground;
+import sprites.LivesCount;
 
 public class LevelOne extends GameLevels {
 
@@ -17,7 +19,10 @@ public class LevelOne extends GameLevels {
 	private Zombie zombie;
 	private Background background;
 	private Ground drawer;
-
+	private LivesCount livesCount;
+	private ArrowCount arrowCount;
+	private GameLevelsManager gameLevelManager;
+	
 	// Ground stuff
 	Line2D ground1;
 	Line2D ground2;
@@ -26,9 +31,14 @@ public class LevelOne extends GameLevels {
 
 	// Constructor
 	public LevelOne(GameLevelsManager gameLevelManager) {
+		// intit level manager
+		this.gameLevelManager = gameLevelManager;
+
 		// init everything here when the constructor first called
 
 		this.background = new Background("/background/bg-1.jpg");
+		this.livesCount = new LivesCount("/standalones/d_heart.gif");
+		this.arrowCount = new ArrowCount("/standalones/d_arrow.png");
 
 		this.drawer = new Ground();
 
@@ -50,6 +60,8 @@ public class LevelOne extends GameLevels {
 		this.drawer.draw(graphics);
 		this.arrowMan.draw(graphics);
 		this.zombie.draw(graphics);
+		this.livesCount.draw(graphics);
+		this.arrowCount.draw(graphics);
 	}
 
 	// Updating Objects
@@ -65,6 +77,8 @@ public class LevelOne extends GameLevels {
 		// Update
 		this.arrowMan.update();
 		this.zombie.update();
+		this.livesCount.update();
+		this.arrowCount.update();
 
 		// Collisions
 		this.arrowmanXGround();
@@ -74,9 +88,28 @@ public class LevelOne extends GameLevels {
 		// Arrowman shall not pass
 		this.playerShallNotPass();
 
+		// Check if the level is over
+		this.gameOver();
+
 	}
 
 	// Local logic
+
+	private void gameOver() {
+		if (this.livesCount.isDead()) {
+			this.livesCount = new LivesCount("/standalones/d_heart.gif");
+			this.arrowCount = new ArrowCount("/standalones/d_arrow.png");
+
+			this.arrowMan = new ArrowMan();
+			this.arrowMan.setPosition(0, 282);
+
+			this.zombie = new Zombie();
+			this.zombie.setPosition(650, 259);
+
+			this.gameLevelManager.setLevel(0);
+
+		}
+	}
 
 	private void arrowmanXGround() {
 
@@ -121,11 +154,12 @@ public class LevelOne extends GameLevels {
 		// the zombie and arrowman made interaction
 		Rectangle rArrowman = this.arrowMan.createRect();
 		Rectangle rZombie = this.zombie.createRect();
-
 		if (rArrowman.intersects(rZombie)) {
 			this.zombie.setAction(Actions.ATTACKING);
-		} else
+		} else {
 			this.arrowMan.setBeingAttacked();
+			this.livesCount.setAttacked(true);
+		}
 	}
 
 	private void playerShallNotPass() {

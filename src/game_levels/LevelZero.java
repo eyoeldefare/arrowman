@@ -31,10 +31,12 @@ public class LevelZero extends GameLevels {
 
 	// Constructor
 	public LevelZero(GameLevelsManager gameLevelManager) {
-		// When we instantiate LevelZero in GameLevelsManager, the GameLevelsManager constructor will be passed into 
-		// LevelZero when its first created in which case we can use here to access its methods. The benefit of doing 
+		// When we instantiate LevelZero in GameLevelsManager, the GameLevelsManager
+		// constructor will be passed into
+		// LevelZero when its first created in which case we can use here to access its
+		// methods. The benefit of doing
 		// this is, we create our Levels with the current state of Level Manager.
-		
+
 		this.gameLevelManager = gameLevelManager;
 		try {
 			// bg

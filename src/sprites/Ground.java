@@ -19,13 +19,13 @@ public class Ground {
 		/*
 		 * These lines just represent a ground. They are an attempt to draw on the
 		 * ground. If you want to see what the lines look like, change the this.cLine =
-		 * Color.white or some visiable color, which will show you what the ground looks
+		 * Color.white or some visible color, which will show you what the ground looks
 		 * like.
 		 */
-		this.line1 = new Line2D.Double(0, 353, 350, 353);
-		this.line2 = new Line2D.Double(350, 361, 550, 308);
-		this.line3 = new Line2D.Double(550, 307, 708, 320);
-		this.line4 = new Line2D.Double(710, 324, 800, 350);
+		this.line1 = new Line2D.Double(0, 360, 350, 360);
+		this.line2 = new Line2D.Double(350, 368, 550, 315);
+		this.line3 = new Line2D.Double(550, 314, 708, 334);
+		this.line4 = new Line2D.Double(710, 338, 800, 364);
 	}
 
 	public void draw(Graphics2D graphics) {

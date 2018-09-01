@@ -15,14 +15,14 @@ public class Zombie extends Entities {
 	// Frame controller. This controller will determine how long each frames will
 	// last and will notify us
 	private FramesController frameController;
-	// enum type
+	// type Enum
 	private Actions action;
 
 	public Zombie() {
 		// init the super class
 		super();
 		super.dx = -.5;
-		super.collisionHeight = HEIGHT;
+		super.collisionHeight = HEIGHT-5;
 		super.collisionWidth = WIDTH;
 
 		// We will have 4 images with different frames
@@ -74,7 +74,7 @@ public class Zombie extends Entities {
 		// speed of the frame plays
 		this.frameController = new FramesController();
 		this.frameController.setFrames(this.zombieFrames[Actions.APPEARING.value()]);
-		this.frameController.setDelay(400);
+		this.frameController.setDelay(300);
 		this.action = Actions.APPEARING;
 	}
 
