@@ -18,6 +18,9 @@ public class ArrowMan extends Entities {
 	private static final int B_WIDTH = 37, B_HEIGHT = 45; // 118 * 141 - w * h
 	private static final int L_WIDTH = 25, L_HEIGHT = 20; // 76 * 64 - w * h
 
+	// timer
+	private long beingAttacked;
+
 	// Constructor
 	public ArrowMan() {
 
@@ -61,7 +64,7 @@ public class ArrowMan extends Entities {
 	@Override
 	public void update() {
 		// This will serve as our maximum speed for now the arrowman can travel
-		double max = 0.7;
+		double max = 1;
 		// Make sure the arrow-man doesn't exit the panel window
 		super.calcBounds();
 
@@ -78,8 +81,15 @@ public class ArrowMan extends Entities {
 			super.x += super.dx;
 		}
 
-		// This will serve as our gravity which will occure at all time
+		// This will serve as our gravity which will occur at all time
 		super.y += super.dy;
+
+		// This will set the delay when the arrowman is attacked to match it with the animation of the attacker/zombie
+		long elapsed = (System.nanoTime() - this.beingAttacked) / 1000000;
+		if (this.beingAttacked != 0 && elapsed > 700) {
+			super.x = super.x - 15;
+		}
+
 	}
 
 	/*
@@ -134,6 +144,14 @@ public class ArrowMan extends Entities {
 
 	public void setDown(boolean down) {
 		this.down = down;
+	}
+
+	public long getBeingAttacked() {
+		return beingAttacked;
+	}
+
+	public void setBeingAttacked() {
+		this.beingAttacked = System.nanoTime();
 	}
 
 }

@@ -51,11 +51,10 @@ public abstract class Entities {
 
 	// Create Rectangle for Collision
 	public Rectangle createRect() {
-		return new Rectangle((int) this.x, (int) this.y, this.collisionWidth, this.collisionHeight); // x, y, width, //
-																										// // // height
+		return new Rectangle((int) this.x, (int) this.y, this.collisionWidth, this.collisionHeight);
 	}
 
-	// Getters
+	// Setters and getters
 	public double getX() {
 		return x;
 	}

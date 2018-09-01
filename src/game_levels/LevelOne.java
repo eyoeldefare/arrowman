@@ -124,7 +124,8 @@ public class LevelOne extends GameLevels {
 
 		if (rArrowman.intersects(rZombie)) {
 			this.zombie.setAction(Actions.ATTACKING);
-		}
+		} else
+			this.arrowMan.setBeingAttacked();
 	}
 
 	private void playerShallNotPass() {
@@ -133,7 +134,7 @@ public class LevelOne extends GameLevels {
 		double zombieXDirection = this.zombie.getX();
 
 		if (arrowmanXDirection >= zombieXDirection) {
-			this.arrowMan.setX(arrowmanXDirection - 10);
+			this.arrowMan.setX(arrowmanXDirection - 1);
 		}
 	}
 
