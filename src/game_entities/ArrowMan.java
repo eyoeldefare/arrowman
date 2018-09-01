@@ -7,7 +7,8 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 public class ArrowMan extends Entities {
-
+	
+	
 	// Movement
 	private boolean left, right, up, down;
 
@@ -36,11 +37,12 @@ public class ArrowMan extends Entities {
 
 		try {
 			// Load body parts, make sure to use try to catch i/o exception
-			BufferedImage img1 = ImageIO.read(getClass().getResource("/player/p_1.png"));
-			BufferedImage img2 = ImageIO.read(getClass().getResource("/player/p_2.png"));
+			BufferedImage body = ImageIO.read(getClass().getResource("/player/p_1.png"));
+			BufferedImage legs = ImageIO.read(getClass().getResource("/player/p_2.png"));
+
 			// Put the images inside a simple array
-			this.playerParts[0] = (Image) img1.getScaledInstance(B_WIDTH, B_HEIGHT, Image.SCALE_SMOOTH);
-			this.playerParts[1] = (Image) img2.getScaledInstance(L_WIDTH, L_HEIGHT, Image.SCALE_SMOOTH);
+			this.playerParts[0] = (Image) body.getScaledInstance(B_WIDTH, B_HEIGHT, Image.SCALE_SMOOTH);
+			this.playerParts[1] = (Image) legs.getScaledInstance(L_WIDTH, L_HEIGHT, Image.SCALE_SMOOTH);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
