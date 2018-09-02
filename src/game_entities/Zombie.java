@@ -21,7 +21,7 @@ public class Zombie extends Entities {
 	public Zombie() {
 		// init the super class
 		super();
-		super.collisionHeight = HEIGHT-5;
+		super.collisionHeight = HEIGHT - 5;
 		super.collisionWidth = WIDTH;
 
 		// We will have 4 images with different frames
@@ -126,13 +126,12 @@ public class Zombie extends Entities {
 				this.frameController.setFrame(this.frameController.getFrames().length);
 
 			}
-			
+
 			this.action = Actions.WALKING;
 		}
 
 		// Update the frames
 		this.frameController.update();
-
 
 	}
 

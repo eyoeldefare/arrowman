@@ -13,14 +13,15 @@ public class ArrowMan extends Entities {
 
 	// Mouse Stuff
 	private boolean dragging;
-	private double startX, startY, endX, endY, angle;
+	private double startX, startY, endX, endY;
+	private double angle; // This angle is going to give values between (-0.5,-0.4,-0.3,-0.2,-0.1,0) when dragged using mouse
 
 	// This is to store the body and legs of our player
 	private Image[] playerParts;
 
 	// We will declare the body and legs as class static variables
-	private static final int B_WIDTH = 37, B_HEIGHT = 45; // 118 * 141 - w * h
-	private static final int L_WIDTH = 25, L_HEIGHT = 20; // 76 * 64 - w * h
+	private static final int B_WIDTH = 40, B_HEIGHT = 48; // 118 * 141 - w * h
+	private static final int L_WIDTH = 28, L_HEIGHT = 23; // 76 * 64 - w * h
 
 	// timer
 	private long beingAttacked;

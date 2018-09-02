@@ -226,4 +226,8 @@ public abstract class GameLevels {
 		}
 	}
 
+	protected void setZombieSpeed(double speed) {
+		this.zombie.setSpeed(speed);
+	}
+
 }

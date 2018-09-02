@@ -9,11 +9,12 @@ public class LevelOne extends GameLevels {
 	// Constructor
 	public LevelOne(GameLevelsManager gameLevelManager) {
 		super(gameLevelManager, "/background/bg-1.jpg", "/standalones/d_heart.gif", "/standalones/d_arrow.png");
-		super.zombie.setSpeed(-.5);
+		super.setZombieSpeed(-0.5);
 	}
 
 	@Override
-	public void init() {}
+	public void init() {
+	}
 
 	@Override
 	public void draw(Graphics2D graphics) {
