@@ -21,7 +21,6 @@ public class Zombie extends Entities {
 	public Zombie() {
 		// init the super class
 		super();
-		super.dx = -.5;
 		super.collisionHeight = HEIGHT-5;
 		super.collisionWidth = WIDTH;
 
@@ -133,6 +132,7 @@ public class Zombie extends Entities {
 
 		// Update the frames
 		this.frameController.update();
+
 
 	}
 

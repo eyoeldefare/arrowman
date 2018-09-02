@@ -11,6 +11,9 @@ public class ArrowMan extends Entities {
 	// Movement
 	private boolean left, right, up, down;
 
+	// Mouse Stuff
+	private boolean mousePressed;
+
 	// This is to store the body and legs of our player
 	private Image[] playerParts;
 
@@ -66,20 +69,20 @@ public class ArrowMan extends Entities {
 	@Override
 	public void update() {
 		// This will serve as our maximum speed for now the arrowman can travel
-		double max = 1;
+		double arrowmanSpeed = 1;
 		// Make sure the arrow-man doesn't exit the panel window
 		super.calcBounds();
 
 		// Do movements when the arrow-man moves
 		if (this.left) {
-			super.dx -= max / 2;
-			if (super.dx < -max)
-				super.dx = -max;
+			super.dx -= arrowmanSpeed / 2;
+			if (super.dx < -arrowmanSpeed)
+				super.dx = -arrowmanSpeed;
 			super.x += super.dx;
 		} else if (this.right) {
-			super.dx += max / 2;
-			if (super.dx > max)
-				super.dx = max;
+			super.dx += arrowmanSpeed / 2;
+			if (super.dx > arrowmanSpeed)
+				super.dx = arrowmanSpeed;
 			super.x += super.dx;
 		}
 
@@ -155,6 +158,14 @@ public class ArrowMan extends Entities {
 
 	public void setBeingAttacked() {
 		this.beingAttacked = System.nanoTime();
+	}
+
+	public boolean isMousePressed() {
+		return mousePressed;
+	}
+
+	public void setMousePressed(boolean mousePressed) {
+		this.mousePressed = mousePressed;
 	}
 
 }

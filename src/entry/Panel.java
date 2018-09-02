@@ -5,14 +5,21 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
 import game_levels.GameLevelsManager;
 
-public class Panel extends JPanel implements Runnable, KeyListener {
-
+/*
+ * The "mouseDragged" method is called if the mouse is moved while a 	button on the mouse is pressed.
+ * 
+ * If the mouse is moved while no mouse button is down, then  	"mouseMoved" is called instead.
+ * */
+public class Panel extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener {
 	private static final long serialVersionUID = 1L;
 
 	// Class properties
@@ -21,12 +28,13 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 	// Thread
 	private Thread thread;
 	private boolean gameStarted;
-	
-	/*Increase this frame per second number to get the best result,
-	 * the problem is, it very CPU intensive and might cause lag.
-	 * For now I will set it from 30 to 80 to get the best result.
-	 * */ 
-	private int fps = 70; 
+
+	/*
+	 * Increase this frame per second number to get the best result, the problem is,
+	 * it very CPU intensive and might cause lag. For now I will set it from 30 to
+	 * 80 to get the best result.
+	 */
+	private int fps = 70;
 	private long time = 1000 / fps;
 
 	// Graphics
@@ -159,19 +167,63 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 		}
 	}
 
-	/* These are the key listeners for the keyboard */
+	/* These are the key and mouse listeners */
+
+	// KEY pressed
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		this.gameLevelsManager.keyPressed(arg0.getKeyCode());
 	}
 
+	// KEY released
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		this.gameLevelsManager.keyReleased(arg0.getKeyCode());
 	}
 
+	// -----------------------------------------------------------
+
+	// mouse pressed
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+
+		this.gameLevelsManager.mousePressed(arg0.getPoint());
+	}
+
+	// mouse released
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+
+	}
+
+	// mouse dragged
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+
+	}
+
 	@Override
 	public void keyTyped(KeyEvent arg0) {
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
 
 	}
 

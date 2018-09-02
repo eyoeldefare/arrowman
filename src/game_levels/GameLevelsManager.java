@@ -1,6 +1,7 @@
 package game_levels;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
 
 /*
  * Note that this class will be used to manage the levels we will build going forward.
@@ -74,6 +75,31 @@ public class GameLevelsManager {
 		for (int i = 0; i < this.levels.length; i++) {
 			if (i == this.getLevel()) {
 				this.levels[this.getLevel()].keyReleased(key);
+			}
+		}
+	}
+
+	// Mouse
+	public void mousePressed(Point mouse) {
+		for (int i = 0; i < this.levels.length; i++) {
+			if (i == this.getLevel()) {
+				this.levels[this.getLevel()].mousePressed(mouse);
+			}
+		}
+	}
+
+	public void mouseReleased(int mouse) {
+		for (int i = 0; i < this.levels.length; i++) {
+			if (i == this.getLevel()) {
+				this.levels[this.getLevel()].mouseReleased(mouse);
+			}
+		}
+	}
+
+	public void mouseDragged(int mouse) {
+		for (int i = 0; i < this.levels.length; i++) {
+			if (i == this.getLevel()) {
+				this.levels[this.getLevel()].mouseDragged(mouse);
 			}
 		}
 	}

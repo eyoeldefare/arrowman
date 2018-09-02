@@ -1,7 +1,10 @@
 package game_levels;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
 
 import game_entities.Actions;
@@ -57,9 +60,41 @@ public abstract class GameLevels {
 	// abstracts
 	protected abstract void init();
 
-	protected abstract void keyPressed(int key);
+	// Key Events
+	public void keyPressed(int key) {
+		if (key == KeyEvent.VK_A) {
+			this.arrowMan.setLeft(true);
+		}
+		if (key == KeyEvent.VK_D) {
+			this.arrowMan.setRight(true);
+		}
 
-	protected abstract void keyReleased(int key);
+	}
+
+	public void keyReleased(int key) {
+		if (key == KeyEvent.VK_A) {
+			this.arrowMan.setLeft(false);
+		}
+
+		if (key == KeyEvent.VK_D) {
+			this.arrowMan.setRight(false);
+		}
+	}
+
+	// Mouse Events
+	public void mousePressed(Point mouse) {
+
+	}
+
+	public void mouseReleased(int mouse) {
+		if (mouse == MouseEvent.MOUSE_RELEASED) {
+			this.arrowMan.setMousePressed(false);
+		}
+	}
+
+	public void mouseDragged(int mouse) {
+
+	}
 
 	// Drawing the listed objects
 	protected void draw(Graphics2D graphics) {
@@ -162,8 +197,8 @@ public abstract class GameLevels {
 		}
 	}
 
+	// the zombie and arrowman made interaction
 	protected void zombieXArrowman() {
-		// the zombie and arrowman made interaction
 		Rectangle rArrowman = this.arrowMan.createRect();
 		Rectangle rZombie = this.zombie.createRect();
 		if (rArrowman.intersects(rZombie)) {
@@ -174,8 +209,8 @@ public abstract class GameLevels {
 		}
 	}
 
+	// the arrowman shall not pass the zombie
 	protected void playerShallNotPass() {
-		// the arrowman shall not pass the zombie
 		double arrowmanXDirection = this.arrowMan.getX();
 		double zombieXDirection = this.zombie.getX();
 

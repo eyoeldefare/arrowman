@@ -36,7 +36,7 @@ public abstract class Entities {
 
 	// set vector, we mainly will be working in the x direction in this game as it
 	// doesn't seem needed to include y vector for this particular game.
-	protected void setVector(double dx, double dy) {
+	public void setSpeed(double dx) {
 		this.dx = dx;
 	}
 
@@ -54,7 +54,7 @@ public abstract class Entities {
 		return new Rectangle((int) this.x, (int) this.y, this.collisionWidth, this.collisionHeight);
 	}
 
-	// Setters and getters
+	// getters
 	public double getX() {
 		return x;
 	}
