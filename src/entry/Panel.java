@@ -52,6 +52,8 @@ public class Panel extends JPanel implements Runnable, KeyListener, MouseListene
 		super.setPreferredSize(gameDimension);
 		super.setFocusable(true);
 		super.requestFocus();
+		super.addMouseMotionListener(this);
+		super.addMouseListener(this);
 	}
 
 	/*
@@ -186,20 +188,20 @@ public class Panel extends JPanel implements Runnable, KeyListener, MouseListene
 	// mouse pressed
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-
-		this.gameLevelsManager.mousePressed(arg0.getPoint());
-	}
-
-	// mouse released
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
+		this.gameLevelsManager.mousePressed(arg0.getID(), arg0.getPoint());
 
 	}
 
 	// mouse dragged
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
+		this.gameLevelsManager.mouseDragged(arg0.getID(), arg0.getPoint());
+	}
 
+	// mouse released
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		this.gameLevelsManager.mouseReleased(arg0.getID());
 	}
 
 	@Override
@@ -214,7 +216,6 @@ public class Panel extends JPanel implements Runnable, KeyListener, MouseListene
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-
 	}
 
 	@Override

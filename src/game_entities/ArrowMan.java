@@ -12,7 +12,8 @@ public class ArrowMan extends Entities {
 	private boolean left, right, up, down;
 
 	// Mouse Stuff
-	private boolean mousePressed;
+	private boolean dragging;
+	private double startX, startY, endX, endY, angle;
 
 	// This is to store the body and legs of our player
 	private Image[] playerParts;
@@ -96,6 +97,8 @@ public class ArrowMan extends Entities {
 			super.x = super.x - 15;
 		}
 
+		// mouse stuff
+		this.mouseHandler();
 	}
 
 	/*
@@ -104,6 +107,14 @@ public class ArrowMan extends Entities {
 	 * 
 	 */
 	// draw the body
+
+	private void mouseHandler() {
+		if (this.dragging) {
+
+		} else
+			this.angle = 0;
+	}
+
 	private void drawBody(Graphics2D graphics) {
 
 		int x_offset = 2, y_offset = 14;
@@ -116,7 +127,6 @@ public class ArrowMan extends Entities {
 	private void drawLegs(Graphics2D graphics) {
 		int y_offset = 50;
 		graphics.drawImage(this.playerParts[1], (int) (super.x), (int) (super.y + y_offset), L_WIDTH, L_HEIGHT, null);
-
 	}
 
 	// Setters and getters
@@ -160,12 +170,44 @@ public class ArrowMan extends Entities {
 		this.beingAttacked = System.nanoTime();
 	}
 
-	public boolean isMousePressed() {
-		return mousePressed;
+	public boolean isDragging() {
+		return dragging;
 	}
 
-	public void setMousePressed(boolean mousePressed) {
-		this.mousePressed = mousePressed;
+	public void setDragging(boolean dragging) {
+		this.dragging = dragging;
+	}
+
+	public double getStartX() {
+		return startX;
+	}
+
+	public void setStartX(double startX) {
+		this.startX = startX;
+	}
+
+	public double getStartY() {
+		return startY;
+	}
+
+	public void setStartY(double startY) {
+		this.startY = startY;
+	}
+
+	public double getEndX() {
+		return endX;
+	}
+
+	public void setEndX(double endX) {
+		this.endX = endX;
+	}
+
+	public double getEndY() {
+		return endY;
+	}
+
+	public void setEndY(double endY) {
+		this.endY = endY;
 	}
 
 }

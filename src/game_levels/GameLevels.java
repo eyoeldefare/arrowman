@@ -82,18 +82,25 @@ public abstract class GameLevels {
 	}
 
 	// Mouse Events
-	public void mousePressed(Point mouse) {
-
+	public void mousePressed(int mouse, Point coordinates) {
+		if (mouse == MouseEvent.MOUSE_PRESSED) {
+			this.arrowMan.setDragging(true);
+			this.arrowMan.setStartX(coordinates.getX());
+			this.arrowMan.setStartY(coordinates.getY());
+		}
 	}
 
 	public void mouseReleased(int mouse) {
 		if (mouse == MouseEvent.MOUSE_RELEASED) {
-			this.arrowMan.setMousePressed(false);
+			this.arrowMan.setDragging(false);
 		}
 	}
 
-	public void mouseDragged(int mouse) {
-
+	public void mouseDragged(int mouse, Point coordinates) {
+		if (mouse == MouseEvent.MOUSE_DRAGGED) {
+			this.arrowMan.setEndX(coordinates.getX());
+			this.arrowMan.setEndY(coordinates.getY());
+		}
 	}
 
 	// Drawing the listed objects

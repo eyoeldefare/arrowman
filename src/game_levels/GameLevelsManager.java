@@ -48,7 +48,6 @@ public class GameLevelsManager {
 
 	public void draw(Graphics2D graphics) {
 		for (int i = 0; i < this.levels.length; i++) {
-
 			if (i == this.getLevel()) {
 				this.levels[this.getLevel()].draw(graphics);
 			}
@@ -80,10 +79,10 @@ public class GameLevelsManager {
 	}
 
 	// Mouse
-	public void mousePressed(Point mouse) {
+	public void mousePressed(int mouse, Point coordinates) {
 		for (int i = 0; i < this.levels.length; i++) {
 			if (i == this.getLevel()) {
-				this.levels[this.getLevel()].mousePressed(mouse);
+				this.levels[this.getLevel()].mousePressed(mouse, coordinates);
 			}
 		}
 	}
@@ -96,10 +95,10 @@ public class GameLevelsManager {
 		}
 	}
 
-	public void mouseDragged(int mouse) {
+	public void mouseDragged(int mouse, Point coordinates) {
 		for (int i = 0; i < this.levels.length; i++) {
 			if (i == this.getLevel()) {
-				this.levels[this.getLevel()].mouseDragged(mouse);
+				this.levels[this.getLevel()].mouseDragged(mouse, coordinates);
 			}
 		}
 	}
