@@ -31,8 +31,8 @@ public class LevelZero extends GameLevels {
 
 	// Constructor
 	public LevelZero(GameLevelsManager gameLevelManager) {
-		super(gameLevelManager,"/background/bg-0.jpg", null, null);
-		
+		super(gameLevelManager, "/background/bg-0.jpg", null, null);
+
 		// When we instantiate LevelZero in GameLevelsManager, the GameLevelsManager
 		// constructor will be passed into
 		// LevelZero when its first created in which case we can use here to access its
@@ -42,9 +42,7 @@ public class LevelZero extends GameLevels {
 		this.gameLevelManager = gameLevelManager;
 		try {
 			// bg
-			this.background = new Background("/background/bg-0.jpg");
-			this.background.setDx(-0.5);
-
+			super.background.setDx(-0.5);
 			this.tColor = new Color(222, 243, 249);
 			this.tFont = new Font("Monospaced", Font.BOLD, 30);
 			this.dFont = new Font("Monospaced", Font.PLAIN, 16);
@@ -65,7 +63,7 @@ public class LevelZero extends GameLevels {
 	@Override
 	public void draw(Graphics2D graphics) {
 		// Draw the background on panel
-		this.background.draw(graphics);
+		super.background.draw(graphics);
 
 		// Draw the title on the panel
 		graphics.setColor(this.tColor);
@@ -86,7 +84,7 @@ public class LevelZero extends GameLevels {
 
 	@Override
 	public void update() {
-		this.background.update();
+		super.background.update();
 	}
 
 	@Override

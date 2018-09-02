@@ -74,7 +74,7 @@ public class Zombie extends Entities {
 		// speed of the frame plays
 		this.frameController = new FramesController();
 		this.frameController.setFrames(this.zombieFrames[Actions.APPEARING.value()]);
-		this.frameController.setDelay(300);
+		this.frameController.setDelay(220);
 		this.action = Actions.APPEARING;
 	}
 

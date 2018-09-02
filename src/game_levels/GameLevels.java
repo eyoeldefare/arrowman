@@ -6,6 +6,7 @@ import java.awt.geom.Line2D;
 
 import game_entities.Actions;
 import game_entities.ArrowMan;
+import game_entities.Arrows;
 import game_entities.Zombie;
 import sprites.ArrowCount;
 import sprites.Background;
@@ -14,7 +15,7 @@ import sprites.LivesCount;
 
 public abstract class GameLevels {
 
-	//Custom classes
+	// Custom classes
 	protected ArrowMan arrowMan;
 	protected Zombie zombie;
 	protected Background background;
@@ -22,6 +23,7 @@ public abstract class GameLevels {
 	protected LivesCount livesCount;
 	protected ArrowCount arrowCount;
 	protected GameLevelsManager gameLevelManager;
+	protected Arrows arrows;
 
 	// The 4 Grounds each Levels will have
 	protected Line2D ground1;
@@ -30,9 +32,9 @@ public abstract class GameLevels {
 	protected Line2D ground4;
 
 	protected GameLevels(GameLevelsManager gameLevelManager, String bg, String lc, String ac) {
-		
+
 		this.gameLevelManager = gameLevelManager;
-		
+
 		if (bg != null)
 			this.background = new Background(bg);
 		if (lc != null)
@@ -47,6 +49,9 @@ public abstract class GameLevels {
 
 		this.zombie = new Zombie();
 		this.zombie.setPosition(650, 259);
+
+		// bow and arrow
+		this.arrows = new Arrows();
 	}
 
 	// abstracts
@@ -64,6 +69,7 @@ public abstract class GameLevels {
 		this.zombie.draw(graphics);
 		this.livesCount.draw(graphics);
 		this.arrowCount.draw(graphics);
+		this.arrows.draw(graphics);
 	}
 
 	// Every level will update their level according to this super class
@@ -82,6 +88,7 @@ public abstract class GameLevels {
 		this.zombie.update();
 		this.livesCount.update();
 		this.arrowCount.update();
+		this.arrows.update();
 
 		// Collisions
 		this.arrowmanXGround();
@@ -91,9 +98,13 @@ public abstract class GameLevels {
 		// Arrowman shall not pass
 		this.playerShallNotPass();
 
+		// Bow and arrows stuff
+		this.arrows.setX(this.arrowMan.getX() + 30);
+		this.arrows.setY(this.arrowMan.getY() + 17);
+
 	}
-	
-	//Arrowman must have died - game over
+
+	// Arrowman must have died - game over
 	protected void gameOver(int setLevel) {
 		if (this.livesCount.isDead()) {
 			this.livesCount = new LivesCount("/standalones/d_heart.gif");
@@ -108,8 +119,8 @@ public abstract class GameLevels {
 			this.gameLevelManager.setLevel(setLevel);
 		}
 	}
-	
-	//The arrowman made contact with the ground due to gravity
+
+	// The arrowman made contact with the ground due to gravity
 
 	protected void arrowmanXGround() {
 
@@ -128,8 +139,8 @@ public abstract class GameLevels {
 			this.arrowMan.setY(this.arrowMan.getY() - 1);
 		}
 	}
-	
-	//The zombie made contact with the ground due to gravity
+
+	// The zombie made contact with the ground due to gravity
 	protected void zombieXGround() {
 
 		Rectangle rZombie = this.zombie.createRect();

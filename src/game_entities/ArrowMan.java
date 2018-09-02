@@ -7,8 +7,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 public class ArrowMan extends Entities {
-	
-	
+
 	// Movement
 	private boolean left, right, up, down;
 
@@ -27,7 +26,7 @@ public class ArrowMan extends Entities {
 
 		// Calling our superclass and setting respective variables
 		super();
-		super.collisionWidth = B_WIDTH - 10;
+		super.collisionWidth = B_WIDTH;
 		super.collisionHeight = B_HEIGHT + L_HEIGHT;
 
 		// Store the body parts in a simple Image array. You can also use ArrayList, I
@@ -61,6 +60,7 @@ public class ArrowMan extends Entities {
 		// Here we are creating a rectangle around the player to handle collision,
 		// you can check out the method createRect() in the Entities class
 		graphics.draw(super.createRect());
+
 	}
 
 	@Override

@@ -11,24 +11,21 @@ import javax.imageio.ImageIO;
 // deep analysis
 
 public class Arrows extends Entities {
-	private Image[] bowsFrames;
-	private final static int WIDTH = 40, HEIGHT = 30;
-	private FramesController frameController;
+	private final static int WIDTH = 12, HEIGHT = 53; // divided by 3
+	private final static int A_WIDTH = 41, A_HEIGHT = 11; // divided by 1.5
+	private BufferedImage arrow;
+	private BufferedImage bow;
 
 	public Arrows() {
 		super();
 		super.collisionHeight = HEIGHT;
 		super.collisionWidth = WIDTH;
 
-		// start storing the bows first
-		this.bowsFrames = new Image[5];
-
 		// get the images
 		try {
-			for (int i = 0; i < this.bowsFrames.length; i++) {
-				BufferedImage image = ImageIO.read(getClass().getResource("/bow/Bow_" + i));
-				this.bowsFrames[i] = image.getScaledInstance(WIDTH, HEIGHT, Image.SCALE_SMOOTH);
-			}
+			this.bow = ImageIO.read(getClass().getResource("/bow/bow_1" + ".png"));
+			this.arrow = ImageIO.read(getClass().getResource("/arrow/arrow" + ".png"));
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -42,12 +39,12 @@ public class Arrows extends Entities {
 
 	@Override
 	public void draw(Graphics2D graphics) {
-		graphics.drawImage(this.bowsFrames[0], (int) super.x, (int) super.y, WIDTH, HEIGHT, null);
+		graphics.drawImage(this.bow, (int) super.x, (int) super.y, WIDTH, HEIGHT, null);
+		graphics.drawImage(this.arrow, (int) super.x-14, (int) super.y+23, A_WIDTH, A_HEIGHT, null);
 	}
 
 	@Override
 	public void update() {
-
 	}
 
 }
