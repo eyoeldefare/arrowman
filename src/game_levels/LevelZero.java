@@ -6,15 +6,10 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
 import entry.Panel;
-import sprites.Background;
 
 /*This class will be responsible for creating the menu which we 
  * count as the level since they have so much similarity*/
 public class LevelZero extends GameLevels {
-
-	// We will need one or two form of the background in every
-	// level going forward.
-	private Background background;
 	// This will represent the option of the current option
 	// which will be to START the game or EXIT the game
 	private int option;
