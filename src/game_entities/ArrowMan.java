@@ -97,8 +97,9 @@ public class ArrowMan extends Entities {
 		// This will serve as our gravity which will occur at all time
 		super.y += super.dy;
 
-		// This will set the delay when the arrowman is attacked to match it with the
+		// This will set the delay when the arrow-man is attacked to match it with the
 		// animation of the attacker/zombie
+		
 		long elapsed = (System.nanoTime() - this.beingAttacked) / 1000000;
 		if (this.beingAttacked != 0 && elapsed > 700) {
 			super.x = super.x - 15;
@@ -117,9 +118,9 @@ public class ArrowMan extends Entities {
 
 	private void mouseHandler() {
 		if (this.dragging) {
-			this.angle = -.1 - .1 - .1 - .1 - .1 - .1;
-			this.bodyX = -3 - 3 - 3 - 3 - 3 - 3; 
-			this.bodyY = 1 + 1 + 1 + 1 + 1 + 1;
+			this.angle = 0 - .1 - .1 - .1 - .1 - .1 - .1;
+			this.bodyX = 0 - 3 - 3 - 3 - 3 - 3 - 3;
+			this.bodyY = 0 + 1 + 1 + 1 + 1 + 1 + 1;
 		} else {
 			this.angle = 0;
 			this.bodyX = 0;
