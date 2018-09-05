@@ -2,6 +2,8 @@ package game_entities;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
@@ -14,14 +16,18 @@ public class ArrowMan extends Entities {
 	// Mouse Stuff
 	private boolean dragging;
 	private double startX, startY, endX, endY;
-	private double angle; // This angle is going to give values between (-0.5,-0.4,-0.3,-0.2,-0.1,0) when dragged using mouse
+	private double angle; // This angle is going to give values between (-0.5,-0.4,-0.3,-0.2,-0.1,0) when
+							// dragged using mouse
+
+	// handle drag movements
+	private int bodyX, bodyY;
 
 	// This is to store the body and legs of our player
-	private Image[] playerParts;
+	private BufferedImage[] playerParts;
 
 	// We will declare the body and legs as class static variables
-	private static final int B_WIDTH = 40, B_HEIGHT = 48; // 118 * 141 - w * h
-	private static final int L_WIDTH = 28, L_HEIGHT = 23; // 76 * 64 - w * h
+	private static final int B_WIDTH = 49, B_HEIGHT = 54; // 118 * 141 - w * h
+	private static final int L_WIDTH = 32, L_HEIGHT = 25; // 76 * 64 - w * h
 
 	// timer
 	private long beingAttacked;
@@ -37,7 +43,7 @@ public class ArrowMan extends Entities {
 		// Store the body parts in a simple Image array. You can also use ArrayList, I
 		// choose
 		// array because its a bit faster than array list
-		this.playerParts = new Image[2];
+		this.playerParts = new BufferedImage[2];
 
 		try {
 			// Load body parts, make sure to use try to catch i/o exception
@@ -45,8 +51,8 @@ public class ArrowMan extends Entities {
 			BufferedImage legs = ImageIO.read(getClass().getResource("/player/p_2.png"));
 
 			// Put the images inside a simple array
-			this.playerParts[0] = (Image) body.getScaledInstance(B_WIDTH, B_HEIGHT, Image.SCALE_SMOOTH);
-			this.playerParts[1] = (Image) legs.getScaledInstance(L_WIDTH, L_HEIGHT, Image.SCALE_SMOOTH);
+			this.playerParts[0] = body;
+			this.playerParts[1] = legs;
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -111,23 +117,40 @@ public class ArrowMan extends Entities {
 
 	private void mouseHandler() {
 		if (this.dragging) {
-
-		} else
+			this.angle = -.1 - .1 - .1 - .1 - .1 - .1;
+			this.bodyX = -3 - 3 - 3 - 3 - 3 - 3; 
+			this.bodyY = 1 + 1 + 1 + 1 + 1 + 1;
+		} else {
 			this.angle = 0;
+			this.bodyX = 0;
+			this.bodyY = 0;
+		}
 	}
 
 	private void drawBody(Graphics2D graphics) {
+		int x_offset = 4, y_offset = 14;
 
-		int x_offset = 2, y_offset = 14;
-		graphics.drawImage(this.playerParts[0], (int) (super.x - x_offset), (int) (super.y + y_offset), (int) (B_WIDTH),
-				(int) (B_HEIGHT), null);
+		AffineTransform tx = AffineTransform.getRotateInstance(this.angle, B_WIDTH / 2, B_HEIGHT);
+		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+
+		Image body = (Image) (op.filter(this.playerParts[0], null)).getScaledInstance(B_WIDTH, B_HEIGHT,
+				Image.SCALE_SMOOTH);
+
+		graphics.drawImage(body, (int) (super.x - x_offset + this.bodyX), (int) (super.y + y_offset + this.bodyY),
+				(int) (B_WIDTH), (int) (B_HEIGHT), null);
 
 	}
 
 	// draw the legs
 	private void drawLegs(Graphics2D graphics) {
-		int y_offset = 50;
-		graphics.drawImage(this.playerParts[1], (int) (super.x), (int) (super.y + y_offset), L_WIDTH, L_HEIGHT, null);
+		int y_offset = 55;
+		AffineTransform tx = AffineTransform.getRotateInstance(this.angle, B_WIDTH / 2, B_HEIGHT);
+		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+
+		Image legs = (Image) (op.filter(this.playerParts[1], null)).getScaledInstance(L_WIDTH, L_HEIGHT,
+				Image.SCALE_SMOOTH);
+
+		graphics.drawImage(legs, (int) (super.x), (int) (super.y + y_offset), L_WIDTH, L_HEIGHT, null);
 	}
 
 	// Setters and getters
