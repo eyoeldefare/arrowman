@@ -85,6 +85,7 @@ public abstract class GameLevels {
 	public void mousePressed(int mouse, Point coordinates) {
 		if (mouse == MouseEvent.MOUSE_PRESSED) {
 			this.arrowMan.setDragging(true);
+			this.arrows.setDragging(true);
 			this.arrowMan.setStartX(coordinates.getX());
 			this.arrowMan.setStartY(coordinates.getY());
 		}
@@ -93,6 +94,7 @@ public abstract class GameLevels {
 	public void mouseReleased(int mouse) {
 		if (mouse == MouseEvent.MOUSE_RELEASED) {
 			this.arrowMan.setDragging(false);
+			this.arrows.setDragging(false);
 		}
 	}
 
@@ -143,7 +145,7 @@ public abstract class GameLevels {
 		// Bow and arrows stuff
 		this.arrows.setX(this.arrowMan.getX() + 30);
 		this.arrows.setY(this.arrowMan.getY() + 17);
-
+		this.arrows.setAngle(this.arrowMan.getAngle());
 	}
 
 	// Arrowman must have died - game over

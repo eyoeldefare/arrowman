@@ -26,8 +26,8 @@ public class ArrowMan extends Entities {
 	private BufferedImage[] playerParts;
 
 	// We will declare the body and legs as class static variables
-	private static final int B_WIDTH = 49, B_HEIGHT = 54; // 118 * 141 - w * h
-	private static final int L_WIDTH = 32, L_HEIGHT = 25; // 76 * 64 - w * h
+	private static int B_WIDTH = 49, B_HEIGHT = 54; // 118 * 141 - w * h
+	private static int L_WIDTH = 32, L_HEIGHT = 25; // 76 * 64 - w * h
 
 	// timer
 	private long beingAttacked;
@@ -99,7 +99,7 @@ public class ArrowMan extends Entities {
 
 		// This will set the delay when the arrow-man is attacked to match it with the
 		// animation of the attacker/zombie
-		
+
 		long elapsed = (System.nanoTime() - this.beingAttacked) / 1000000;
 		if (this.beingAttacked != 0 && elapsed > 700) {
 			super.x = super.x - 15;
@@ -107,6 +107,17 @@ public class ArrowMan extends Entities {
 
 		// mouse stuff
 		this.mouseHandler();
+
+		//Trying to calculate the angle using the values from dragging
+		double y2 = this.startY;
+		double x2 = this.startX;
+		double y1 = this.endY;
+		double x1 = this.endX;
+		double x = Math.pow((x2 - x1), 2);
+		double y = Math.pow((y2 - y1), 2);
+		double sqt = Math.sqrt(x + y);
+		double angle = 2 * (Math.atan((y2 - y1) / (x2 - x1 + sqt)));
+		System.out.println(angle);
 	}
 
 	/*
@@ -118,20 +129,31 @@ public class ArrowMan extends Entities {
 
 	private void mouseHandler() {
 		if (this.dragging) {
-			this.angle = 0 - .1 - .1 - .1 - .1 - .1 - .1;
+			this.angle = 0 - .1 - .1 - .1 - .1 - .1;
 			this.bodyX = 0 - 3 - 3 - 3 - 3 - 3 - 3;
-			this.bodyY = 0 + 1 + 1 + 1 + 1 + 1 + 1;
+			this.bodyY = 0 - 1 - 1;
+			// B_WIDTH = 49, B_HEIGHT = 54
+			// L_WIDTH = 32, L_HEIGHT = 25;
+			B_WIDTH = (int) (49 + 8);
+			B_HEIGHT = (int) (54 + 8);
+			L_WIDTH = (int) (32 + 1);
+			L_HEIGHT = (int) (25 + 1);
 		} else {
 			this.angle = 0;
 			this.bodyX = 0;
 			this.bodyY = 0;
+			B_WIDTH = 49;
+			B_HEIGHT = 54;
+			L_WIDTH = 32;
+			L_HEIGHT = 25;
+
 		}
 	}
 
 	private void drawBody(Graphics2D graphics) {
 		int x_offset = 4, y_offset = 14;
 
-		AffineTransform tx = AffineTransform.getRotateInstance(this.angle, B_WIDTH / 2, B_HEIGHT);
+		AffineTransform tx = AffineTransform.getRotateInstance(this.angle, B_WIDTH, B_HEIGHT);
 		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 
 		Image body = (Image) (op.filter(this.playerParts[0], null)).getScaledInstance(B_WIDTH, B_HEIGHT,
@@ -235,4 +257,27 @@ public class ArrowMan extends Entities {
 		this.endY = endY;
 	}
 
+	public double getAngle() {
+		return angle;
+	}
+
+	public void setAngle(double angle) {
+		this.angle = angle;
+	}
+
+	public int getBodyX() {
+		return bodyX;
+	}
+
+	public void setBodyX(int bodyX) {
+		this.bodyX = bodyX;
+	}
+
+	public int getBodyY() {
+		return bodyY;
+	}
+
+	public void setBodyY(int bodyY) {
+		this.bodyY = bodyY;
+	}
 }
