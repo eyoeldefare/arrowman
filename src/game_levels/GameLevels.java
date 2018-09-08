@@ -113,7 +113,7 @@ public abstract class GameLevels {
 		this.zombie.draw(graphics);
 		this.livesCount.draw(graphics);
 		this.arrowCount.draw(graphics);
-		this.arrows.draw(graphics);
+	//	this.arrows.draw(graphics);
 	}
 
 	// Every level will update their level according to this super class
@@ -145,7 +145,6 @@ public abstract class GameLevels {
 		// Bow and arrows stuff
 		this.arrows.setX(this.arrowMan.getX() + 30);
 		this.arrows.setY(this.arrowMan.getY() + 17);
-		this.arrows.setAngle(this.arrowMan.getAngle());
 	}
 
 	// Arrowman must have died - game over

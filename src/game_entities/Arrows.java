@@ -17,9 +17,7 @@ public class Arrows extends Entities {
 	private final static int A_WIDTH = 41, A_HEIGHT = 11; // divided by 1.5 ---------- 41 11
 	private BufferedImage arrow;
 	private BufferedImage bow;
-	private double angle;
 	private int arrowAndBowX, arrowAndBowY;
-	private boolean dragging;
 
 	public Arrows() {
 		super();
@@ -59,23 +57,14 @@ public class Arrows extends Entities {
 
 	@Override
 	public void update() {
-		if (this.dragging) {
-			this.arrowAndBowX = -9;
+		if (super.dragging) {
 		} else {
-			this.arrowAndBowX = 0;
 			B_WIDTH = 36;
 			B_HEIGHT = 62;
 		}
 	}
 
 	// Setters and getters
-	public double getAngle() {
-		return angle;
-	}
-
-	public void setAngle(double angle) {
-		this.angle = angle;
-	}
 
 	public int getArrowAndBowX() {
 		return arrowAndBowX;
@@ -91,14 +80,6 @@ public class Arrows extends Entities {
 
 	public void setArrowAndBowY(int arrowAndBowY) {
 		this.arrowAndBowY = arrowAndBowY;
-	}
-
-	public boolean isDragging() {
-		return dragging;
-	}
-
-	public void setDragging(boolean dragging) {
-		this.dragging = dragging;
 	}
 
 }

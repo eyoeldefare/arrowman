@@ -13,14 +13,8 @@ public class ArrowMan extends Entities {
 	// Movement
 	private boolean left, right, up, down;
 
-	// Mouse Stuff
-	private boolean dragging;
-	private double startX, startY, endX, endY;
-	private double angle; // This angle is going to give values between (-0.5,-0.4,-0.3,-0.2,-0.1,0) when
-							// dragged using mouse
-
 	// handle drag movements
-	private int bodyX, bodyY;
+	private double bodyX, bodyY;
 
 	// This is to store the body and legs of our player
 	private BufferedImage[] playerParts;
@@ -104,50 +98,161 @@ public class ArrowMan extends Entities {
 		if (this.beingAttacked != 0 && elapsed > 700) {
 			super.x = super.x - 15;
 		}
-
 		// mouse stuff
-		this.mouseHandler();
-
-		//Trying to calculate the angle using the values from dragging
-		double y2 = this.startY;
-		double x2 = this.startX;
-		double y1 = this.endY;
-		double x1 = this.endX;
-		double x = Math.pow((x2 - x1), 2);
-		double y = Math.pow((y2 - y1), 2);
-		double sqt = Math.sqrt(x + y);
-		double angle = 2 * (Math.atan((y2 - y1) / (x2 - x1 + sqt)));
-		System.out.println(angle);
+		this.handleWHAndDirWhenDragged();
 	}
 
 	/*
-	 * 
 	 * Local Logics
-	 * 
 	 */
-	// draw the body
 
-	private void mouseHandler() {
+	// Mouse handler
+
+	private void handleWHAndDirWhenDragged() {
+		super.getAngle();
+		int x = 23, y = 9;
 		if (this.dragging) {
-			this.angle = 0 - .1 - .1 - .1 - .1 - .1;
-			this.bodyX = 0 - 3 - 3 - 3 - 3 - 3 - 3;
-			this.bodyY = 0 - 1 - 1;
-			// B_WIDTH = 49, B_HEIGHT = 54
-			// L_WIDTH = 32, L_HEIGHT = 25;
-			B_WIDTH = (int) (49 + 8);
-			B_HEIGHT = (int) (54 + 8);
-			L_WIDTH = (int) (32 + 1);
-			L_HEIGHT = (int) (25 + 1);
+			if (super.angle < -.9) {
+				// width
+				B_WIDTH = 59;
+				L_WIDTH = 42;
+				B_HEIGHT = 64;
+				L_HEIGHT = 35;
+
+				// dir
+				this.bodyX = super.angle * x;
+				this.bodyY = -super.angle * y;
+
+			}
+			if (super.angle < -.8 && super.angle >= -.9) {
+				// width
+				B_WIDTH = 58;
+				L_WIDTH = 41;
+				B_HEIGHT = 63;
+				L_HEIGHT = 34;
+
+				// dir
+				this.bodyX = super.angle * x;
+				this.bodyY = -super.angle * y;
+
+			}
+			if (super.angle < -.7 && super.angle >= -.8) {
+				// width
+				B_WIDTH = 57;
+				L_WIDTH = 40;
+				B_HEIGHT = 62;
+				L_HEIGHT = 33;
+
+				// dir
+				this.bodyX = super.angle * x;
+				this.bodyY = -super.angle * y-1;
+
+			}
+			if (super.angle < -.6 && super.angle >= -.7) {
+				// width
+				B_WIDTH = 56;
+				L_WIDTH = 39;
+				B_HEIGHT = 61;
+				L_HEIGHT = 32;
+
+				// dir
+				this.bodyX = super.angle * x;
+				this.bodyY = -super.angle * y - 2;
+
+			}
+			if (super.angle < -.5 && super.angle >= -.6) {
+				// width
+				B_WIDTH = 55;
+				L_WIDTH = 38;
+				B_HEIGHT = 60;
+				L_HEIGHT = 31;
+
+				// dir
+				this.bodyX = super.angle * x;
+				this.bodyY = -super.angle * y - 2;
+
+			}
+			if (super.angle < -.4 && super.angle >= -.5) {
+				// width
+				B_WIDTH = 54;
+				L_WIDTH = 37;
+				B_HEIGHT = 59;
+				L_HEIGHT = 30;
+
+				// dir
+				this.bodyX = super.angle * x;
+				this.bodyY = -super.angle * y - 2;
+			}
+			if (super.angle < -.3 && super.angle >= -.4) {
+				// width
+				B_WIDTH = 53;
+				L_WIDTH = 36;
+				B_HEIGHT = 58;
+				L_HEIGHT = 29;
+
+				// dir
+				this.bodyX = super.angle * x;
+				this.bodyY = -super.angle * y - 2;
+			}
+			if (super.angle < -.2 && super.angle >= -.3) {
+				// width
+				B_WIDTH = 52;
+				L_WIDTH = 35;
+				B_HEIGHT = 57;
+				L_HEIGHT = 28;
+
+				// dir
+				this.bodyX = super.angle * x;
+				this.bodyY = -super.angle * y - 1;
+			}
+			if (super.angle < -.1 && super.angle >= -.2) {
+				// width
+				B_WIDTH = 51;
+				L_WIDTH = 34;
+				B_HEIGHT = 56;
+				L_HEIGHT = 27;
+
+				// dir
+				this.bodyX = super.angle * x;
+				this.bodyY = -super.angle * y - 1;
+			}
+			if (super.angle < 0 && super.angle >= -.1) {
+				// width
+				B_WIDTH = 50;
+				L_WIDTH = 33;
+				B_HEIGHT = 55;
+				L_HEIGHT = 26;
+
+				// dir
+				this.bodyX = super.angle * x;
+				this.bodyY = -super.angle * y - 1;
+			}
+			if (super.angle == 0) {
+				// width
+				B_WIDTH = 49;
+				L_WIDTH = 32;
+				B_HEIGHT = 54;
+				L_HEIGHT = 25;
+
+				// dird
+				this.bodyX = 0;
+				this.bodyY = 0;
+			}
+
 		} else {
-			this.angle = 0;
-			this.bodyX = 0;
-			this.bodyY = 0;
+			super.angle = 0;
 			B_WIDTH = 49;
-			B_HEIGHT = 54;
 			L_WIDTH = 32;
+			B_HEIGHT = 54;
 			L_HEIGHT = 25;
 
+			this.bodyX = 0;
+			this.bodyY = 0;
+
 		}
+
+		System.out.println(this.angle);
+
 	}
 
 	private void drawBody(Graphics2D graphics) {
@@ -160,14 +265,14 @@ public class ArrowMan extends Entities {
 				Image.SCALE_SMOOTH);
 
 		graphics.drawImage(body, (int) (super.x - x_offset + this.bodyX), (int) (super.y + y_offset + this.bodyY),
-				(int) (B_WIDTH), (int) (B_HEIGHT), null);
+				B_WIDTH, B_HEIGHT, null);
 
 	}
 
 	// draw the legs
 	private void drawLegs(Graphics2D graphics) {
 		int y_offset = 55;
-		AffineTransform tx = AffineTransform.getRotateInstance(this.angle, B_WIDTH / 2, B_HEIGHT);
+		AffineTransform tx = AffineTransform.getRotateInstance(this.angle, L_WIDTH, L_HEIGHT);
 		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 
 		Image legs = (Image) (op.filter(this.playerParts[1], null)).getScaledInstance(L_WIDTH, L_HEIGHT,
@@ -217,64 +322,8 @@ public class ArrowMan extends Entities {
 		this.beingAttacked = System.nanoTime();
 	}
 
-	public boolean isDragging() {
-		return dragging;
-	}
-
-	public void setDragging(boolean dragging) {
-		this.dragging = dragging;
-	}
-
-	public double getStartX() {
-		return startX;
-	}
-
-	public void setStartX(double startX) {
-		this.startX = startX;
-	}
-
-	public double getStartY() {
-		return startY;
-	}
-
-	public void setStartY(double startY) {
-		this.startY = startY;
-	}
-
-	public double getEndX() {
-		return endX;
-	}
-
-	public void setEndX(double endX) {
-		this.endX = endX;
-	}
-
-	public double getEndY() {
-		return endY;
-	}
-
-	public void setEndY(double endY) {
-		this.endY = endY;
-	}
-
-	public double getAngle() {
-		return angle;
-	}
-
-	public void setAngle(double angle) {
-		this.angle = angle;
-	}
-
-	public int getBodyX() {
-		return bodyX;
-	}
-
 	public void setBodyX(int bodyX) {
 		this.bodyX = bodyX;
-	}
-
-	public int getBodyY() {
-		return bodyY;
 	}
 
 	public void setBodyY(int bodyY) {

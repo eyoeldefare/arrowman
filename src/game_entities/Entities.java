@@ -12,9 +12,11 @@ public abstract class Entities {
 
 	// props
 	protected double x, y, dx, dy;
-	protected boolean dead;
+	protected double startX, startY, endX, endY;
+	protected boolean dead, dragging;
 	protected int lives;
 	protected int collisionWidth, collisionHeight;
+	protected double angle;
 
 	// Constructor
 	protected Entities() {
@@ -54,6 +56,21 @@ public abstract class Entities {
 		return new Rectangle((int) this.x, (int) this.y, this.collisionWidth, this.collisionHeight);
 	}
 
+	protected void getAngle() {
+		// Trying to calculate the angle using the values from dragging
+		// Formula we will implement is:
+		// Theta = 2*arctan((y2-y1)/x2-x1+(sqrt((x2-x1)^2+(y2-y1)^2)));
+
+		double _x = Math.pow((this.startX - this.endX), 2);
+		double _y = Math.pow((this.startY - this.endY), 2);
+		double angle = 2 * (Math.atan((this.startY - this.endY) / (this.startX - this.endX + Math.sqrt(_x + _y))));
+
+		if (angle >= -1 && angle <= 0) {
+			this.angle = 2 * (Math.atan((this.startY - this.endY) / (this.startX - this.endX + Math.sqrt(_x + _y))));
+		}
+
+	}
+
 	// getters
 	public double getX() {
 		return x;
@@ -86,6 +103,48 @@ public abstract class Entities {
 
 	public void setDy(double dy) {
 		this.dy = dy;
+	}
+
+	// setter and getters
+
+	public double getStartX() {
+		return startX;
+	}
+
+	public void setStartX(double startX) {
+		this.startX = startX;
+	}
+
+	public double getStartY() {
+		return startY;
+	}
+
+	public void setStartY(double startY) {
+		this.startY = startY;
+	}
+
+	public double getEndX() {
+		return endX;
+	}
+
+	public void setEndX(double endX) {
+		this.endX = endX;
+	}
+
+	public double getEndY() {
+		return endY;
+	}
+
+	public void setEndY(double endY) {
+		this.endY = endY;
+	}
+
+	public boolean isDragging() {
+		return dragging;
+	}
+
+	public void setDragging(boolean dragging) {
+		this.dragging = dragging;
 	}
 
 }
