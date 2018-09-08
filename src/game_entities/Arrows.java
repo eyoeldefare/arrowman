@@ -13,11 +13,11 @@ import javax.imageio.ImageIO;
 // deep analysis
 
 public class Arrows extends Entities {
-	private static int B_WIDTH = 36, B_HEIGHT = 62; // 98*160 ---------- 36 62
-	private final static int A_WIDTH = 41, A_HEIGHT = 11; // divided by 1.5 ---------- 41 11
+	private static int B_WIDTH = 35, B_HEIGHT = 61; // 98*160 ---------- 36 62
+	private static int A_WIDTH = 43, A_HEIGHT = 11; // divided by 1.5 ---------- 41 11
 	private BufferedImage arrow;
 	private BufferedImage bow;
-	private int arrowAndBowX, arrowAndBowY;
+	private double arrowX, arrowY;
 
 	public Arrows() {
 		super();
@@ -40,46 +40,186 @@ public class Arrows extends Entities {
 
 	@Override
 	public void draw(Graphics2D graphics) {
-		int a_x_offset = 15, a_y_offset = 28;
-		int b_x_offset = -15, b_y_offset = 2;
+		this.drawBow(graphics);
+		this.drawArrow(graphics);
+	}
 
-		AffineTransform tx = AffineTransform.getRotateInstance(this.angle, B_WIDTH, B_HEIGHT);
+	// Local bow and arrow drawing
+	private void drawBow(Graphics2D graphics) {
+		int b_x_offset = -15, b_y_offset = 2;
+		AffineTransform tx = AffineTransform.getRotateInstance(super.angle, B_WIDTH, B_HEIGHT);
 		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 
 		Image bow = (Image) (op.filter(this.bow, null)).getScaledInstance(B_WIDTH, B_HEIGHT, Image.SCALE_SMOOTH);
+
+		graphics.drawImage(bow, (int) (super.x + b_x_offset), (int) (super.y + b_y_offset), B_WIDTH, B_HEIGHT, null);
+	}
+
+	private void drawArrow(Graphics2D graphics) {
+		int a_x_offset = -17, a_y_offset = 27;
+		AffineTransform tx = AffineTransform.getRotateInstance(super.angle, A_WIDTH, A_HEIGHT);
+		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+
 		Image arrow = (Image) (op.filter(this.arrow, null)).getScaledInstance(A_WIDTH, A_HEIGHT, Image.SCALE_SMOOTH);
 
-		graphics.drawImage(bow, (int) super.x + b_x_offset + this.arrowAndBowX,
-				(int) super.y + b_y_offset + this.arrowAndBowY, B_WIDTH, B_HEIGHT, null);
-		graphics.drawImage(arrow, (int) super.x + -a_x_offset + this.arrowAndBowX,
-				(int) super.y + a_y_offset + this.arrowAndBowY, A_WIDTH, A_HEIGHT, null);
+		graphics.drawImage(arrow, (int) (super.x + a_x_offset + this.arrowX),
+				(int) (super.y + a_y_offset + this.arrowY), A_WIDTH, A_HEIGHT, null);
 	}
 
 	@Override
 	public void update() {
+		this.handleWHAndDirWhenDragged();
+	}
+
+	// Local methods
+	private void handleWHAndDirWhenDragged() {
+		super.getAngle();
+
 		if (super.dragging) {
+			if (super.angle < -.9) {
+				// width
+				B_WIDTH = 46;
+				B_HEIGHT = 71;
+
+				A_WIDTH = 42;
+				A_HEIGHT = 22;
+
+				// dir
+				this.arrowY = super.angle * 3;
+
+			}
+			if (super.angle < -.8 && super.angle >= -.9) {
+				// width
+				B_WIDTH = 45;
+				B_HEIGHT = 70;
+
+				A_WIDTH = 42;
+				A_HEIGHT = 21;
+
+				// dir
+				this.arrowY = super.angle * 3;
+
+			}
+			if (super.angle < -.7 && super.angle >= -.8) {
+				// width
+				B_WIDTH = 44;
+				B_HEIGHT = 69;
+
+				A_WIDTH = 42;
+				A_HEIGHT = 20;
+
+				// dir
+				this.arrowY = super.angle * 3;
+
+			}
+			if (super.angle < -.6 && super.angle >= -.7) {
+				// width
+				B_WIDTH = 43;
+				B_HEIGHT = 68;
+
+				A_WIDTH = 42;
+				A_HEIGHT = 19;
+
+				// dir
+				this.arrowY = super.angle * 3;
+
+			}
+			if (super.angle < -.5 && super.angle >= -.6) {
+				// width
+				B_WIDTH = 42;
+				B_HEIGHT = 67;
+
+				A_WIDTH = 42;
+				A_HEIGHT = 18;
+
+				// dir
+				this.arrowY = super.angle * 3;
+
+			}
+			if (super.angle < -.4 && super.angle >= -.5) {
+				// width
+				B_WIDTH = 41;
+				B_HEIGHT = 66;
+
+				A_WIDTH = 42;
+				A_HEIGHT = 17;
+
+				// dir
+				this.arrowY = super.angle * 3;
+
+			}
+			if (super.angle < -.3 && super.angle >= -.4) {
+				// width
+				B_WIDTH = 40;
+				B_HEIGHT = 65;
+
+				A_WIDTH = 42;
+				A_HEIGHT = 16;
+
+				// dir
+				this.arrowY = super.angle * 3;
+
+			}
+			if (super.angle < -.2 && super.angle >= -.3) {
+				// width
+				B_WIDTH = 39;
+				B_HEIGHT = 64;
+
+				A_WIDTH = 42;
+				A_HEIGHT = 15;
+
+				// dir
+				this.arrowY = super.angle * 3;
+
+			}
+			if (super.angle < -.1 && super.angle >= -.2) {
+				// width
+				B_WIDTH = 38;
+				B_HEIGHT = 63;
+
+				A_WIDTH = 42;
+				A_HEIGHT = 14;
+
+				// dir
+				this.arrowY = super.angle * 3;
+
+			}
+			if (super.angle < 0 && super.angle >= -.1) {
+				// width
+				B_WIDTH = 37;
+				B_HEIGHT = 62;
+
+				A_WIDTH = 42;
+				A_HEIGHT = 13;
+
+				// dir
+				this.arrowY = super.angle * 3;
+
+			}
+			if (super.angle == 0) {
+				// width
+				B_WIDTH = 36;
+				B_HEIGHT = 61;
+
+				A_WIDTH = 42;
+				A_HEIGHT = 12;
+
+				// dir
+				this.arrowY = super.angle * 3;
+			}
+
 		} else {
+			super.angle = 0;
 			B_WIDTH = 36;
-			B_HEIGHT = 62;
+			B_HEIGHT = 61;
+
+			A_WIDTH = 42;
+			A_HEIGHT = 11;
+
+			// dir
+			this.arrowY = 0;
+
 		}
+
 	}
-
-	// Setters and getters
-
-	public int getArrowAndBowX() {
-		return arrowAndBowX;
-	}
-
-	public void setArrowAndBowX(int arrowAndBowX) {
-		this.arrowAndBowX = arrowAndBowX;
-	}
-
-	public int getArrowAndBowY() {
-		return arrowAndBowY;
-	}
-
-	public void setArrowAndBowY(int arrowAndBowY) {
-		this.arrowAndBowY = arrowAndBowY;
-	}
-
 }

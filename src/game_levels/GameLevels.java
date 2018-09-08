@@ -86,8 +86,12 @@ public abstract class GameLevels {
 		if (mouse == MouseEvent.MOUSE_PRESSED) {
 			this.arrowMan.setDragging(true);
 			this.arrows.setDragging(true);
+
 			this.arrowMan.setStartX(coordinates.getX());
 			this.arrowMan.setStartY(coordinates.getY());
+
+			this.arrows.setStartX(coordinates.getX());
+			this.arrows.setStartY(coordinates.getY());
 		}
 	}
 
@@ -102,6 +106,9 @@ public abstract class GameLevels {
 		if (mouse == MouseEvent.MOUSE_DRAGGED) {
 			this.arrowMan.setEndX(coordinates.getX());
 			this.arrowMan.setEndY(coordinates.getY());
+
+			this.arrows.setEndX(coordinates.getX());
+			this.arrows.setEndY(coordinates.getY());
 		}
 	}
 
@@ -113,7 +120,7 @@ public abstract class GameLevels {
 		this.zombie.draw(graphics);
 		this.livesCount.draw(graphics);
 		this.arrowCount.draw(graphics);
-	//	this.arrows.draw(graphics);
+		this.arrows.draw(graphics);
 	}
 
 	// Every level will update their level according to this super class

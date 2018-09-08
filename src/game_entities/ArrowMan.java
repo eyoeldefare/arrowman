@@ -111,7 +111,7 @@ public class ArrowMan extends Entities {
 	private void handleWHAndDirWhenDragged() {
 		super.getAngle();
 		int x = 23, y = 9;
-		if (this.dragging) {
+		if (super.dragging) {
 			if (super.angle < -.9) {
 				// width
 				B_WIDTH = 59;
@@ -251,8 +251,6 @@ public class ArrowMan extends Entities {
 
 		}
 
-		System.out.println(this.angle);
-
 	}
 
 	private void drawBody(Graphics2D graphics) {
@@ -322,11 +320,4 @@ public class ArrowMan extends Entities {
 		this.beingAttacked = System.nanoTime();
 	}
 
-	public void setBodyX(int bodyX) {
-		this.bodyX = bodyX;
-	}
-
-	public void setBodyY(int bodyY) {
-		this.bodyY = bodyY;
-	}
 }
