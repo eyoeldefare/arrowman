@@ -145,7 +145,7 @@ public class ArrowMan extends Entities {
 
 				// dir
 				this.bodyX = super.angle * x;
-				this.bodyY = -super.angle * y-1;
+				this.bodyY = -super.angle * y - 1;
 
 			}
 			if (super.angle < -.6 && super.angle >= -.7) {

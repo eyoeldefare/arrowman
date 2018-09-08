@@ -17,7 +17,7 @@ public class Arrows extends Entities {
 	private static int A_WIDTH = 43, A_HEIGHT = 11; // divided by 1.5 ---------- 41 11
 	private BufferedImage arrow;
 	private BufferedImage bow;
-	private double arrowX, arrowY;
+	private double arrowX, arrowY, bowX, bowY;
 
 	public Arrows() {
 		super();
@@ -46,17 +46,18 @@ public class Arrows extends Entities {
 
 	// Local bow and arrow drawing
 	private void drawBow(Graphics2D graphics) {
-		int b_x_offset = -15, b_y_offset = 2;
+		int b_x_offset = -12, b_y_offset = 6;
 		AffineTransform tx = AffineTransform.getRotateInstance(super.angle, B_WIDTH, B_HEIGHT);
 		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 
 		Image bow = (Image) (op.filter(this.bow, null)).getScaledInstance(B_WIDTH, B_HEIGHT, Image.SCALE_SMOOTH);
 
-		graphics.drawImage(bow, (int) (super.x + b_x_offset), (int) (super.y + b_y_offset), B_WIDTH, B_HEIGHT, null);
+		graphics.drawImage(bow, (int) (super.x + b_x_offset + this.arrowX), (int) (super.y + b_y_offset + this.arrowY),
+				B_WIDTH, B_HEIGHT, null);
 	}
 
 	private void drawArrow(Graphics2D graphics) {
-		int a_x_offset = -17, a_y_offset = 27;
+		int a_x_offset = -14, a_y_offset = 30;
 		AffineTransform tx = AffineTransform.getRotateInstance(super.angle, A_WIDTH, A_HEIGHT);
 		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 
@@ -74,8 +75,10 @@ public class Arrows extends Entities {
 	// Local methods
 	private void handleWHAndDirWhenDragged() {
 		super.getAngle();
-
+		int y = 8, x = -20;
 		if (super.dragging) {
+			System.out.println(super.angle);
+
 			if (super.angle < -.9) {
 				// width
 				B_WIDTH = 46;
@@ -85,7 +88,8 @@ public class Arrows extends Entities {
 				A_HEIGHT = 22;
 
 				// dir
-				this.arrowY = super.angle * 3;
+				this.arrowY = super.angle * y + 1;
+				this.arrowX = -super.angle * x;
 
 			}
 			if (super.angle < -.8 && super.angle >= -.9) {
@@ -97,7 +101,8 @@ public class Arrows extends Entities {
 				A_HEIGHT = 21;
 
 				// dir
-				this.arrowY = super.angle * 3;
+				this.arrowY = super.angle * y + 1;
+				this.arrowX = -super.angle * x;
 
 			}
 			if (super.angle < -.7 && super.angle >= -.8) {
@@ -109,7 +114,8 @@ public class Arrows extends Entities {
 				A_HEIGHT = 20;
 
 				// dir
-				this.arrowY = super.angle * 3;
+				this.arrowY = super.angle * y + 1;
+				this.arrowX = -super.angle * x;
 
 			}
 			if (super.angle < -.6 && super.angle >= -.7) {
@@ -121,7 +127,8 @@ public class Arrows extends Entities {
 				A_HEIGHT = 19;
 
 				// dir
-				this.arrowY = super.angle * 3;
+				this.arrowY = super.angle * y - 2;
+				this.arrowX = -super.angle * x;
 
 			}
 			if (super.angle < -.5 && super.angle >= -.6) {
@@ -133,7 +140,8 @@ public class Arrows extends Entities {
 				A_HEIGHT = 18;
 
 				// dir
-				this.arrowY = super.angle * 3;
+				this.arrowY = super.angle * y - 2;
+				this.arrowX = -super.angle * x + 2;
 
 			}
 			if (super.angle < -.4 && super.angle >= -.5) {
@@ -145,7 +153,8 @@ public class Arrows extends Entities {
 				A_HEIGHT = 17;
 
 				// dir
-				this.arrowY = super.angle * 3;
+				this.arrowY = super.angle * y - 2;
+				this.arrowX = -super.angle * x + 2;
 
 			}
 			if (super.angle < -.3 && super.angle >= -.4) {
@@ -157,8 +166,8 @@ public class Arrows extends Entities {
 				A_HEIGHT = 16;
 
 				// dir
-				this.arrowY = super.angle * 3;
-
+				this.arrowY = super.angle * y - 2;
+				this.arrowX = -super.angle * x + 2;
 			}
 			if (super.angle < -.2 && super.angle >= -.3) {
 				// width
@@ -169,7 +178,8 @@ public class Arrows extends Entities {
 				A_HEIGHT = 15;
 
 				// dir
-				this.arrowY = super.angle * 3;
+				this.arrowY = super.angle * y;
+				this.arrowX = -super.angle * x;
 
 			}
 			if (super.angle < -.1 && super.angle >= -.2) {
@@ -181,7 +191,8 @@ public class Arrows extends Entities {
 				A_HEIGHT = 14;
 
 				// dir
-				this.arrowY = super.angle * 3;
+				this.arrowY = super.angle * y;
+				this.arrowX = -super.angle * x;
 
 			}
 			if (super.angle < 0 && super.angle >= -.1) {
@@ -193,7 +204,8 @@ public class Arrows extends Entities {
 				A_HEIGHT = 13;
 
 				// dir
-				this.arrowY = super.angle * 3;
+				this.arrowY = super.angle * y;
+				this.arrowX = -super.angle * x;
 
 			}
 			if (super.angle == 0) {
@@ -205,7 +217,8 @@ public class Arrows extends Entities {
 				A_HEIGHT = 12;
 
 				// dir
-				this.arrowY = super.angle * 3;
+				this.arrowY = 0;
+				this.arrowX = 0;
 			}
 
 		} else {
@@ -218,6 +231,7 @@ public class Arrows extends Entities {
 
 			// dir
 			this.arrowY = 0;
+			this.arrowX = 0;
 
 		}
 
