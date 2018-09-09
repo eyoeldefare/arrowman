@@ -99,7 +99,10 @@ public abstract class GameLevels {
 		if (mouse == MouseEvent.MOUSE_RELEASED) {
 			this.arrowMan.setDragging(false);
 			this.arrows.setDragging(false);
+			// already been dragged
 			this.arrowCount.setDragged(true);
+			// FIRE
+			this.arrows.setFire(true);
 		}
 	}
 
@@ -158,14 +161,15 @@ public abstract class GameLevels {
 
 		// check if player is out of emo
 		if (this.arrowCount.getArrowCount() == 0) {
-			//Todo
-			
+			// Todo
+			this.arrows.setOkToFire(false);
+			this.arrowMan.setOkToFire(false);
 		}
 
 	}
 
 	// Arrowman must have died - game over
-	protected void gameOver(int setLevel, double zombieSpeed) {   
+	protected void gameOver(int setLevel, double zombieSpeed) {
 		if (this.livesCount.isDead()) {
 
 			this.livesCount = new LivesCount("/standalones/d_heart.gif");
@@ -178,6 +182,9 @@ public abstract class GameLevels {
 			this.zombie.setSpeed(zombieSpeed);
 
 			this.gameLevelManager.setLevel(setLevel);
+
+			this.arrows.setOkToFire(true);
+			this.arrowMan.setOkToFire(true);
 		}
 	}
 

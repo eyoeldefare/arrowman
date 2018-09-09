@@ -17,9 +17,11 @@ public abstract class Entities {
 	protected int lives;
 	protected int collisionWidth, collisionHeight;
 	protected double angle;
+	protected boolean okToFire;
 
 	// Constructor
 	protected Entities() {
+		this.okToFire = true;
 	}
 
 	// We will implement these abstract methods in each entity classes
@@ -123,6 +125,10 @@ public abstract class Entities {
 
 	public void setDragging(boolean dragging) {
 		this.dragging = dragging;
+	}
+
+	public void setOkToFire(boolean okToFire) {
+		this.okToFire = okToFire;
 	}
 
 }

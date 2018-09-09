@@ -32,7 +32,7 @@ public class ArrowMan extends Entities {
 		// Calling our superclass and setting respective variables
 		super();
 		super.collisionWidth = B_WIDTH;
-		super.collisionHeight = B_HEIGHT + L_HEIGHT-5;
+		super.collisionHeight = B_HEIGHT + L_HEIGHT - 5;
 
 		// Store the body parts in a simple Image array. You can also use ArrayList, I
 		// choose
@@ -109,146 +109,148 @@ public class ArrowMan extends Entities {
 	// Mouse handler
 
 	private void handleWHAndDirWhenDragged() {
-		super.getAngle();
-		int x = 23, y = 9;
-		if (super.dragging) {
-			if (super.angle < -.9) {
-				// width
-				B_WIDTH = 59;
-				L_WIDTH = 42;
-				B_HEIGHT = 64;
-				L_HEIGHT = 35;
+		if (super.okToFire) {
+			super.getAngle();
+			int x = 23, y = 9;
+			if (super.dragging) {
+				if (super.angle < -.9) {
+					// width
+					B_WIDTH = 59;
+					L_WIDTH = 42;
+					B_HEIGHT = 64;
+					L_HEIGHT = 35;
 
-				// dir
-				this.bodyX = super.angle * x;
-				this.bodyY = -super.angle * y;
+					// dir
+					this.bodyX = super.angle * x;
+					this.bodyY = -super.angle * y;
 
-			}
-			if (super.angle < -.8 && super.angle >= -.9) {
-				// width
-				B_WIDTH = 58;
-				L_WIDTH = 41;
-				B_HEIGHT = 63;
-				L_HEIGHT = 34;
+				}
+				if (super.angle < -.8 && super.angle >= -.9) {
+					// width
+					B_WIDTH = 58;
+					L_WIDTH = 41;
+					B_HEIGHT = 63;
+					L_HEIGHT = 34;
 
-				// dir
-				this.bodyX = super.angle * x;
-				this.bodyY = -super.angle * y;
+					// dir
+					this.bodyX = super.angle * x;
+					this.bodyY = -super.angle * y;
 
-			}
-			if (super.angle < -.7 && super.angle >= -.8) {
-				// width
-				B_WIDTH = 57;
-				L_WIDTH = 40;
-				B_HEIGHT = 62;
-				L_HEIGHT = 33;
+				}
+				if (super.angle < -.7 && super.angle >= -.8) {
+					// width
+					B_WIDTH = 57;
+					L_WIDTH = 40;
+					B_HEIGHT = 62;
+					L_HEIGHT = 33;
 
-				// dir
-				this.bodyX = super.angle * x;
-				this.bodyY = -super.angle * y - 1;
+					// dir
+					this.bodyX = super.angle * x;
+					this.bodyY = -super.angle * y - 1;
 
-			}
-			if (super.angle < -.6 && super.angle >= -.7) {
-				// width
-				B_WIDTH = 56;
-				L_WIDTH = 39;
-				B_HEIGHT = 61;
-				L_HEIGHT = 32;
+				}
+				if (super.angle < -.6 && super.angle >= -.7) {
+					// width
+					B_WIDTH = 56;
+					L_WIDTH = 39;
+					B_HEIGHT = 61;
+					L_HEIGHT = 32;
 
-				// dir
-				this.bodyX = super.angle * x;
-				this.bodyY = -super.angle * y - 2;
+					// dir
+					this.bodyX = super.angle * x;
+					this.bodyY = -super.angle * y - 2;
 
-			}
-			if (super.angle < -.5 && super.angle >= -.6) {
-				// width
-				B_WIDTH = 55;
-				L_WIDTH = 38;
-				B_HEIGHT = 60;
-				L_HEIGHT = 31;
+				}
+				if (super.angle < -.5 && super.angle >= -.6) {
+					// width
+					B_WIDTH = 55;
+					L_WIDTH = 38;
+					B_HEIGHT = 60;
+					L_HEIGHT = 31;
 
-				// dir
-				this.bodyX = super.angle * x;
-				this.bodyY = -super.angle * y - 2;
+					// dir
+					this.bodyX = super.angle * x;
+					this.bodyY = -super.angle * y - 2;
 
-			}
-			if (super.angle < -.4 && super.angle >= -.5) {
-				// width
-				B_WIDTH = 54;
-				L_WIDTH = 37;
-				B_HEIGHT = 59;
-				L_HEIGHT = 30;
+				}
+				if (super.angle < -.4 && super.angle >= -.5) {
+					// width
+					B_WIDTH = 54;
+					L_WIDTH = 37;
+					B_HEIGHT = 59;
+					L_HEIGHT = 30;
 
-				// dir
-				this.bodyX = super.angle * x;
-				this.bodyY = -super.angle * y - 2;
-			}
-			if (super.angle < -.3 && super.angle >= -.4) {
-				// width
-				B_WIDTH = 53;
-				L_WIDTH = 36;
-				B_HEIGHT = 58;
-				L_HEIGHT = 29;
+					// dir
+					this.bodyX = super.angle * x;
+					this.bodyY = -super.angle * y - 2;
+				}
+				if (super.angle < -.3 && super.angle >= -.4) {
+					// width
+					B_WIDTH = 53;
+					L_WIDTH = 36;
+					B_HEIGHT = 58;
+					L_HEIGHT = 29;
 
-				// dir
-				this.bodyX = super.angle * x;
-				this.bodyY = -super.angle * y - 2;
-			}
-			if (super.angle < -.2 && super.angle >= -.3) {
-				// width
-				B_WIDTH = 52;
-				L_WIDTH = 35;
-				B_HEIGHT = 57;
-				L_HEIGHT = 28;
+					// dir
+					this.bodyX = super.angle * x;
+					this.bodyY = -super.angle * y - 2;
+				}
+				if (super.angle < -.2 && super.angle >= -.3) {
+					// width
+					B_WIDTH = 52;
+					L_WIDTH = 35;
+					B_HEIGHT = 57;
+					L_HEIGHT = 28;
 
-				// dir
-				this.bodyX = super.angle * x;
-				this.bodyY = -super.angle * y - 1;
-			}
-			if (super.angle < -.1 && super.angle >= -.2) {
-				// width
-				B_WIDTH = 51;
-				L_WIDTH = 34;
-				B_HEIGHT = 56;
-				L_HEIGHT = 27;
+					// dir
+					this.bodyX = super.angle * x;
+					this.bodyY = -super.angle * y - 1;
+				}
+				if (super.angle < -.1 && super.angle >= -.2) {
+					// width
+					B_WIDTH = 51;
+					L_WIDTH = 34;
+					B_HEIGHT = 56;
+					L_HEIGHT = 27;
 
-				// dir
-				this.bodyX = super.angle * x;
-				this.bodyY = -super.angle * y - 1;
-			}
-			if (super.angle < 0 && super.angle >= -.1) {
-				// width
-				B_WIDTH = 50;
-				L_WIDTH = 33;
-				B_HEIGHT = 55;
-				L_HEIGHT = 26;
+					// dir
+					this.bodyX = super.angle * x;
+					this.bodyY = -super.angle * y - 1;
+				}
+				if (super.angle < 0 && super.angle >= -.1) {
+					// width
+					B_WIDTH = 50;
+					L_WIDTH = 33;
+					B_HEIGHT = 55;
+					L_HEIGHT = 26;
 
-				// dir
-				this.bodyX = super.angle * x;
-				this.bodyY = -super.angle * y - 1;
-			}
-			if (super.angle == 0) {
-				// width
+					// dir
+					this.bodyX = super.angle * x;
+					this.bodyY = -super.angle * y - 1;
+				}
+				if (super.angle == 0) {
+					// width
+					B_WIDTH = 49;
+					L_WIDTH = 32;
+					B_HEIGHT = 54;
+					L_HEIGHT = 25;
+
+					// dird
+					this.bodyX = 0;
+					this.bodyY = 0;
+				}
+
+			} else {
+				super.angle = 0;
 				B_WIDTH = 49;
 				L_WIDTH = 32;
 				B_HEIGHT = 54;
 				L_HEIGHT = 25;
 
-				// dird
 				this.bodyX = 0;
 				this.bodyY = 0;
+
 			}
-
-		} else {
-			super.angle = 0;
-			B_WIDTH = 49;
-			L_WIDTH = 32;
-			B_HEIGHT = 54;
-			L_HEIGHT = 25;
-
-			this.bodyX = 0;
-			this.bodyY = 0;
-
 		}
 
 	}
