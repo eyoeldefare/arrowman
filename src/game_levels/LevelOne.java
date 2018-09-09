@@ -24,7 +24,7 @@ public class LevelOne extends GameLevels {
 	@Override
 	public void update() {
 		super.update();
-		super.gameOver(0);
+		super.gameOver(0, -0.5);
 	}
 
 }

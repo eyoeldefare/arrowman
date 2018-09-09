@@ -99,6 +99,7 @@ public abstract class GameLevels {
 		if (mouse == MouseEvent.MOUSE_RELEASED) {
 			this.arrowMan.setDragging(false);
 			this.arrows.setDragging(false);
+			this.arrowCount.setDragged(true);
 		}
 	}
 
@@ -117,10 +118,12 @@ public abstract class GameLevels {
 		this.background.draw(graphics);
 		this.drawer.draw(graphics);
 		this.arrowMan.draw(graphics);
-		this.zombie.draw(graphics);
-		this.livesCount.draw(graphics);
-		this.arrowCount.draw(graphics);
 		this.arrows.draw(graphics);
+		this.zombie.draw(graphics);
+
+		this.arrowCount.draw(graphics);
+		this.livesCount.draw(graphics);
+
 	}
 
 	// Every level will update their level according to this super class
@@ -152,19 +155,27 @@ public abstract class GameLevels {
 		// Bow and arrows stuff
 		this.arrows.setX(this.arrowMan.getX() + 30);
 		this.arrows.setY(this.arrowMan.getY() + 17);
+
+		// check if player is out of emo
+		if (this.arrowCount.getArrowCount() == 0) {
+			//Todo
+			
+		}
+
 	}
 
 	// Arrowman must have died - game over
-	protected void gameOver(int setLevel) {
+	protected void gameOver(int setLevel, double zombieSpeed) {   
 		if (this.livesCount.isDead()) {
+
 			this.livesCount = new LivesCount("/standalones/d_heart.gif");
 			this.arrowCount = new ArrowCount("/standalones/d_arrow.png");
 
 			this.arrowMan = new ArrowMan();
 			this.arrowMan.setPosition(0, 282);
-
 			this.zombie = new Zombie();
 			this.zombie.setPosition(650, 259);
+			this.zombie.setSpeed(zombieSpeed);
 
 			this.gameLevelManager.setLevel(setLevel);
 		}

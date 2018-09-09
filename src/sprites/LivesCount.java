@@ -64,4 +64,8 @@ public class LivesCount {
 	public boolean isDead() {
 		return dead;
 	}
+
+	public void setDead(boolean dead) {
+		this.dead = dead;
+	}
 }

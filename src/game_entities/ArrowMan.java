@@ -32,7 +32,7 @@ public class ArrowMan extends Entities {
 		// Calling our superclass and setting respective variables
 		super();
 		super.collisionWidth = B_WIDTH;
-		super.collisionHeight = B_HEIGHT + L_HEIGHT;
+		super.collisionHeight = B_HEIGHT + L_HEIGHT-5;
 
 		// Store the body parts in a simple Image array. You can also use ArrayList, I
 		// choose

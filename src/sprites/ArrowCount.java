@@ -10,6 +10,7 @@ public class ArrowCount {
 
 	private Image arrow;
 	private int arrowCount;
+	private boolean dragged;
 	private final static int HEIGHT = 30, WIDTH = 10;
 
 	// Coordinates
@@ -17,7 +18,7 @@ public class ArrowCount {
 
 	// Constructor
 	public ArrowCount(String path) {
-		this.arrowCount = 10;
+		this.arrowCount = 7;
 		try {
 			// get the image
 			this.arrow = (Image) ImageIO.read(getClass().getResource(path));
@@ -36,6 +37,10 @@ public class ArrowCount {
 	}
 
 	public void update() {
+		if (this.dragged) {
+			this.arrowCount--;
+			this.dragged = false;
+		}
 
 	}
 
@@ -47,5 +52,13 @@ public class ArrowCount {
 
 	public void setArrowCount(int arrowCount) {
 		this.arrowCount = arrowCount;
+	}
+
+	public boolean isDragged() {
+		return dragged;
+	}
+
+	public void setDragged(boolean dragged) {
+		this.dragged = dragged;
 	}
 }
