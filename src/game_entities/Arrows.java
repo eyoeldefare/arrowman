@@ -8,11 +8,14 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
+import entry.Panel;
+
 // Everything we will do here is the same as what we have 
 // done for the zombie class so check that class to see a 
 // deep analysis
 
 public class Arrows extends Entities {
+	private static final double GRAVITY = 9.81;
 	private static int B_WIDTH = 35, B_HEIGHT = 61; // 98*160 ---------- 36 62
 	private static int A_WIDTH = 43, A_HEIGHT = 11; // divided by 1.5 ---------- 41 11
 	private BufferedImage arrow;
@@ -21,8 +24,9 @@ public class Arrows extends Entities {
 	// you want and
 	// set their values separately.
 	private double arrowNBowX, arrowNBowY;
-	private boolean fire;
-	private int arrowX, arrowY;
+	private boolean lastXPos, lastAnglePos;
+	private double arrowX, arrowY, lastAngle;
+	private double V0, Y0;
 
 	public Arrows() {
 		super();
@@ -37,7 +41,6 @@ public class Arrows extends Entities {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		this.fire = false;
 	}
 
 	@Override
@@ -78,7 +81,6 @@ public class Arrows extends Entities {
 					Image.SCALE_SMOOTH);
 
 			graphics.drawImage(arrow, arrowX, arrowY, A_WIDTH, A_HEIGHT, null);
-			System.out.println(this.arrowX);
 
 		}
 
@@ -92,17 +94,24 @@ public class Arrows extends Entities {
 
 	// Local methods
 	private void handleFire() {
-		if (this.fire) {
-			double startX = super.startX;
-			double endX = super.endX;
-			double startY = super.startY;
-			double endY = super.endY;
-
-			double xTheta = startX - endX;
-			double yTheta = startY - endY;
-			this.arrowX += xTheta * .8;
+		if (!this.lastAnglePos) {
+			this.lastAngle = super.angle;
 		}
+		if (this.lastXPos) {
+			this.arrowX = this.lastXPos();
+			this.V0 = (super.startX - super.endX) / 10;
+			this.Y0 = (super.startY - super.endY) / 20;
+			this.lastXPos = false;
+		} else {
+			if (this.arrowX < Panel.WIDTH && this.arrowX != 0) {
+				this.arrowX++;
+			} else
+				return;
+		}
+	}
 
+	private int lastXPos() {
+		return Panel.WIDTH - (Panel.WIDTH - (int) (super.x + -12 + this.arrowNBowX));
 	}
 
 	private void handleWHAndDirWhenDragged() {
@@ -271,11 +280,20 @@ public class Arrows extends Entities {
 
 	// Setters and getters
 
-	public boolean isFire() {
-		return fire;
+	public boolean isLastXPos() {
+		return lastXPos;
 	}
 
-	public void setFire(boolean fire) {
-		this.fire = fire;
+	public void setLastXPos(boolean lastXPos) {
+		this.lastXPos = lastXPos;
 	}
+
+	public boolean isLastAnglePos() {
+		return lastAnglePos;
+	}
+
+	public void setLastAnglePos(boolean lastAnglePos) {
+		this.lastAnglePos = lastAnglePos;
+	}
+
 }

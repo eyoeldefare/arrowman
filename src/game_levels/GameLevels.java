@@ -97,12 +97,18 @@ public abstract class GameLevels {
 
 	public void mouseReleased(int mouse) {
 		if (mouse == MouseEvent.MOUSE_RELEASED) {
+
 			this.arrowMan.setDragging(false);
 			this.arrows.setDragging(false);
 			// already been dragged
 			this.arrowCount.setDragged(true);
-			// FIRE
-			this.arrows.setFire(true);
+			
+			//After arrows is FIRED
+			//Gets Last X Pos
+			this.arrows.setLastAnglePos(true);
+			//Gets Last Angle Pos
+			this.arrows.setLastXPos(true);
+
 		}
 	}
 

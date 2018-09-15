@@ -1,3 +1,11 @@
-/game_levels/
-/sprites/
+/.project
+/arrow/
+/background/
+/bow/
+/entry/
 /game_entities/
+/game_levels/
+/player/
+/sprites/
+/standalones/
+/zombies/
