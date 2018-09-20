@@ -8,8 +8,6 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
-import entry.Panel;
-
 // Everything we will do here is the same as what we have 
 // done for the zombie class so check that class to see a 
 // deep analysis
@@ -26,7 +24,7 @@ public class Arrows extends Entities {
 	// set their values separately.
 	private double arrowNBowX, arrowNBowY;
 	private boolean lastXPos, lastAnglePos;
-	private double arrowX, arrowY, lastAngle;
+	private double arrowX, arrowY;
 	private double v0x, v0y;
 
 	public Arrows() {
@@ -76,8 +74,8 @@ public class Arrows extends Entities {
 
 	private void drawArrow(Graphics2D graphics) {
 
-		int arrowX = (int) (super.x + -14 + this.arrowNBowX + this.arrowX);
-		int arrowY = (int) (super.y + 30 + this.arrowNBowY + this.arrowY);
+		int arrowX = (int) (super.x + this.arrowNBowX + this.arrowX - 14);
+		int arrowY = (int) (super.y - this.arrowY + this.arrowNBowX + 30);
 
 		if (super.okToFire) {
 			AffineTransform tx = AffineTransform.getRotateInstance(super.angle, A_WIDTH, A_HEIGHT);
@@ -101,8 +99,8 @@ public class Arrows extends Entities {
 	// Local methods
 	private void handleFire() {
 		double v0x, v0y;
-		v0x = (super.startX - super.endX) / 20;
-		v0y = (super.endY - super.startY) / 20;
+		v0x = (super.startX - super.endX) / 10;
+		v0y = (super.endY - super.startY) / 10;
 
 		if (super.dragged) {
 			this.v0x = v0x;
@@ -118,7 +116,7 @@ public class Arrows extends Entities {
 			this.arrowX = this.arrowX + this.v0x;
 			this.arrowY = this.arrowY + this.v0y;
 
-			System.out.println("X " + this.arrowX + " " + "Y " + (Panel.HEIGHT - this.arrowY));
+			System.out.println("X " + this.arrowX + " " + "Y " + (super.y - this.arrowY));
 		}
 	}
 

@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
+import controllers.FramesController;
+
 public class Zombie extends Entities {
 
 	// Stores the zombie frames

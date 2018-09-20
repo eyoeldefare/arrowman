@@ -1,4 +1,4 @@
-package game_entities;
+package controllers;
 
 import java.awt.Image;
 
