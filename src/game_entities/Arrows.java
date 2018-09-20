@@ -15,10 +15,11 @@ import entry.Panel;
 // deep analysis
 
 public class Arrows extends Entities {
-	private static final double GRAVITY = 9.81;
+	private static final double GRAVITY = -0.981;
+	private static final int MAX_ARROW = 15;
 	private static int B_WIDTH = 35, B_HEIGHT = 61; // 98*160 ---------- 36 62
 	private static int A_WIDTH = 43, A_HEIGHT = 11; // divided by 1.5 ---------- 41 11
-	private BufferedImage arrow;
+	private BufferedImage[] arrows;
 	private BufferedImage bow;
 	// You can separate the arrow and bow to get a more accurate looking angles if
 	// you want and
@@ -26,17 +27,22 @@ public class Arrows extends Entities {
 	private double arrowNBowX, arrowNBowY;
 	private boolean lastXPos, lastAnglePos;
 	private double arrowX, arrowY, lastAngle;
-	private double V0, Y0;
+	private double v0x, v0y;
 
 	public Arrows() {
 		super();
 		super.collisionHeight = A_HEIGHT;
 		super.collisionWidth = A_WIDTH;
 
+		this.arrows = new BufferedImage[MAX_ARROW];
+
 		// get the images
 		try {
 			this.bow = ImageIO.read(getClass().getResource("/bow/bow_4" + ".png"));
-			this.arrow = ImageIO.read(getClass().getResource("/arrow/arrow" + ".png"));
+
+			for (int i = 0; i < this.arrows.length; i++) {
+				this.arrows[i] = ImageIO.read(getClass().getResource("/arrow/arrow" + ".png"));
+			}
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -77,7 +83,7 @@ public class Arrows extends Entities {
 			AffineTransform tx = AffineTransform.getRotateInstance(super.angle, A_WIDTH, A_HEIGHT);
 			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 
-			Image arrow = (Image) (op.filter(this.arrow, null)).getScaledInstance(A_WIDTH, A_HEIGHT,
+			Image arrow = (Image) (op.filter(this.arrows[0], null)).getScaledInstance(A_WIDTH, A_HEIGHT,
 					Image.SCALE_SMOOTH);
 
 			graphics.drawImage(arrow, arrowX, arrowY, A_WIDTH, A_HEIGHT, null);
@@ -94,24 +100,26 @@ public class Arrows extends Entities {
 
 	// Local methods
 	private void handleFire() {
-		if (!this.lastAnglePos) {
-			this.lastAngle = super.angle;
-		}
-		if (this.lastXPos) {
-			this.arrowX = this.lastXPos();
-			this.V0 = (super.startX - super.endX) / 10;
-			this.Y0 = (super.startY - super.endY) / 20;
-			this.lastXPos = false;
-		} else {
-			if (this.arrowX < Panel.WIDTH && this.arrowX != 0) {
-				this.arrowX++;
-			} else
-				return;
-		}
-	}
+		double v0x, v0y;
+		v0x = (super.startX - super.endX) / 20;
+		v0y = (super.endY - super.startY) / 20;
 
-	private int lastXPos() {
-		return Panel.WIDTH - (Panel.WIDTH - (int) (super.x + -12 + this.arrowNBowX));
+		if (super.dragged) {
+			this.v0x = v0x;
+			this.v0y = v0y;
+			super.dragged = false;
+		}
+
+		if (this.v0x != 0 && this.v0y != 0) {
+			this.v0y = this.v0y + GRAVITY;
+			this.v0x = this.v0x + 0;
+
+			// Positioning
+			this.arrowX = this.arrowX + this.v0x;
+			this.arrowY = this.arrowY + this.v0y;
+
+			System.out.println("X " + this.arrowX + " " + "Y " + (Panel.HEIGHT - this.arrowY));
+		}
 	}
 
 	private void handleWHAndDirWhenDragged() {

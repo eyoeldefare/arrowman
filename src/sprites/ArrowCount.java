@@ -18,7 +18,6 @@ public class ArrowCount {
 
 	// Constructor
 	public ArrowCount(String path) {
-		this.arrowCount = 7;
 		try {
 			// get the image
 			this.arrow = (Image) ImageIO.read(getClass().getResource(path));

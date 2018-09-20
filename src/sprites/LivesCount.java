@@ -18,7 +18,6 @@ public class LivesCount {
 
 	// Constructor
 	public LivesCount(String path) {
-		this.liveCount = 8;
 		try {
 			// get the image
 			this.live = (Image) ImageIO.read(getClass().getResource(path));
@@ -67,5 +66,9 @@ public class LivesCount {
 
 	public void setDead(boolean dead) {
 		this.dead = dead;
+	}
+
+	public void setLivesCount(int livesCount) {
+		this.liveCount = livesCount;
 	}
 }

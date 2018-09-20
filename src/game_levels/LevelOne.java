@@ -10,6 +10,8 @@ public class LevelOne extends GameLevels {
 	public LevelOne(GameLevelsManager gameLevelManager) {
 		super(gameLevelManager, "/background/bg-1.jpg", "/standalones/d_heart.gif", "/standalones/d_arrow.png");
 		super.setZombieSpeed(-0.5);
+		super.arrowCount.setArrowCount(5);
+		super.livesCount.setLivesCount(5);
 	}
 
 	@Override
@@ -24,7 +26,7 @@ public class LevelOne extends GameLevels {
 	@Override
 	public void update() {
 		super.update();
-		super.gameOver(0, -0.5);
+		super.gameOver(0, -0.5, 5, 5);
 	}
 
 }

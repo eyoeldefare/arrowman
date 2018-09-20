@@ -13,7 +13,7 @@ public abstract class Entities {
 	// props
 	protected double x, y, dx, dy;
 	protected double startX, startY, endX, endY;
-	protected boolean dead, dragging;
+	protected boolean dead, dragging, dragged;
 	protected int lives;
 	protected int collisionWidth, collisionHeight;
 	protected double angle;
@@ -131,4 +131,7 @@ public abstract class Entities {
 		this.okToFire = okToFire;
 	}
 
+	public void setDragged(boolean dragged) {
+		this.dragged = dragged;
+	}
 }

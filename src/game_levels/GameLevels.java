@@ -102,11 +102,12 @@ public abstract class GameLevels {
 			this.arrows.setDragging(false);
 			// already been dragged
 			this.arrowCount.setDragged(true);
-			
-			//After arrows is FIRED
-			//Gets Last X Pos
+			this.arrows.setDragged(true);
+
+			// After arrows is FIRED
+			// Gets Last X Pos
 			this.arrows.setLastAnglePos(true);
-			//Gets Last Angle Pos
+			// Gets Last Angle Pos
 			this.arrows.setLastXPos(true);
 
 		}
@@ -175,22 +176,25 @@ public abstract class GameLevels {
 	}
 
 	// Arrowman must have died - game over
-	protected void gameOver(int setLevel, double zombieSpeed) {
+	protected void gameOver(int setLevel, double zombieSpeed, int arrowCount, int livesCount) {
 		if (this.livesCount.isDead()) {
-
 			this.livesCount = new LivesCount("/standalones/d_heart.gif");
 			this.arrowCount = new ArrowCount("/standalones/d_arrow.png");
-
 			this.arrowMan = new ArrowMan();
-			this.arrowMan.setPosition(0, 282);
 			this.zombie = new Zombie();
+			this.arrows = new Arrows();
+
+			this.arrowCount.setArrowCount(arrowCount);
+			this.livesCount.setLivesCount(livesCount);
+			this.arrowMan.setPosition(0, 282);
 			this.zombie.setPosition(650, 259);
 			this.zombie.setSpeed(zombieSpeed);
 
-			this.gameLevelManager.setLevel(setLevel);
-
 			this.arrows.setOkToFire(true);
 			this.arrowMan.setOkToFire(true);
+
+			this.gameLevelManager.setLevel(setLevel);
+
 		}
 	}
 
