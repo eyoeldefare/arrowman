@@ -6,7 +6,7 @@ public class LevelTwo extends GameLevels {
 
 	// Constructor
 	public LevelTwo(GameLevelsManager gameLevelManager) {
-		super(gameLevelManager, null, null, null);
+		super(gameLevelManager, null, null, null,15);
 	}
 
 	@Override

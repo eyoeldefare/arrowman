@@ -37,7 +37,6 @@ public class LivesCount {
 	}
 
 	public void update() {
-
 		if (this.attacked) {
 			long elapsed = (System.nanoTime() - this.beingAttacked) / 1000000;
 			if (this.beingAttacked != 0 && elapsed > 700) {

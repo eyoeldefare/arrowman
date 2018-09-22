@@ -49,16 +49,9 @@ public class FramesController {
 	}
 
 	// Setters and getters
-	public int getFrame() {
-		return frame;
-	}
 
 	public void setFrame(int frame) {
 		this.frame = frame;
-	}
-
-	public long getDelay() {
-		return delay;
 	}
 
 	public void setDelay(long delay) {

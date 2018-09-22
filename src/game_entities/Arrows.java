@@ -5,8 +5,12 @@ import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
+
+import controllers.ArrowProjectileController;
 
 // Everything we will do here is the same as what we have 
 // done for the zombie class so check that class to see a 
@@ -14,37 +18,48 @@ import javax.imageio.ImageIO;
 
 public class Arrows extends Entities {
 	private static final double GRAVITY = -0.981;
-	private static final int MAX_ARROW = 15;
 	private static int B_WIDTH = 35, B_HEIGHT = 61; // 98*160 ---------- 36 62
 	private static int A_WIDTH = 43, A_HEIGHT = 11; // divided by 1.5 ---------- 41 11
-	private BufferedImage[] arrows;
+
+	private List<BufferedImage> arrows;
 	private BufferedImage bow;
+
 	// You can separate the arrow and bow to get a more accurate looking angles if
 	// you want and
 	// set their values separately.
 	private double arrowNBowX, arrowNBowY;
-	private boolean lastXPos, lastAnglePos;
+
 	private double arrowX, arrowY;
 	private double v0x, v0y;
 
-	public Arrows() {
+	private int arrowCount;
+
+	// controller
+	private ArrowProjectileController arrowProjectileController;
+
+	public Arrows(int arrowCount) {
 		super();
 		super.collisionHeight = A_HEIGHT;
 		super.collisionWidth = A_WIDTH;
 
-		this.arrows = new BufferedImage[MAX_ARROW];
+		this.arrows = new ArrayList<BufferedImage>();
 
+		this.arrowCount = arrowCount;
 		// get the images
 		try {
 			this.bow = ImageIO.read(getClass().getResource("/bow/bow_4" + ".png"));
-
-			for (int i = 0; i < this.arrows.length; i++) {
-				this.arrows[i] = ImageIO.read(getClass().getResource("/arrow/arrow" + ".png"));
+			for (int i = 0; i < this.arrowCount; i++) {
+				this.arrows.add(ImageIO.read(getClass().getResource("/arrow/arrow" + ".png")));
 			}
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+
+		// controller instance
+		this.arrowProjectileController = new ArrowProjectileController();
+		this.arrowProjectileController.setArrows(this.arrows);
+
 	}
 
 	@Override
@@ -81,8 +96,8 @@ public class Arrows extends Entities {
 			AffineTransform tx = AffineTransform.getRotateInstance(super.angle, A_WIDTH, A_HEIGHT);
 			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 
-			Image arrow = (Image) (op.filter(this.arrows[0], null)).getScaledInstance(A_WIDTH, A_HEIGHT,
-					Image.SCALE_SMOOTH);
+			Image arrow = (Image) (op.filter(this.arrowProjectileController.getArrow(), null))
+					.getScaledInstance(A_WIDTH, A_HEIGHT, Image.SCALE_SMOOTH);
 
 			graphics.drawImage(arrow, arrowX, arrowY, A_WIDTH, A_HEIGHT, null);
 
@@ -94,29 +109,32 @@ public class Arrows extends Entities {
 	public void update() {
 		this.handleWHAndDirWhenDragged();
 		this.handleFire();
+		this.arrowProjectileController.setDelay(700);
+		this.arrowProjectileController.update();
 	}
 
 	// Local methods
 	private void handleFire() {
-		double v0x, v0y;
-		v0x = (super.startX - super.endX) / 10;
-		v0y = (super.endY - super.startY) / 10;
+		double v0x = (super.startX - super.endX);
+		double v0y = (super.endY - super.startY);
 
 		if (super.dragged) {
-			this.v0x = v0x;
-			this.v0y = v0y;
+			this.v0x = v0x * .11;
+			this.v0y = v0y * .11;
 			super.dragged = false;
 		}
 
 		if (this.v0x != 0 && this.v0y != 0) {
+			if (this.v0y > 40)
+				this.v0y = 40;
+			if (this.v0x > 40)
+				this.v0x = 40;
+
 			this.v0y = this.v0y + GRAVITY;
-			this.v0x = this.v0x + 0;
 
 			// Positioning
 			this.arrowX = this.arrowX + this.v0x;
 			this.arrowY = this.arrowY + this.v0y;
-
-			System.out.println("X " + this.arrowX + " " + "Y " + (super.y - this.arrowY));
 		}
 	}
 
@@ -285,21 +303,7 @@ public class Arrows extends Entities {
 	}
 
 	// Setters and getters
-
-	public boolean isLastXPos() {
-		return lastXPos;
+	public void setReleased(boolean released) {
+		this.arrowProjectileController.arrowReleased(released);
 	}
-
-	public void setLastXPos(boolean lastXPos) {
-		this.lastXPos = lastXPos;
-	}
-
-	public boolean isLastAnglePos() {
-		return lastAnglePos;
-	}
-
-	public void setLastAnglePos(boolean lastAnglePos) {
-		this.lastAnglePos = lastAnglePos;
-	}
-
 }

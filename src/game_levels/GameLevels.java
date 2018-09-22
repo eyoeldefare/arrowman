@@ -34,7 +34,7 @@ public abstract class GameLevels {
 	protected Line2D ground3;
 	protected Line2D ground4;
 
-	protected GameLevels(GameLevelsManager gameLevelManager, String bg, String lc, String ac) {
+	protected GameLevels(GameLevelsManager gameLevelManager, String bg, String lc, String ac, int arrowCount) {
 
 		this.gameLevelManager = gameLevelManager;
 
@@ -54,7 +54,8 @@ public abstract class GameLevels {
 		this.zombie.setPosition(650, 259);
 
 		// bow and arrow
-		this.arrows = new Arrows();
+		this.arrows = new Arrows(arrowCount);
+
 	}
 
 	// abstracts
@@ -92,6 +93,8 @@ public abstract class GameLevels {
 
 			this.arrows.setStartX(coordinates.getX());
 			this.arrows.setStartY(coordinates.getY());
+			this.arrows.setReleased(false);
+
 		}
 	}
 
@@ -103,12 +106,7 @@ public abstract class GameLevels {
 			// already been dragged
 			this.arrowCount.setDragged(true);
 			this.arrows.setDragged(true);
-
-			// After arrows is FIRED
-			// Gets Last X Pos
-			this.arrows.setLastAnglePos(true);
-			// Gets Last Angle Pos
-			this.arrows.setLastXPos(true);
+			this.arrows.setReleased(true);
 
 		}
 	}
@@ -120,6 +118,8 @@ public abstract class GameLevels {
 
 			this.arrows.setEndX(coordinates.getX());
 			this.arrows.setEndY(coordinates.getY());
+
+			this.arrows.setReleased(false);
 		}
 	}
 
@@ -182,7 +182,7 @@ public abstract class GameLevels {
 			this.arrowCount = new ArrowCount("/standalones/d_arrow.png");
 			this.arrowMan = new ArrowMan();
 			this.zombie = new Zombie();
-			this.arrows = new Arrows();
+			this.arrows = new Arrows(arrowCount);
 
 			this.arrowCount.setArrowCount(arrowCount);
 			this.livesCount.setLivesCount(livesCount);
