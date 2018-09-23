@@ -37,6 +37,10 @@ public class Arrows extends Entities {
 	// controller
 	private ArrowProjectileController arrowProjectileController;
 
+	public Arrows() {
+
+	}
+
 	public Arrows(int arrowCount) {
 		super();
 		super.collisionHeight = A_HEIGHT;
@@ -92,17 +96,17 @@ public class Arrows extends Entities {
 		int arrowX = (int) (super.x + this.arrowNBowX + this.arrowX - 14);
 		int arrowY = (int) (super.y - this.arrowY + this.arrowNBowX + 30);
 
-		if (super.okToFire) {
+		if (!this.arrowProjectileController.isOutOfEmmo()) {
+
+			System.out.println(this.arrowProjectileController.getArrows().size());
+			System.out.println(this.arrowProjectileController.index);
+
 			AffineTransform tx = AffineTransform.getRotateInstance(super.angle, A_WIDTH, A_HEIGHT);
 			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
-
 			Image arrow = (Image) (op.filter(this.arrowProjectileController.getArrow(), null))
 					.getScaledInstance(A_WIDTH, A_HEIGHT, Image.SCALE_SMOOTH);
-
 			graphics.drawImage(arrow, arrowX, arrowY, A_WIDTH, A_HEIGHT, null);
-
 		}
-
 	}
 
 	@Override
@@ -111,6 +115,13 @@ public class Arrows extends Entities {
 		this.handleFire();
 		this.arrowProjectileController.setDelay(700);
 		this.arrowProjectileController.update();
+
+		if (this.arrowProjectileController.isArrowKeeper()) {
+			this.arrowX = 0.0;
+			this.arrowY = 0.0;
+		}
+
+		// Model of the local method to be implemented in the method
 	}
 
 	// Local methods
@@ -303,7 +314,12 @@ public class Arrows extends Entities {
 	}
 
 	// Setters and getters
-	public void setReleased(boolean released) {
+	public void setArrowReleasedC(boolean released) {
 		this.arrowProjectileController.arrowReleased(released);
 	}
+
+	public void setArrowDraggedC(boolean dragged) {
+		this.arrowProjectileController.arrowDragged(dragged);
+	}
+
 }

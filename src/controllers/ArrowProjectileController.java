@@ -6,10 +6,10 @@ import java.util.List;
 public class ArrowProjectileController {
 
 	private List<BufferedImage> arrows;
-	private int index;
+	public int index;
 	private long startTime;
 	private long delay;
-	private boolean thrownAlready;
+	private boolean thrownAlready, dragged, outOfEmmo, arrowKeeper;
 
 	// Controller
 	public ArrowProjectileController() {
@@ -19,17 +19,29 @@ public class ArrowProjectileController {
 		this.arrows = arrows;
 		this.index = 0;
 		this.thrownAlready = false;
+		this.outOfEmmo = false;
 	}
 
 	// updating
 	public void update() {
+		this.arrowKeeper = false;
 		long elapsed = (System.nanoTime() - this.startTime) / 1000000;
 
-		if (this.thrownAlready) {
+		if (this.dragged && !this.outOfEmmo) {
+			if (this.thrownAlready) {
+				this.arrows.remove(this.index);
+				this.thrownAlready = false;
+				this.arrowKeeper = true;
+			}
+
 			if (elapsed > this.delay) {
 				// here will will give the arrow man a new arrow after 700 ms after his las
 				// arrow shoot
+				this.dragged = false;
 
+			}
+			if (this.arrows.isEmpty()) {
+				this.outOfEmmo = true;
 			}
 		}
 
@@ -44,10 +56,6 @@ public class ArrowProjectileController {
 		this.arrows = arrows;
 	}
 
-	public long getDelay() {
-		return delay;
-	}
-
 	public void setDelay(long delay) {
 		this.delay = delay;
 	}
@@ -60,13 +68,26 @@ public class ArrowProjectileController {
 		return this.arrows.get(this.index);
 	}
 
-	public long getStartTime() {
-		return startTime;
-	}
-
 	public void arrowReleased(boolean released) {
 		this.startTime = System.nanoTime();
 		this.thrownAlready = released;
+	}
+
+	public void arrowDragged(boolean dragged) {
+		this.startTime = System.nanoTime();
+		this.dragged = dragged;
+	}
+
+	public boolean isArrowKeeper() {
+		return arrowKeeper;
+	}
+
+	public boolean isThrownAlready() {
+		return thrownAlready;
+	}
+
+	public boolean isOutOfEmmo() {
+		return outOfEmmo;
 	}
 
 }

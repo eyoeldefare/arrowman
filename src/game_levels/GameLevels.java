@@ -93,7 +93,6 @@ public abstract class GameLevels {
 
 			this.arrows.setStartX(coordinates.getX());
 			this.arrows.setStartY(coordinates.getY());
-			this.arrows.setReleased(false);
 
 		}
 	}
@@ -106,7 +105,8 @@ public abstract class GameLevels {
 			// already been dragged
 			this.arrowCount.setDragged(true);
 			this.arrows.setDragged(true);
-			this.arrows.setReleased(true);
+			this.arrows.setArrowReleasedC(true);
+			this.arrows.setArrowDraggedC(true);
 
 		}
 	}
@@ -118,8 +118,6 @@ public abstract class GameLevels {
 
 			this.arrows.setEndX(coordinates.getX());
 			this.arrows.setEndY(coordinates.getY());
-
-			this.arrows.setReleased(false);
 		}
 	}
 
