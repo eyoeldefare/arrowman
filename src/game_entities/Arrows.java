@@ -39,8 +39,8 @@ public class Arrows extends Entities {
 	// controller
 	private ArrowProjectileController arrowProjectileController;
 
+	// Controllers
 	public Arrows() {
-
 	}
 
 	public Arrows(int arrowCount) {
@@ -53,20 +53,21 @@ public class Arrows extends Entities {
 		this.arrowCount = arrowCount;
 		// get the images
 		try {
+
 			this.bow = ImageIO.read(getClass().getResource("/bow/bow_4" + ".png"));
 			for (int i = 0; i < this.arrowCount; i++) {
 				this.arrows.add(ImageIO.read(getClass().getResource("/arrow/arrow" + ".png")));
 			}
 
+			// controller instance
+			this.arrowProjectileController = new ArrowProjectileController();
+			this.arrowProjectileController.setArrows(this.arrows);
+			this.arrowCountInstance = new ArrowCount("/standalones/d_arrow.png", this.arrowProjectileController);
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 
-		// controller instance
-		this.arrowProjectileController = new ArrowProjectileController();
-		this.arrowProjectileController.setArrows(this.arrows);
-
-		this.arrowCountInstance = new ArrowCount("/standalones/d_arrow.png", this.arrowProjectileController);
 	}
 
 	@Override
@@ -121,22 +122,33 @@ public class Arrows extends Entities {
 
 	// Local methods
 	private void handleFire() {
+		// These will serve as our initial velocity
+		/*
+		 * Note that the initial velocity is activated when dragging occurs, otherwise
+		 * they amount to zero.
+		 */
 		double v0x = (super.startX - super.endX);
 		double v0y = (super.endY - super.startY);
 
 		if (this.arrowX == 0 & this.arrowY == 0)
 			if (super.dragged) {
+				// Reduced the speed by 79%, you can increase the below multipe to get a faster
+				// arrow speed when playing;
 				this.v0x = v0x * .11;
 				this.v0y = v0y * .11;
 				super.dragged = false;
 			}
 
 		if (this.v0x != 0 && this.v0y != 0) {
+			// Limit the speed not to surpass 40 ----> max=40
 			super.dragged = false;
 			if (this.v0y > 40)
 				this.v0y = 40;
 			if (this.v0x > 40)
 				this.v0x = 40;
+
+			// Gravity will always be active on the arrow while there will be no horizontal
+			// acceleration and the horizontal velocity will be constant
 
 			this.v0y = this.v0y + GRAVITY;
 
@@ -144,9 +156,10 @@ public class Arrows extends Entities {
 
 			this.arrowX = this.arrowX + this.v0x;
 			this.arrowY = this.arrowY + this.v0y;
-
+			super.dragged = false;
 		}
 
+		// Reset the velocity and the position to 0
 		if (this.arrowProjectileController.isResetCoordinates() == true) {
 			this.v0x = 0;
 			this.v0y = 0;
@@ -321,7 +334,6 @@ public class Arrows extends Entities {
 	}
 
 	// Setter and getters
-
 	public void setControllerReleased(boolean released) {
 		this.arrowProjectileController.setReleased(released);
 	}

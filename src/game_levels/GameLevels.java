@@ -32,7 +32,7 @@ public abstract class GameLevels {
 	protected Line2D ground3;
 	protected Line2D ground4;
 
-	protected GameLevels(GameLevelsManager gameLevelManager, String bg, String lc, String ac, int arrowCount) {
+	protected GameLevels(GameLevelsManager gameLevelManager, String bg, String lc, int arrowCount) {
 
 		this.gameLevelManager = gameLevelManager;
 
@@ -81,15 +81,14 @@ public abstract class GameLevels {
 	// Mouse Events
 	public void mousePressed(int mouse, Point coordinates) {
 		if (mouse == MouseEvent.MOUSE_PRESSED) {
+			
 			this.arrowMan.setDragging(true);
-			this.arrows.setDragging(true);
-
 			this.arrowMan.setStartX(coordinates.getX());
 			this.arrowMan.setStartY(coordinates.getY());
 
 			this.arrows.setStartX(coordinates.getX());
 			this.arrows.setStartY(coordinates.getY());
-
+			this.arrows.setDragging(true);
 		}
 	}
 
@@ -100,8 +99,7 @@ public abstract class GameLevels {
 			this.arrows.setDragging(false);
 			// already been dragged
 			this.arrows.setDragged(true);
-			
-			//Controller
+			// Controller
 			this.arrows.setControllerReleased(true);
 
 		}
@@ -124,7 +122,6 @@ public abstract class GameLevels {
 		this.arrowMan.draw(graphics);
 		this.arrows.draw(graphics);
 		this.zombie.draw(graphics);
-
 		this.livesCount.draw(graphics);
 
 	}
@@ -157,28 +154,26 @@ public abstract class GameLevels {
 		// Bow and arrows stuff
 		this.arrows.setX(this.arrowMan.getX() + 30);
 		this.arrows.setY(this.arrowMan.getY() + 17);
-
-		// check if player is out of emo
-		
-
 	}
 
 	// Arrowman must have died - game over
 	protected void gameOver(int setLevel, double zombieSpeed, int arrowCount, int livesCount) {
 		if (this.livesCount.isDead()) {
-			this.livesCount = new LivesCount("/standalones/d_heart.gif");
-			this.arrowMan = new ArrowMan();
-			this.zombie = new Zombie();
-			this.arrows = new Arrows(arrowCount);
+			try {
+				this.livesCount = new LivesCount("/standalones/d_heart.gif");
+				this.arrowMan = new ArrowMan();
+				this.zombie = new Zombie();
+				this.arrows = new Arrows(arrowCount);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
 
 			this.livesCount.setLivesCount(livesCount);
 			this.arrowMan.setPosition(0, 282);
 			this.zombie.setPosition(650, 259);
 			this.zombie.setSpeed(zombieSpeed);
-
 			this.arrows.setOkToFire(true);
 			this.arrowMan.setOkToFire(true);
-
 			this.gameLevelManager.setLevel(setLevel);
 
 		}
@@ -230,6 +225,7 @@ public abstract class GameLevels {
 	protected void zombieXArrowman() {
 		Rectangle rArrowman = this.arrowMan.createRect();
 		Rectangle rZombie = this.zombie.createRect();
+		
 		if (rArrowman.intersects(rZombie)) {
 			this.zombie.setAction(Actions.ATTACKING);
 		} else {
