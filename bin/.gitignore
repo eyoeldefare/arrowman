@@ -1,4 +1,12 @@
+/.project
+/arrow/
+/background/
+/bow/
 /controllers/
+/entry/
 /game_entities/
 /game_levels/
+/player/
 /sprites/
+/standalones/
+/zombies/

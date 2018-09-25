@@ -9,7 +9,7 @@ public class ArrowProjectileController {
 	public int index;
 	private long startTime;
 	private long delay;
-	private boolean thrownAlready, dragged, outOfEmmo, arrowKeeper;
+	private boolean released, resetCoordinates;
 
 	// Controller
 	public ArrowProjectileController() {
@@ -18,30 +18,20 @@ public class ArrowProjectileController {
 	public void setArrowsImage(List<BufferedImage> arrows) {
 		this.arrows = arrows;
 		this.index = 0;
-		this.thrownAlready = false;
-		this.outOfEmmo = false;
 	}
 
 	// updating
 	public void update() {
-		this.arrowKeeper = false;
+		this.resetCoordinates = false;
 		long elapsed = (System.nanoTime() - this.startTime) / 1000000;
-
-		if (this.dragged && !this.outOfEmmo) {
-			if (this.thrownAlready) {
-				this.arrows.remove(this.index);
-				this.thrownAlready = false;
-				this.arrowKeeper = true;
-			}
-
+		if (this.startTime != 0) {
+//			System.out.println(elapsed);
+//			System.out.println(this.arrows.size());
+//			System.out.println(released);
 			if (elapsed > this.delay) {
-				// here will will give the arrow man a new arrow after 700 ms after his las
-				// arrow shoot
-				this.dragged = false;
-
-			}
-			if (this.arrows.isEmpty()) {
-				this.outOfEmmo = true;
+				this.arrows.remove(index);
+				this.startTime = 0l;
+				this.resetCoordinates = true;
 			}
 		}
 
@@ -60,34 +50,26 @@ public class ArrowProjectileController {
 		this.delay = delay;
 	}
 
-	public void setThrownAlready(boolean thrownAlready) {
-		this.thrownAlready = thrownAlready;
-	}
-
 	public BufferedImage getArrow() {
 		return this.arrows.get(this.index);
 	}
 
-	public void arrowReleased(boolean released) {
+	// Conditions
+	public boolean isReleased() {
+		return released;
+	}
+
+	public void setReleased(boolean released) {
 		this.startTime = System.nanoTime();
-		this.thrownAlready = released;
+		this.released = released;
 	}
 
-	public void arrowDragged(boolean dragged) {
-		this.startTime = System.nanoTime();
-		this.dragged = dragged;
+	public boolean isResetCoordinates() {
+		return resetCoordinates;
 	}
 
-	public boolean isArrowKeeper() {
-		return arrowKeeper;
-	}
-
-	public boolean isThrownAlready() {
-		return thrownAlready;
-	}
-
-	public boolean isOutOfEmmo() {
-		return outOfEmmo;
+	public void setResetCoordinates(boolean resetCoordinates) {
+		this.resetCoordinates = resetCoordinates;
 	}
 
 }

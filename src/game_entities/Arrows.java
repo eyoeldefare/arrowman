@@ -96,10 +96,7 @@ public class Arrows extends Entities {
 		int arrowX = (int) (super.x + this.arrowNBowX + this.arrowX - 14);
 		int arrowY = (int) (super.y - this.arrowY + this.arrowNBowX + 30);
 
-		if (!this.arrowProjectileController.isOutOfEmmo()) {
-
-			System.out.println(this.arrowProjectileController.getArrows().size());
-			System.out.println(this.arrowProjectileController.index);
+		if (true) {
 
 			AffineTransform tx = AffineTransform.getRotateInstance(super.angle, A_WIDTH, A_HEIGHT);
 			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
@@ -115,13 +112,6 @@ public class Arrows extends Entities {
 		this.handleFire();
 		this.arrowProjectileController.setDelay(700);
 		this.arrowProjectileController.update();
-
-		if (this.arrowProjectileController.isArrowKeeper()) {
-			this.arrowX = 0.0;
-			this.arrowY = 0.0;
-		}
-
-		// Model of the local method to be implemented in the method
 	}
 
 	// Local methods
@@ -129,13 +119,16 @@ public class Arrows extends Entities {
 		double v0x = (super.startX - super.endX);
 		double v0y = (super.endY - super.startY);
 
-		if (super.dragged) {
-			this.v0x = v0x * .11;
-			this.v0y = v0y * .11;
-			super.dragged = false;
-		}
+		if (this.v0x == 0 & this.v0y == 0)
+			if (super.dragged) {
+				this.v0x = v0x * .11;
+				this.v0y = v0y * .11;
+				super.dragged = false;
+			}
 
 		if (this.v0x != 0 && this.v0y != 0) {
+			super.dragged = false;
+
 			if (this.v0y > 40)
 				this.v0y = 40;
 			if (this.v0x > 40)
@@ -144,9 +137,19 @@ public class Arrows extends Entities {
 			this.v0y = this.v0y + GRAVITY;
 
 			// Positioning
+
 			this.arrowX = this.arrowX + this.v0x;
 			this.arrowY = this.arrowY + this.v0y;
+
 		}
+
+		if (this.arrowProjectileController.isResetCoordinates() == true) {
+			this.v0x = 0;
+			this.v0y = 0;
+			this.arrowX = 0;
+			this.arrowY = 0;
+		}
+
 	}
 
 	private void handleWHAndDirWhenDragged() {
@@ -313,13 +316,9 @@ public class Arrows extends Entities {
 
 	}
 
-	// Setters and getters
-	public void setArrowReleasedC(boolean released) {
-		this.arrowProjectileController.arrowReleased(released);
-	}
+	// Setter and getters
 
-	public void setArrowDraggedC(boolean dragged) {
-		this.arrowProjectileController.arrowDragged(dragged);
+	public void setControllerReleased(boolean released) {
+		this.arrowProjectileController.setReleased(released);
 	}
-
 }

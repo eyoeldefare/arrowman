@@ -105,8 +105,9 @@ public abstract class GameLevels {
 			// already been dragged
 			this.arrowCount.setDragged(true);
 			this.arrows.setDragged(true);
-			this.arrows.setArrowReleasedC(true);
-			this.arrows.setArrowDraggedC(true);
+			
+			//Controller
+			this.arrows.setControllerReleased(true);
 
 		}
 	}
