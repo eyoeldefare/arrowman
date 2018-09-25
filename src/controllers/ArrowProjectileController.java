@@ -9,7 +9,7 @@ public class ArrowProjectileController {
 	public int index;
 	private long startTime;
 	private long delay;
-	private boolean released, resetCoordinates;
+	private boolean resetCoordinates;
 
 	// Controller
 	public ArrowProjectileController() {
@@ -25,11 +25,9 @@ public class ArrowProjectileController {
 		this.resetCoordinates = false;
 		long elapsed = (System.nanoTime() - this.startTime) / 1000000;
 		if (this.startTime != 0) {
-//			System.out.println(elapsed);
-//			System.out.println(this.arrows.size());
-//			System.out.println(released);
 			if (elapsed > this.delay) {
-				this.arrows.remove(index);
+				if (!this.arrows.isEmpty())
+					this.arrows.remove(index);
 				this.startTime = 0l;
 				this.resetCoordinates = true;
 			}
@@ -55,13 +53,9 @@ public class ArrowProjectileController {
 	}
 
 	// Conditions
-	public boolean isReleased() {
-		return released;
-	}
 
 	public void setReleased(boolean released) {
 		this.startTime = System.nanoTime();
-		this.released = released;
 	}
 
 	public boolean isResetCoordinates() {

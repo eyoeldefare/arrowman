@@ -11,6 +11,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import controllers.ArrowProjectileController;
+import sprites.ArrowCount;
 
 // Everything we will do here is the same as what we have 
 // done for the zombie class so check that class to see a 
@@ -33,6 +34,7 @@ public class Arrows extends Entities {
 	private double v0x, v0y;
 
 	private int arrowCount;
+	private ArrowCount arrowCountInstance;
 
 	// controller
 	private ArrowProjectileController arrowProjectileController;
@@ -64,6 +66,7 @@ public class Arrows extends Entities {
 		this.arrowProjectileController = new ArrowProjectileController();
 		this.arrowProjectileController.setArrows(this.arrows);
 
+		this.arrowCountInstance = new ArrowCount("/standalones/d_arrow.png", this.arrowProjectileController);
 	}
 
 	@Override
@@ -74,6 +77,7 @@ public class Arrows extends Entities {
 	public void draw(Graphics2D graphics) {
 		this.drawBow(graphics);
 		this.drawArrow(graphics);
+		this.arrowCountInstance.draw(graphics);
 	}
 
 	// Local bow and arrow drawing
@@ -96,7 +100,7 @@ public class Arrows extends Entities {
 		int arrowX = (int) (super.x + this.arrowNBowX + this.arrowX - 14);
 		int arrowY = (int) (super.y - this.arrowY + this.arrowNBowX + 30);
 
-		if (true) {
+		if (!this.arrowProjectileController.getArrows().isEmpty()) {
 
 			AffineTransform tx = AffineTransform.getRotateInstance(super.angle, A_WIDTH, A_HEIGHT);
 			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
@@ -110,8 +114,9 @@ public class Arrows extends Entities {
 	public void update() {
 		this.handleWHAndDirWhenDragged();
 		this.handleFire();
-		this.arrowProjectileController.setDelay(700);
+		this.arrowProjectileController.setDelay(800);
 		this.arrowProjectileController.update();
+		this.arrowCountInstance.update();
 	}
 
 	// Local methods
@@ -119,7 +124,7 @@ public class Arrows extends Entities {
 		double v0x = (super.startX - super.endX);
 		double v0y = (super.endY - super.startY);
 
-		if (this.v0x == 0 & this.v0y == 0)
+		if (this.arrowX == 0 & this.arrowY == 0)
 			if (super.dragged) {
 				this.v0x = v0x * .11;
 				this.v0y = v0y * .11;
@@ -128,7 +133,6 @@ public class Arrows extends Entities {
 
 		if (this.v0x != 0 && this.v0y != 0) {
 			super.dragged = false;
-
 			if (this.v0y > 40)
 				this.v0y = 40;
 			if (this.v0x > 40)

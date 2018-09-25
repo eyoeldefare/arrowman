@@ -2,22 +2,25 @@ package sprites;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+
 import javax.imageio.ImageIO;
 
+import controllers.ArrowProjectileController;
 import entry.Panel;
+import game_entities.ArrowMan;
 
 public class ArrowCount {
 
 	private Image arrow;
-	private int arrowCount;
 	private boolean dragged;
 	private final static int HEIGHT = 30, WIDTH = 10;
-
+	private int arrowCount;
+	private ArrowProjectileController apc;
 	// Coordinates
 	private double y;
 
 	// Constructor
-	public ArrowCount(String path) {
+	public ArrowCount(String path, ArrowProjectileController apc) {
 		try {
 			// get the image
 			this.arrow = (Image) ImageIO.read(getClass().getResource(path));
@@ -26,11 +29,13 @@ public class ArrowCount {
 
 			ex.printStackTrace();
 		}
+		this.apc = apc;
 	}
 
 	public void draw(Graphics2D graphics) {
 		// We are drawing the image at (0,0)
-		for (int i = 0; i < this.arrowCount; i++) {
+		System.out.println("dd " + this.apc.getArrows().size());
+		for (int i = 0; i < this.apc.getArrows().size(); i++) {
 			graphics.drawImage(this.arrow, (int) Panel.WIDTH - WIDTH - i * 20, (int) this.y, null);
 		}
 	}

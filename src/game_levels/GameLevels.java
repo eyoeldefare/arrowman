@@ -11,7 +11,6 @@ import game_entities.Actions;
 import game_entities.ArrowMan;
 import game_entities.Arrows;
 import game_entities.Zombie;
-import sprites.ArrowCount;
 import sprites.Background;
 import sprites.Ground;
 import sprites.LivesCount;
@@ -24,7 +23,6 @@ public abstract class GameLevels {
 	protected Background background;
 	protected Ground drawer;
 	protected LivesCount livesCount;
-	protected ArrowCount arrowCount;
 	protected GameLevelsManager gameLevelManager;
 	protected Arrows arrows;
 
@@ -42,8 +40,6 @@ public abstract class GameLevels {
 			this.background = new Background(bg);
 		if (lc != null)
 			this.livesCount = new LivesCount(lc);
-		if (ac != null)
-			this.arrowCount = new ArrowCount(ac);
 
 		this.drawer = new Ground();
 
@@ -103,7 +99,6 @@ public abstract class GameLevels {
 			this.arrowMan.setDragging(false);
 			this.arrows.setDragging(false);
 			// already been dragged
-			this.arrowCount.setDragged(true);
 			this.arrows.setDragged(true);
 			
 			//Controller
@@ -130,7 +125,6 @@ public abstract class GameLevels {
 		this.arrows.draw(graphics);
 		this.zombie.draw(graphics);
 
-		this.arrowCount.draw(graphics);
 		this.livesCount.draw(graphics);
 
 	}
@@ -150,7 +144,6 @@ public abstract class GameLevels {
 		this.arrowMan.update();
 		this.zombie.update();
 		this.livesCount.update();
-		this.arrowCount.update();
 		this.arrows.update();
 
 		// Collisions
@@ -166,11 +159,7 @@ public abstract class GameLevels {
 		this.arrows.setY(this.arrowMan.getY() + 17);
 
 		// check if player is out of emo
-		if (this.arrowCount.getArrowCount() == 0) {
-			// Todo
-			this.arrows.setOkToFire(false);
-			this.arrowMan.setOkToFire(false);
-		}
+		
 
 	}
 
@@ -178,12 +167,10 @@ public abstract class GameLevels {
 	protected void gameOver(int setLevel, double zombieSpeed, int arrowCount, int livesCount) {
 		if (this.livesCount.isDead()) {
 			this.livesCount = new LivesCount("/standalones/d_heart.gif");
-			this.arrowCount = new ArrowCount("/standalones/d_arrow.png");
 			this.arrowMan = new ArrowMan();
 			this.zombie = new Zombie();
 			this.arrows = new Arrows(arrowCount);
 
-			this.arrowCount.setArrowCount(arrowCount);
 			this.livesCount.setLivesCount(livesCount);
 			this.arrowMan.setPosition(0, 282);
 			this.zombie.setPosition(650, 259);
