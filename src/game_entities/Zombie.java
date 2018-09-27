@@ -132,6 +132,10 @@ public class Zombie extends Entities {
 			this.action = Actions.WALKING;
 		}
 
+		if (this.action == Actions.DYING) {
+			
+
+		}
 		// Update the frames
 		this.frameController.update();
 

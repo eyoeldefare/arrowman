@@ -58,6 +58,13 @@ public abstract class Entities {
 		return new Rectangle((int) this.x, (int) this.y, this.collisionWidth, this.collisionHeight);
 	}
 
+	// This createRect is made so we can visualize the white lines surrounding the
+	// arrow
+
+	public Rectangle createRect(int x, int y) {
+		return new Rectangle(x, y, this.collisionWidth, this.collisionHeight);
+	}
+
 	protected void getAngle() {
 		// Trying to calculate the angle using the values from dragging
 		// Formula we will implement is:

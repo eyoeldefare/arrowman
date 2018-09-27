@@ -81,10 +81,10 @@ public abstract class GameLevels {
 	// Mouse Events
 	public void mousePressed(int mouse, Point coordinates) {
 		if (mouse == MouseEvent.MOUSE_PRESSED) {
-			
-			this.arrowMan.setDragging(true);
+
 			this.arrowMan.setStartX(coordinates.getX());
 			this.arrowMan.setStartY(coordinates.getY());
+			this.arrowMan.setDragging(true);
 
 			this.arrows.setStartX(coordinates.getX());
 			this.arrows.setStartY(coordinates.getY());
@@ -147,6 +147,7 @@ public abstract class GameLevels {
 		this.arrowmanXGround();
 		this.zombieXGround();
 		this.zombieXArrowman();
+		this.zombieXArrow();
 
 		// Arrowman shall not pass
 		this.playerShallNotPass();
@@ -225,12 +226,28 @@ public abstract class GameLevels {
 	protected void zombieXArrowman() {
 		Rectangle rArrowman = this.arrowMan.createRect();
 		Rectangle rZombie = this.zombie.createRect();
-		
+
 		if (rArrowman.intersects(rZombie)) {
 			this.zombie.setAction(Actions.ATTACKING);
 		} else {
 			this.arrowMan.setBeingAttacked();
 			this.livesCount.setAttacked(true);
+		}
+	}
+
+	// arrowman and the zombie made interaction
+
+	protected void zombieXArrow() {
+		// Create a rect for both the zombie and arrow
+		Rectangle rZombie = this.zombie.createRect();
+		Rectangle rArrow = this.arrows.createRect(this.arrows.getArrowX(), this.arrows.getArrowY());
+
+		if (rArrow.intersects(rZombie)) {
+
+			/*
+			 * kill the zombie
+			 */
+			this.zombie.setAction(Actions.DYING);
 		}
 	}
 

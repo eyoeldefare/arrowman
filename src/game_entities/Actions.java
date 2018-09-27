@@ -6,7 +6,7 @@ package game_entities;
 // want
 public enum Actions {
 
-	APPEARING(0), WALKING(1), ATTACKING(2), DYING(3);
+	APPEARING(0), WALKING(1), ATTACKING(2), DYING(3), NONE(4);
 	private final int action;
 
 	Actions(int action) {

@@ -36,6 +36,7 @@ public class Arrows extends Entities {
 	private int arrowCount;
 	private ArrowCount arrowCountInstance;
 
+	private int X, Y;
 	// controller
 	private ArrowProjectileController arrowProjectileController;
 
@@ -78,6 +79,7 @@ public class Arrows extends Entities {
 	public void draw(Graphics2D graphics) {
 		this.drawBow(graphics);
 		this.drawArrow(graphics);
+
 		this.arrowCountInstance.draw(graphics);
 	}
 
@@ -98,8 +100,8 @@ public class Arrows extends Entities {
 
 	private void drawArrow(Graphics2D graphics) {
 
-		int arrowX = (int) (super.x + this.arrowNBowX + this.arrowX - 14);
-		int arrowY = (int) (super.y - this.arrowY + this.arrowNBowX + 30);
+		this.X = (int) (super.x + this.arrowNBowX + this.arrowX - 14);
+		this.Y = (int) (super.y - this.arrowY + this.arrowNBowX + 30);
 
 		if (!this.arrowProjectileController.getArrows().isEmpty()) {
 
@@ -107,7 +109,9 @@ public class Arrows extends Entities {
 			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 			Image arrow = (Image) (op.filter(this.arrowProjectileController.getArrow(), null))
 					.getScaledInstance(A_WIDTH, A_HEIGHT, Image.SCALE_SMOOTH);
-			graphics.drawImage(arrow, arrowX, arrowY, A_WIDTH, A_HEIGHT, null);
+			graphics.drawImage(arrow, this.X, this.Y, A_WIDTH, A_HEIGHT, null);
+
+			graphics.draw(super.createRect(this.X, this.Y));
 		}
 	}
 
@@ -166,7 +170,6 @@ public class Arrows extends Entities {
 			this.arrowX = 0;
 			this.arrowY = 0;
 		}
-
 	}
 
 	private void handleWHAndDirWhenDragged() {
@@ -336,5 +339,21 @@ public class Arrows extends Entities {
 	// Setter and getters
 	public void setControllerReleased(boolean released) {
 		this.arrowProjectileController.setReleased(released);
+	}
+
+	public int getArrowX() {
+		return X;
+	}
+
+	public int getArrowY() {
+		return Y;
+	}
+
+	public void setArrowX(int X) {
+		this.X = X;
+	}
+
+	public void setArrowY(int Y) {
+		this.Y = Y;
 	}
 }

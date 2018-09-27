@@ -30,7 +30,7 @@ public class Ground {
 
 	public void draw(Graphics2D graphics) {
 
-		graphics.setColor(this.cLine);
+		graphics.setColor(Color.WHITE);
 		graphics.draw(line1);
 		graphics.draw(line2);
 		graphics.draw(line3);
