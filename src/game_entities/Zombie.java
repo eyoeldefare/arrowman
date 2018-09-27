@@ -124,16 +124,30 @@ public class Zombie extends Entities {
 			if (this.frameController.getPlayedAlready() == false) {
 				this.frameController.setFrames(this.zombieFrames[Actions.ATTACKING.value()]);
 				this.frameController.setDelay(100);
+				// Helps to repeat the attacking movement creating the effect of always
+				// attacking when the zombie is near the player
+				this.frameController.setFrame(this.frameController.getFrames().length);
+
+			}
+			// if its played already, just make the zombie move toward the player
+			if (this.frameController.getPlayedAlready())
+				this.action = Actions.WALKING;
+		}
+
+		if (this.action == Actions.DYING) {
+			if (this.frameController.getPlayedAlready() == false) {
+				this.frameController.setFrames(this.zombieFrames[Actions.DYING.value()]);
+				this.frameController.setDelay(100);
 
 				this.frameController.setFrame(this.frameController.getFrames().length);
 
 			}
+			if (this.frameController.getPlayedAlready()) {
 
-			this.action = Actions.WALKING;
-		}
-
-		if (this.action == Actions.DYING) {
-			
+				// here we will make the zombie disappear and bring in a new zombie then the
+				// cycle continues
+				
+			}
 
 		}
 		// Update the frames

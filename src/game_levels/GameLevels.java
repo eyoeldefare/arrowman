@@ -241,8 +241,11 @@ public abstract class GameLevels {
 		// Create a rect for both the zombie and arrow
 		Rectangle rZombie = this.zombie.createRect();
 		Rectangle rArrow = this.arrows.createRect(this.arrows.getArrowX(), this.arrows.getArrowY());
+		Rectangle rArrowman = this.arrowMan.createRect();
 
-		if (rArrow.intersects(rZombie)) {
+		double difference = rZombie.getX() - rArrowman.getX();
+		
+		if (rArrow.intersects(rZombie) & difference > 70) {
 
 			/*
 			 * kill the zombie
