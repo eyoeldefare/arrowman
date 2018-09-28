@@ -336,6 +336,12 @@ public class Arrows extends Entities {
 
 	}
 
+	// Reset the coordinates when the arrow hits the zombie before its removed from
+	// the Collection
+	public void resetCoordinates() {
+		this.arrowProjectileController.setResetCoordinates(true);
+	}
+
 	// Setter and getters
 	public void setControllerReleased(boolean released) {
 		this.arrowProjectileController.setReleased(released);

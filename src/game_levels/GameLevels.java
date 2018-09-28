@@ -65,7 +65,6 @@ public abstract class GameLevels {
 		if (key == KeyEvent.VK_D) {
 			this.arrowMan.setRight(true);
 		}
-
 	}
 
 	public void keyReleased(int key) {
@@ -244,12 +243,13 @@ public abstract class GameLevels {
 		Rectangle rArrowman = this.arrowMan.createRect();
 
 		double difference = rZombie.getX() - rArrowman.getX();
-		
+
 		if (rArrow.intersects(rZombie) & difference > 70) {
 
 			/*
 			 * kill the zombie
 			 */
+			this.arrows.resetCoordinates();
 			this.zombie.setAction(Actions.DYING);
 		}
 	}
