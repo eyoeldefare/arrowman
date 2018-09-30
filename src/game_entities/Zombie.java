@@ -20,8 +20,6 @@ public class Zombie extends Entities {
 	// type Enum
 	private Actions action;
 
-	private int zombieIndex;
-
 	public Zombie() {
 		// init the super class
 		super();
@@ -67,7 +65,7 @@ public class Zombie extends Entities {
 			// Store them
 			this.zombieFrames[0] = appear;
 			this.zombieFrames[1] = walk;
-			this.zombieFrames[2] = attack;
+			this.zombieFrames[2] = attack; 
 			this.zombieFrames[3] = die;
 
 		} catch (Exception ex) {
@@ -148,14 +146,11 @@ public class Zombie extends Entities {
 			// here we will make the zombie disappear and bring in a new zombie then the
 			// cycle continues
 			if (this.frameController.getPlayedAlready() == true) {
-				
-			}
 
+			}
 		}
-		System.out.println(this.frameController.getPlayedAlready());
 		// Update the frames
 		this.frameController.update();
-
 	}
 
 	// Setters and getters
@@ -166,9 +161,4 @@ public class Zombie extends Entities {
 	public void setAction(Actions action) {
 		this.action = action;
 	}
-
-	public void setZombieIndex(int index) {
-		this.zombieIndex = index;
-	}
-
 }

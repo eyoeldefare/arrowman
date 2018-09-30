@@ -25,11 +25,11 @@ public abstract class Entities {
 	}
 
 	// We will implement these abstract methods in each entity classes
-	protected abstract void init();
+	public abstract void init();
 
-	protected abstract void draw(Graphics2D graphics);
+	public abstract void draw(Graphics2D graphics);
 
-	protected abstract void update();
+	public abstract void update();
 
 	// set position
 	public void setPosition(double x, double y) {

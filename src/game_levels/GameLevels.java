@@ -6,13 +6,10 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Line2D;
-import java.util.ArrayList;
-import java.util.List;
 
-import game_entities.Actions;
 import game_entities.ArrowMan;
 import game_entities.Arrows;
-import game_entities.Zombie;
+import game_entities.Zombies;
 import sprites.Background;
 import sprites.Ground;
 import sprites.LivesCount;
@@ -21,7 +18,7 @@ public abstract class GameLevels {
 
 	// Custom classes
 	protected ArrowMan arrowMan;
-	protected List<Zombie> zombies;
+	protected Zombies zombies;
 	protected Background background;
 	protected Ground drawer;
 	protected LivesCount livesCount;
@@ -35,7 +32,6 @@ public abstract class GameLevels {
 	protected Line2D ground4;
 
 	protected GameLevels(GameLevelsManager gameLevelManager, String bg, String lc, int arrowCount) {
-		Zombie zombie;
 		this.gameLevelManager = gameLevelManager;
 
 		if (bg != null)
@@ -48,16 +44,7 @@ public abstract class GameLevels {
 		this.arrowMan = new ArrowMan();
 		this.arrowMan.setPosition(0, 282);
 
-		this.zombies = new ArrayList<Zombie>();
-
-		Point[] points = new Point[] { new Point(480, 259), new Point(510, 259), new Point(620, 259),
-				new Point(760, 259), new Point(780, 259), };
-
-		for (int i = 0; i < points.length; i++) {
-			zombie = new Zombie();
-			zombie.setPosition(points[i].x, points[i].y);
-			this.zombies.add(zombie);
-		}
+		this.zombies = new Zombies();
 
 		// bow and arrow
 		this.arrows = new Arrows(arrowCount);
@@ -130,9 +117,9 @@ public abstract class GameLevels {
 		this.drawer.draw(graphics);
 		this.arrowMan.draw(graphics);
 		this.arrows.draw(graphics);
-		for (int i = 0; i < this.zombies.size(); i++) {
-			this.zombies.get(i).draw(graphics);
-		}
+
+		this.zombies.draw(graphics);
+
 		this.livesCount.draw(graphics);
 
 	}
@@ -150,11 +137,10 @@ public abstract class GameLevels {
 
 		// Update
 		this.arrowMan.update();
-		for (int i = 0; i < this.zombies.size(); i++) {
-			this.zombies.get(i).update();
-		}
 		this.livesCount.update();
 		this.arrows.update();
+		this.zombies.update();
+
 
 		// Collisions
 		this.arrowmanXGround();
@@ -172,8 +158,7 @@ public abstract class GameLevels {
 	}
 
 	// Arrowman must have died - game over
-	protected void gameOver(int setLevel, double zombieSpeed, int arrowCount, int livesCount) {
-		Zombie zombie;
+	public void gameOver(int setLevel, double zombieSpeed, int arrowCount, int livesCount) {
 		if (this.livesCount.isDead()) {
 			try {
 				this.livesCount = new LivesCount("/standalones/d_heart.gif");
@@ -185,14 +170,7 @@ public abstract class GameLevels {
 
 			this.livesCount.setLivesCount(livesCount);
 			this.arrowMan.setPosition(0, 282);
-			Point[] points = new Point[] { new Point(400, 259), new Point(450, 259), new Point(500, 259),
-					new Point(550, 259), new Point(600, 259), };
-
-			for (int i = 0; i < points.length; i++) {
-				zombie = new Zombie();
-				zombie.setPosition(points[i].x, points[i].y);
-				this.zombies.add(zombie);
-			}
+			this.zombies.gameOver(zombieSpeed);
 			this.arrows.setOkToFire(true);
 			this.arrowMan.setOkToFire(true);
 			this.gameLevelManager.setLevel(setLevel);
@@ -222,39 +200,13 @@ public abstract class GameLevels {
 
 	// The zombie made contact with the ground due to gravity
 	protected void zombieXGround() {
-		Rectangle rZombie;
-		for (int i = 0; i < this.zombies.size(); i++) {
-			rZombie = this.zombies.get(i).createRect();
-
-			if (this.ground1.intersects(rZombie)) {
-				this.zombies.get(i).setY(this.zombies.get(i).getY() - 1);
-			}
-			if (this.ground2.intersects(rZombie)) {
-				this.zombies.get(i).setY(this.zombies.get(i).getY() - 1);
-			}
-			if (this.ground3.intersects(rZombie)) {
-				this.zombies.get(i).setY(this.zombies.get(i).getY() - 1);
-			}
-			if (this.ground4.intersects(rZombie)) {
-				this.zombies.get(i).setY(this.zombies.get(i).getY() - 1);
-			}
-		}
+		this.zombies.zombieXGround(ground1, ground2, ground3, ground4);
 
 	}
 
 	// the zombie and arrowman made interaction
 	protected void zombieXArrowman() {
-		Rectangle rZombie;
-		Rectangle rArrowman = this.arrowMan.createRect();
-		for (int i = 0; i < this.zombies.size(); i++) {
-			rZombie = this.zombies.get(i).createRect();
-			if (rArrowman.intersects(rZombie)) {
-				this.zombies.get(i).setAction(Actions.ATTACKING);
-			} else {
-				this.arrowMan.setBeingAttacked();
-				this.livesCount.setAttacked(true);
-			}
-		}
+		this.zombies.zombieXArrowman(arrowMan, livesCount);
 
 	}
 
@@ -262,44 +214,17 @@ public abstract class GameLevels {
 
 	protected void zombieXArrow() {
 		// Create a rect for both the zombie and arrow
-		Rectangle rZombie;
-		Rectangle rArrow = this.arrows.createRect(this.arrows.getArrowX(), this.arrows.getArrowY());
-		Rectangle rArrowman = this.arrowMan.createRect();
-
-		for (int i = 0; i < this.zombies.size(); i++) {
-			rZombie = this.zombies.get(i).createRect();
-			double difference = rZombie.getX() - rArrowman.getX();
-			if (rArrow.intersects(rZombie) & difference > 63) {
-
-				/*
-				 * kill the zombie
-				 */
-				this.arrows.resetCoordinates();
-				this.zombies.get(i).setAction(Actions.DYING);
-			}
-
-		}
+		this.zombies.zombieXArrow(arrows, arrowMan);
 
 	}
 
 	// the arrowman shall not pass the zombie
 	protected void playerShallNotPass() {
-		Rectangle rZombie;
-		double arrowmanXDirection = this.arrowMan.getX();
-		for (int i = 0; i < this.zombies.size(); i++) {
-			rZombie = this.zombies.get(i).createRect();
-			double zombieXDirection = this.zombies.get(i).getX();
-			if (arrowmanXDirection >= zombieXDirection) {
-				this.arrowMan.setX(arrowmanXDirection - 1);
-			}
-		}
+		this.zombies.playerShallNotPassZombie(arrowMan);
 	}
 
 	protected void setZombieSpeed(double speed) {
-		for (int i = 0; i < this.zombies.size(); i++) {
-			this.zombies.get(i).setSpeed(speed);
-		}
-
+		this.zombies.setZombieSpeed(speed);
 	}
 
 }
