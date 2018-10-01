@@ -37,6 +37,8 @@ public class Arrows extends Entities {
 	private ArrowCount arrowCountInstance;
 
 	private int X, Y;
+
+	private double angleForArrow;
 	// controller
 	private ArrowProjectileController arrowProjectileController;
 
@@ -105,7 +107,7 @@ public class Arrows extends Entities {
 
 		if (!this.arrowProjectileController.getArrows().isEmpty()) {
 
-			AffineTransform tx = AffineTransform.getRotateInstance(super.angle, A_WIDTH, A_HEIGHT);
+			AffineTransform tx = AffineTransform.getRotateInstance(this.angleForArrow, A_WIDTH, A_HEIGHT);
 			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 			Image arrow = (Image) (op.filter(this.arrowProjectileController.getArrow(), null))
 					.getScaledInstance(A_WIDTH, A_HEIGHT, Image.SCALE_SMOOTH);
@@ -122,6 +124,7 @@ public class Arrows extends Entities {
 		this.arrowProjectileController.setDelay(800);
 		this.arrowProjectileController.update();
 		this.arrowCountInstance.update();
+
 	}
 
 	// Local methods
@@ -133,7 +136,7 @@ public class Arrows extends Entities {
 		 */
 		double v0x = (super.startX - super.endX);
 		double v0y = (super.endY - super.startY);
-
+		this.angleForArrow = super.angle;
 		if (this.arrowX == 0 & this.arrowY == 0)
 			if (super.dragged) {
 				// Reduced the speed by 79%, you can increase the below multipe to get a faster
@@ -160,6 +163,10 @@ public class Arrows extends Entities {
 
 			this.arrowX = this.arrowX + this.v0x;
 			this.arrowY = this.arrowY + this.v0y;
+
+			// angle manipulation
+			this.angleManipulation();
+
 			super.dragged = false;
 		}
 
@@ -169,6 +176,146 @@ public class Arrows extends Entities {
 			this.v0y = 0;
 			this.arrowX = 0;
 			this.arrowY = 0;
+		}
+
+	}
+
+//.037
+	private void angleManipulation() {
+		if (this.v0y > -1 && this.v0y <= 0) {
+			this.angleForArrow = .037;
+			A_WIDTH = 42;
+			A_HEIGHT = 12;
+		}
+		if (this.v0y > -2 && this.v0y <= -1) {
+			this.angleForArrow = .074;
+			A_WIDTH = 41;
+			A_HEIGHT = 13;
+		}
+		if (this.v0y > -3 && this.v0y <= -2) {
+			this.angleForArrow = .111;
+			A_WIDTH = 40;
+			A_HEIGHT = 14;
+		}
+		if (this.v0y > -4 && this.v0y <= -3) {
+			this.angleForArrow = .148;
+			A_WIDTH = 39;
+			A_HEIGHT = 15;
+		}
+		if (this.v0y > -5 && this.v0y <= -4) {
+			this.angleForArrow = .185;
+			A_WIDTH = 38;
+			A_HEIGHT = 16;
+		}
+		if (this.v0y > -6 && this.v0y <= -5) {
+			this.angleForArrow = .222;
+			A_WIDTH = 37;
+			A_HEIGHT = 17;
+		}
+		if (this.v0y > -7 && this.v0y <= -6) {
+			this.angleForArrow = .259;
+			A_WIDTH = 36;
+			A_HEIGHT = 18;
+		}
+		if (this.v0y > -8 && this.v0y <= -7) {
+			this.angleForArrow = .296;
+			A_WIDTH = 35;
+			A_HEIGHT = 19;
+		}
+		if (this.v0y > -9 && this.v0y <= -8) {
+			this.angleForArrow = .24;
+			A_WIDTH = 34;
+			A_HEIGHT = 20;
+		}
+		if (this.v0y > -10 && this.v0y <= -9) {
+			this.angleForArrow = .333;
+			A_WIDTH = 33;
+			A_HEIGHT = 21;
+		}
+		if (this.v0y > -11 && this.v0y <= -10) {
+			this.angleForArrow = .37;
+			A_WIDTH = 32;
+			A_HEIGHT = 22;
+		}
+		if (this.v0y > -12 && this.v0y <= -11) {
+			this.angleForArrow = .407;
+			A_WIDTH = 31;
+			A_HEIGHT = 23;
+		}
+		if (this.v0y > -13 && this.v0y <= -12) {
+			this.angleForArrow = .444;
+			A_WIDTH = 30;
+			A_HEIGHT = 24;
+		}
+		if (this.v0y > -14 && this.v0y <= -13) {
+			this.angleForArrow = .481;
+			A_WIDTH = 29;
+			A_HEIGHT = 25;
+		}
+		if (this.v0y > -15 && this.v0y <= -14) {
+			this.angleForArrow = .518;
+			A_WIDTH = 28;
+			A_HEIGHT = 26;
+		}
+		if (this.v0y > -16 && this.v0y <= -15) {
+			this.angleForArrow = .555;
+			A_WIDTH = 27;
+			A_HEIGHT = 27;
+		}
+		if (this.v0y > -17 && this.v0y <= -16) {
+			this.angleForArrow = .592;
+			A_WIDTH = 26;
+			A_HEIGHT = 28;
+		}
+		if (this.v0y > -18 && this.v0y <= -17) {
+			this.angleForArrow = .629;
+			A_WIDTH = 25;
+			A_HEIGHT = 29;
+		}
+		if (this.v0y > -19 && this.v0y <= -18) {
+			this.angleForArrow = .53;
+			A_WIDTH = 24;
+			A_HEIGHT = 30;
+		}
+		if (this.v0y > -20 && this.v0y <= -19) {
+			this.angleForArrow = .666;
+			A_WIDTH = 23;
+			A_HEIGHT = 31;
+		}
+		if (this.v0y > -21 && this.v0y <= -20) {
+			this.angleForArrow = .703;
+			A_WIDTH = 22;
+			A_HEIGHT = 32;
+		}
+		if (this.v0y > -22 && this.v0y <= -21) {
+			this.angleForArrow = .74;
+			A_WIDTH = 21;
+			A_HEIGHT = 33;
+		}
+		if (this.v0y > -23 && this.v0y <= -22) {
+			this.angleForArrow = .777;
+			A_WIDTH = 20;
+			A_HEIGHT = 34;
+		}
+		if (this.v0y > -24 && this.v0y <= -23) {
+			this.angleForArrow = .814;
+			A_WIDTH = 19;
+			A_HEIGHT = 35;
+		}
+		if (this.v0y > -25 && this.v0y <= -24) {
+			this.angleForArrow = .851;
+			A_WIDTH = 18;
+			A_HEIGHT = 36;
+		}
+		if (this.v0y > -26 && this.v0y <= -25) {
+			this.angleForArrow = .888;
+			A_WIDTH = 17;
+			A_HEIGHT = 37;
+		}
+		if (this.v0y <= -26) {
+			this.angleForArrow = .925;
+			A_WIDTH = 16;
+			A_HEIGHT = 38;
 		}
 	}
 

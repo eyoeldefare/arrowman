@@ -44,7 +44,7 @@ public class Zombies extends Entities {
 		for (int i = 0; i < this.zombies.size(); i++) {
 			this.zombies.get(i).update();
 		}
-		System.out.println(this.zombieKiller);
+		// System.out.println(this.zombieKiller);
 	}
 
 	public void gameOver(double zombieSpeed) {

@@ -71,7 +71,6 @@ public class ArrowMan extends Entities {
 
 	@Override
 	public void update() {
-
 		// This will serve as our maximum speed for now the arrowman can travel
 		double arrowmanSpeed = 1;
 		// Make sure the arrow-man doesn't exit the panel window
