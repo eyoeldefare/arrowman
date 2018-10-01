@@ -107,7 +107,6 @@ public class ArrowMan extends Entities {
 			}
 
 			this.attacked = false;
-			this.zombie.setAction(Actions.ATTACKING);
 
 		}
 

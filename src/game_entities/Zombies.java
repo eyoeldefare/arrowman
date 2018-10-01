@@ -87,14 +87,19 @@ public class Zombies extends Entities {
 
 		for (int i = 0; i < this.zombies.size(); i++) {
 			Rectangle rZombie = this.zombies.get(i).createRect();
-			if (rArrowman.intersects(rZombie)) {
-				this.zombies.get(i).setAction(Actions.ATTACKING);
+			if (this.zombies.get(i).getAction() != Actions.DYING) {
+				if (rArrowman.intersects(rZombie)) {
+					this.zombies.get(i).setAction(Actions.ATTACKING);
+					arrowman.setAttackingZombie(true, this.zombies.get(i));
+					livescount.setAttacked(true);
+				} else if (!rArrowman.intersects(rZombie) & this.zombies.get(i).getAction() == Actions.APPEARING) {
+					this.zombies.get(i).setAction(Actions.APPEARING);
+				} else {
+					this.zombies.get(i).setAction(Actions.WALKING);
+				}
+			} else {
+				this.zombies.remove(this.zombies.get(i));
 			}
-
-			if (this.zombies.get(i).getAction() == Actions.ATTACKING) {
-				arrowman.setAttackingZombie(true, this.zombies.get(i));
-				livescount.setAttacked(true);
-			} 
 		}
 	}
 
@@ -107,8 +112,9 @@ public class Zombies extends Entities {
 
 			rZombie = this.zombies.get(i).createRect();
 			double difference = rZombie.getX() - rArrowman.getX();
+			System.out.println(difference);
 
-			if (rArrow.intersects(rZombie) & difference > 63) {
+			if (rArrow.intersects(rZombie) & difference > 75) {
 
 				/*
 				 * kill the zombie
