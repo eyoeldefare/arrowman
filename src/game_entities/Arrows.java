@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import controllers.ArrowProjectileController;
 import sprites.ArrowCount;
 
 // Everything we will do here is the same as what we have 
@@ -39,8 +38,6 @@ public class Arrows extends Entities {
 	private int X, Y;
 
 	private double angleForArrow;
-	// controller
-	private ArrowProjectileController arrowProjectileController;
 
 	// Controllers
 	public Arrows() {
@@ -63,9 +60,8 @@ public class Arrows extends Entities {
 			}
 
 			// controller instance
-			this.arrowProjectileController = new ArrowProjectileController();
-			this.arrowProjectileController.setArrows(this.arrows);
-			this.arrowCountInstance = new ArrowCount("/standalones/d_arrow.png", this.arrowProjectileController);
+			this.arrowCountInstance = new ArrowCount("/standalones/d_arrow.png");
+			this.arrowCountInstance.setArrows(arrows);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -105,12 +101,12 @@ public class Arrows extends Entities {
 		this.X = (int) (super.x + this.arrowNBowX + this.arrowX - 14);
 		this.Y = (int) (super.y - this.arrowY + this.arrowNBowX + 30);
 
-		if (!this.arrowProjectileController.getArrows().isEmpty()) {
+		if (!this.arrows.isEmpty()) {
 
 			AffineTransform tx = AffineTransform.getRotateInstance(this.angleForArrow, A_WIDTH, A_HEIGHT);
 			AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
-			Image arrow = (Image) (op.filter(this.arrowProjectileController.getArrow(), null))
-					.getScaledInstance(A_WIDTH, A_HEIGHT, Image.SCALE_SMOOTH);
+			Image arrow = (Image) (op.filter(this.arrows.get(0), null)).getScaledInstance(A_WIDTH, A_HEIGHT,
+					Image.SCALE_SMOOTH);
 			graphics.drawImage(arrow, this.X, this.Y, A_WIDTH, A_HEIGHT, null);
 
 			graphics.draw(super.createRect(this.X, this.Y));
@@ -121,9 +117,15 @@ public class Arrows extends Entities {
 	public void update() {
 		this.handleWHAndDirWhenDragged();
 		this.handleFire();
-		this.arrowProjectileController.setDelay(800);
-		this.arrowProjectileController.update();
 		this.arrowCountInstance.update();
+
+		// We are changing this the controllers we had been using in favor of this
+		// method because
+		// this allows us to remove the arrow after a certain location on the screen
+		// while the controller
+		// depends on timing the arrow. This is much efficient and smooth.
+
+		this.removeArrows();
 
 	}
 
@@ -170,17 +172,9 @@ public class Arrows extends Entities {
 			super.dragged = false;
 		}
 
-		// Reset the velocity and the position to 0
-		if (this.arrowProjectileController.isResetCoordinates() == true) {
-			this.v0x = 0;
-			this.v0y = 0;
-			this.arrowX = 0;
-			this.arrowY = 0;
-		}
-
 	}
 
-//.037
+	// .037
 	private void angleManipulation() {
 		if (this.v0y > -1 && this.v0y <= 0) {
 			this.angleForArrow = .037;
@@ -487,17 +481,36 @@ public class Arrows extends Entities {
 
 	// Reset the coordinates when the arrow hits the zombie before its removed from
 	// the Collection
-	public void resetCoordinates() {
-		this.arrowProjectileController.setResetCoordinates(true);
-	}
-
-	// Setter and getters
-	public void setControllerReleased(boolean released) {
-		this.arrowProjectileController.setReleased(released);
-	}
 
 	public int getArrowX() {
 		return X;
+	}
+
+	// Reset the velocity and the position to 0
+	private void resetCoordinates() {
+		this.v0x = 0;
+		this.v0y = 0;
+		this.arrowX = 0;
+		this.arrowY = 0;
+	}
+
+	// Remove out of screen arrows
+	private void removeArrows() {
+		if (!this.arrows.isEmpty()) {
+			if (this.X > 900 || this.Y > 400) {
+				this.arrows.remove(0);
+				this.resetCoordinates();
+			}
+		}
+	}
+
+	// Remove collision arrows
+	public void removeCollisionArrows() {
+		if (!this.arrows.isEmpty()) {
+			this.arrows.remove(0);
+			this.resetCoordinates();
+		}
+
 	}
 
 	public int getArrowY() {

@@ -129,7 +129,7 @@ public class Zombies extends Entities {
 				/*
 				 * kill the zombie
 				 */
-				arrows.resetCoordinates();
+				arrows.removeCollisionArrows();
 
 				this.zombies.get(i).setAction(Actions.DYING);
 				this.zombieKiller = System.nanoTime();
