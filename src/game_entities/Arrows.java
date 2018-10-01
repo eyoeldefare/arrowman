@@ -46,7 +46,7 @@ public class Arrows extends Entities {
 
 	public Arrows(int arrowCount) {
 		super();
-		super.collisionHeight = A_HEIGHT;
+		super.collisionHeight = A_HEIGHT - 7;
 		super.collisionWidth = A_WIDTH;
 
 		this.arrows = new ArrayList<BufferedImage>();
@@ -176,8 +176,10 @@ public class Arrows extends Entities {
 		if (super.okToFire) {
 			super.getAngle();
 			int y = 8, x = -20;
+
 			if (super.dragging) {
-				if (super.angle < -.9) {
+
+				if (super.angle < -.9 && super.angle >= -.95) {
 					// width
 					B_WIDTH = 46;
 					B_HEIGHT = 71;

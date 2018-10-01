@@ -74,10 +74,10 @@ public abstract class Entities {
 		double _y = Math.pow((this.startY - this.endY), 2);
 		double angle = 2 * (Math.atan((this.startY - this.endY) / (this.startX - this.endX + Math.sqrt(_x + _y))));
 
-		if (angle >= -1 && angle <= 0) {
+		if (angle >= -.95 && angle <= 0) {
 			this.angle = 2 * (Math.atan((this.startY - this.endY) / (this.startX - this.endX + Math.sqrt(_x + _y))));
 		}
-
+ 
 	}
 
 	// getters
