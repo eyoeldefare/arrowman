@@ -26,7 +26,7 @@ public class FramesController {
 
 		this.playedAlready = false;
 		this.startTime = System.nanoTime();
-	}
+	} 
 
 	// We will call this update in Zombie class method update
 	public void update() {

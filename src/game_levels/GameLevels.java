@@ -166,7 +166,7 @@ public abstract class GameLevels {
 				this.arrows = new Arrows(arrowCount);
 			} catch (Exception ex) {
 				ex.printStackTrace();
-			}
+			} 
 
 			this.livesCount.setLivesCount(livesCount);
 			this.arrowMan.setPosition(0, 282);

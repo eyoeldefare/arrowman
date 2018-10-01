@@ -27,8 +27,6 @@ public class ArrowMan extends Entities {
 	private long beingAttackedTime;
 	private boolean attacked;
 
-	private Zombie zombie;
-
 	// Constructor
 	public ArrowMan() {
 
@@ -109,9 +107,6 @@ public class ArrowMan extends Entities {
 			this.attacked = false;
 
 		}
-
-		// This will set the delay when the arrow-man is attacked to match it with the
-		// animation of the attacker/zombie
 
 		// mouse stuff
 		this.handleWHAndDirWhenDragged();
@@ -334,9 +329,8 @@ public class ArrowMan extends Entities {
 		return beingAttackedTime;
 	}
 
-	public void setAttackingZombie(boolean attacked, Zombie z) {
+	public void setAttackingZombie(boolean attacked) {
 		this.attacked = attacked;
-		this.zombie = z;
 
 	}
 

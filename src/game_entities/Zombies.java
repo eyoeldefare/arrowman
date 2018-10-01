@@ -11,6 +11,7 @@ import sprites.LivesCount;
 
 public class Zombies extends Entities {
 	private List<Zombie> zombies;
+	private long zombieKiller;
 
 	// Constructor
 	public Zombies() {
@@ -43,6 +44,7 @@ public class Zombies extends Entities {
 		for (int i = 0; i < this.zombies.size(); i++) {
 			this.zombies.get(i).update();
 		}
+		System.out.println(this.zombieKiller);
 	}
 
 	public void gameOver(double zombieSpeed) {
@@ -90,7 +92,7 @@ public class Zombies extends Entities {
 			if (this.zombies.get(i).getAction() != Actions.DYING) {
 				if (rArrowman.intersects(rZombie)) {
 					this.zombies.get(i).setAction(Actions.ATTACKING);
-					arrowman.setAttackingZombie(true, this.zombies.get(i));
+					arrowman.setAttackingZombie(true);
 					livescount.setAttacked(true);
 				} else if (!rArrowman.intersects(rZombie) & this.zombies.get(i).getAction() == Actions.APPEARING) {
 					this.zombies.get(i).setAction(Actions.APPEARING);
@@ -98,7 +100,15 @@ public class Zombies extends Entities {
 					this.zombies.get(i).setAction(Actions.WALKING);
 				}
 			} else {
-				this.zombies.remove(this.zombies.get(i));
+
+				/*
+				 * Remove the zombie after 100 ms
+				 */
+				long elapsed = (System.nanoTime() - this.zombieKiller) / 1000000;
+				// 873 ms is found with experiment for the frame to complete
+				if (elapsed > 873) {
+					this.zombies.remove(this.zombies.get(i));
+				}
 			}
 		}
 	}
@@ -112,7 +122,7 @@ public class Zombies extends Entities {
 
 			rZombie = this.zombies.get(i).createRect();
 			double difference = rZombie.getX() - rArrowman.getX();
-			System.out.println(difference);
+			// System.out.println(difference);
 
 			if (rArrow.intersects(rZombie) & difference > 75) {
 
@@ -122,6 +132,7 @@ public class Zombies extends Entities {
 				arrows.resetCoordinates();
 
 				this.zombies.get(i).setAction(Actions.DYING);
+				this.zombieKiller = System.nanoTime();
 
 			}
 
