@@ -37,7 +37,6 @@ public class ArrowCount {
 	}
 
 	public void update() {
-		System.out.println(this.arrows.size());
 	}
 
 	// Setters and getters

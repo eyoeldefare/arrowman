@@ -138,7 +138,6 @@ public abstract class GameLevels {
 		this.arrows.update();
 		this.zombies.update();
 
-
 		// Collisions
 		this.arrowmanXGround();
 		this.zombieXGround();
@@ -163,7 +162,7 @@ public abstract class GameLevels {
 				this.arrows = new Arrows(arrowCount);
 			} catch (Exception ex) {
 				ex.printStackTrace();
-			} 
+			}
 
 			this.livesCount.setLivesCount(livesCount);
 			this.arrowMan.setPosition(0, 282);
@@ -211,8 +210,8 @@ public abstract class GameLevels {
 
 	protected void zombieXArrow() {
 		// Create a rect for both the zombie and arrow
-		this.zombies.zombieXArrow(arrows, arrowMan);
-
+		if (!this.arrows.getArrows().isEmpty())
+			this.zombies.zombieXArrow(arrows, arrowMan);
 	}
 
 	// the arrowman shall not pass the zombie

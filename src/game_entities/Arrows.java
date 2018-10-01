@@ -13,10 +13,11 @@ import javax.imageio.ImageIO;
 import sprites.ArrowCount;
 
 // Everything we will do here is the same as what we have 
-// done for the zombie class so check that class to see a 
-// deep analysis
+// done for the zombie class and many other classes by now, so check those classes to see a 
+// deeper analysis
 
 public class Arrows extends Entities {
+
 	private static final double GRAVITY = -0.981;
 	private static int B_WIDTH = 35, B_HEIGHT = 61; // 98*160 ---------- 36 62
 	private static int A_WIDTH = 43, A_HEIGHT = 11; // divided by 1.5 ---------- 41 11
@@ -39,7 +40,7 @@ public class Arrows extends Entities {
 
 	private double angleForArrow;
 
-	// Controllers
+	// Constructor
 	public Arrows() {
 	}
 
@@ -59,7 +60,8 @@ public class Arrows extends Entities {
 				this.arrows.add(ImageIO.read(getClass().getResource("/arrow/arrow" + ".png")));
 			}
 
-			// controller instance
+			// arrowcount instance; Here we are setting the arrows to help up show how much
+			// arrow the player has left
 			this.arrowCountInstance = new ArrowCount("/standalones/d_arrow.png");
 			this.arrowCountInstance.setArrows(arrows);
 
@@ -77,7 +79,6 @@ public class Arrows extends Entities {
 	public void draw(Graphics2D graphics) {
 		this.drawBow(graphics);
 		this.drawArrow(graphics);
-
 		this.arrowCountInstance.draw(graphics);
 	}
 
@@ -125,8 +126,8 @@ public class Arrows extends Entities {
 		// while the controller
 		// depends on timing the arrow. This is much efficient and smooth.
 
-		this.removeArrows();
-
+		// Remove if arrow is out of screen
+		this.removeOutOfScreenArrows();
 	}
 
 	// Local methods
@@ -143,8 +144,8 @@ public class Arrows extends Entities {
 			if (super.dragged) {
 				// Reduced the speed by 79%, you can increase the below multipe to get a faster
 				// arrow speed when playing;
-				this.v0x = v0x * .11;
-				this.v0y = v0y * .11;
+				this.v0x = v0x * .10;
+				this.v0y = v0y * .10;
 				super.dragged = false;
 			}
 
@@ -153,8 +154,8 @@ public class Arrows extends Entities {
 			super.dragged = false;
 			if (this.v0y > 40)
 				this.v0y = 40;
-			if (this.v0x > 40)
-				this.v0x = 40;
+			if (this.v0x > 35)
+				this.v0x = 35;
 
 			// Gravity will always be active on the arrow while there will be no horizontal
 			// acceleration and the horizontal velocity will be constant
@@ -479,13 +480,6 @@ public class Arrows extends Entities {
 
 	}
 
-	// Reset the coordinates when the arrow hits the zombie before its removed from
-	// the Collection
-
-	public int getArrowX() {
-		return X;
-	}
-
 	// Reset the velocity and the position to 0
 	private void resetCoordinates() {
 		this.v0x = 0;
@@ -495,7 +489,7 @@ public class Arrows extends Entities {
 	}
 
 	// Remove out of screen arrows
-	private void removeArrows() {
+	private void removeOutOfScreenArrows() {
 		if (!this.arrows.isEmpty()) {
 			if (this.X > 900 || this.Y > 400) {
 				this.arrows.remove(0);
@@ -506,22 +500,27 @@ public class Arrows extends Entities {
 
 	// Remove collision arrows
 	public void removeCollisionArrows() {
-		if (!this.arrows.isEmpty()) {
-			this.arrows.remove(0);
-			this.resetCoordinates();
-		}
-
+		this.arrows.remove(0);
+		this.resetCoordinates();
 	}
 
-	public int getArrowY() {
-		return Y;
+	public int getArrowX() {
+		return X;
 	}
 
 	public void setArrowX(int X) {
 		this.X = X;
 	}
 
+	public int getArrowY() {
+		return Y;
+	}
+
 	public void setArrowY(int Y) {
 		this.Y = Y;
+	}
+
+	public List<BufferedImage> getArrows() {
+		return arrows;
 	}
 }

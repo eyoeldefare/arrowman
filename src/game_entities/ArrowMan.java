@@ -92,6 +92,12 @@ public class ArrowMan extends Entities {
 		// This will serve as our gravity which will occur at all time
 		super.y += super.dy;
 
+		/*
+		 * Here if attacked is true, we will start timing it, and after 700 ms, we will
+		 * push the player by 17 points backward away from the zombie. Then we will set
+		 * up the beingAttacked time back to 0 getting it ready for the next coming
+		 * attack.
+		 */
 		if (this.attacked) {
 			if (this.beingAttackedTime == 0l) {
 				this.beingAttackedTime = System.nanoTime();
@@ -99,7 +105,7 @@ public class ArrowMan extends Entities {
 
 			long elapsed = (System.nanoTime() - this.beingAttackedTime) / 1000000;
 			if (elapsed > 700) {
-				super.x -= 20;
+				super.x -= 17;
 				this.beingAttackedTime = 0l;
 			}
 
@@ -107,7 +113,7 @@ public class ArrowMan extends Entities {
 
 		}
 
-		// mouse stuff
+		// mouse dragging stuff
 		this.handleWHAndDirWhenDragged();
 
 	}
@@ -268,6 +274,10 @@ public class ArrowMan extends Entities {
 	private void drawBody(Graphics2D graphics) {
 		int x_offset = 4, y_offset = 14;
 
+		// This will just help us to rotate our image in a certain angle, in our case,
+		// this is redrawn constantly using the property this.angle. This is what makes
+		// the arrowman bend when throwing arrow
+
 		AffineTransform tx = AffineTransform.getRotateInstance(this.angle, B_WIDTH, B_HEIGHT);
 		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 
@@ -282,6 +292,7 @@ public class ArrowMan extends Entities {
 	// draw the legs
 	private void drawLegs(Graphics2D graphics) {
 		int y_offset = 55;
+		// The same logic as above in the drawing the body
 		AffineTransform tx = AffineTransform.getRotateInstance(this.angle, L_WIDTH, L_HEIGHT);
 		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 
