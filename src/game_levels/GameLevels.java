@@ -154,8 +154,33 @@ public abstract class GameLevels {
 	}
 
 	// Arrowman must have died - game over
-	public void gameOver(int setLevel, double zombieSpeed, int arrowCount, int livesCount) {
+	public void gameOver() {
+
 		if (this.livesCount.isDead()) {
+			try {
+				this.livesCount = new LivesCount("/standalones/d_heart.gif");
+				this.arrowMan = new ArrowMan();
+				this.arrows = new Arrows(5);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+
+			this.livesCount.setLivesCount(5);
+			this.arrowMan.setPosition(0, 282);
+			this.zombies.gameOver(-0.5);
+			this.arrows.setOkToFire(true);
+			this.arrowMan.setOkToFire(true);
+			this.gameLevelManager.setLevel(0);
+
+		}
+	}
+
+	// Level Up
+	public void levelUp(int level, double zombieSpeed, int arrowCount) {
+
+		if (this.zombies.getZombies().isEmpty()) {
+			this.gameLevelManager.setLevel(level);
+			
 			try {
 				this.livesCount = new LivesCount("/standalones/d_heart.gif");
 				this.arrowMan = new ArrowMan();
@@ -163,13 +188,11 @@ public abstract class GameLevels {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-
-			this.livesCount.setLivesCount(livesCount);
+			this.livesCount.setLivesCount(5);
 			this.arrowMan.setPosition(0, 282);
-			this.zombies.gameOver(zombieSpeed);
+			this.zombies.gameOver(-0.5);
 			this.arrows.setOkToFire(true);
 			this.arrowMan.setOkToFire(true);
-			this.gameLevelManager.setLevel(setLevel);
 
 		}
 	}

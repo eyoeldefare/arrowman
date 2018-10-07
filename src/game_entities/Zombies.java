@@ -52,7 +52,7 @@ public class Zombies extends Entities {
 		Zombie zombie;
 		Point[] points;
 
-		points = new Point[] { new Point(400, 259), new Point(450, 259), new Point(500, 259), new Point(550, 259),
+		points = new Point[] { new Point(450, 259), new Point(500, 259), new Point(550, 259),
 				new Point(600, 259), };
 		// clears out the collection to be reused
 		this.zombies.clear();
@@ -133,7 +133,6 @@ public class Zombies extends Entities {
 			// System.out.println(difference);
 			// System.out.println(rArrow.getY());
 			if (rArrow.intersects(rZombie) && difference > 75) {
-				System.out.println(rArrow.getY());
 				/*
 				 * kill the zombie
 				 */
@@ -145,8 +144,8 @@ public class Zombies extends Entities {
 
 		}
 	}
-	
-	//The player should not pass the zombie.
+
+	// The player should not pass the zombie.
 	public void playerShallNotPassZombie(ArrowMan arrowMan) {
 		double arrowmanXDirection = arrowMan.getX();
 		for (int i = 0; i < this.zombies.size(); i++) {
@@ -156,12 +155,21 @@ public class Zombies extends Entities {
 			}
 		}
 	}
-	
-	//Set the zombies speed
+
+	// Set the zombies speed
 	public void setZombieSpeed(double speed) {
 		for (int i = 0; i < this.zombies.size(); i++) {
 			this.zombies.get(i).setSpeed(speed);
 		}
 	}
 
+	// Setters and getters
+
+	public List<Zombie> getZombies() {
+		return zombies;
+	}
+
+	public void setZombies(List<Zombie> zombies) {
+		this.zombies = zombies;
+	}
 }

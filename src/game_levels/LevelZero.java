@@ -21,9 +21,6 @@ public class LevelZero extends GameLevels {
 	private Color tColor;
 	private Font tFont, dFont;
 
-	// Custom class instances
-	private GameLevelsManager gameLevelManager;
-
 	// Constructor
 	public LevelZero(GameLevelsManager gameLevelManager) {
 		super(gameLevelManager, "/background/bg-0.jpg", null, 0);
@@ -34,7 +31,7 @@ public class LevelZero extends GameLevels {
 		// methods. The benefit of doing
 		// this is, we create our Levels with the current state of Level Manager.
 
-		this.gameLevelManager = gameLevelManager;
+		super.gameLevelManager = gameLevelManager;
 		try {
 			// bg
 			super.background.setDx(-0.5);
@@ -53,7 +50,7 @@ public class LevelZero extends GameLevels {
 	//
 	@Override
 	public void init() {
-	}
+	} 
 
 	@Override
 	public void draw(Graphics2D graphics) {
@@ -125,7 +122,7 @@ public class LevelZero extends GameLevels {
 			// If the option is 0, it means we selected the option
 			// "START" in our array, options. So we set the level
 			// to 1 in our gamelevelManager so level 1 starts.
-			this.gameLevelManager.setLevel(1);
+			super.gameLevelManager.setLevel(1);
 
 		if (this.option == 1)
 			// If the person selects the second option, it means he wants to exist
