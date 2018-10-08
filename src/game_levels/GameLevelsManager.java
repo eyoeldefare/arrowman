@@ -12,6 +12,7 @@ public class GameLevelsManager {
 
 	private int level;
 	private GameLevels[] levels;
+	private boolean isDead;
 
 	// Constructor
 	public GameLevelsManager() {
@@ -55,11 +56,23 @@ public class GameLevelsManager {
 	}
 
 	public void update() {
+		this.isDead = false;
 		for (int i = 0; i < this.levels.length; i++) {
 			if (i == this.getLevel()) {
 				this.levels[this.getLevel()].update();
 			}
 		}
+		
+		//For now we will use this as a game over 
+		if (this.isDead) {
+			this.levels = new GameLevels[4];
+			// Add all the levels
+			this.levels[0] = new LevelZero(this);
+			this.levels[1] = new LevelOne(this);
+			this.levels[2] = new LevelTwo(this);
+			this.levels[3] = new LevelThree(this);
+		}
+
 	}
 
 	public void keyPressed(int key) {
@@ -101,6 +114,15 @@ public class GameLevelsManager {
 				this.levels[this.getLevel()].mouseDragged(mouse, coordinates);
 			}
 		}
+	}
+
+	// setter and getter
+	public boolean isDead() {
+		return isDead;
+	}
+
+	public void setDead(boolean isDead) {
+		this.isDead = isDead;
 	}
 
 }

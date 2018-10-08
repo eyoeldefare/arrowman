@@ -52,8 +52,7 @@ public class Zombies extends Entities {
 		Zombie zombie;
 		Point[] points;
 
-		points = new Point[] { new Point(450, 259), new Point(500, 259), new Point(550, 259),
-				new Point(600, 259), };
+		points = new Point[] { new Point(450, 259), new Point(500, 259), new Point(550, 259), new Point(600, 259), };
 		// clears out the collection to be reused
 		this.zombies.clear();
 
@@ -141,7 +140,6 @@ public class Zombies extends Entities {
 				this.zombies.get(i).setAction(Actions.DYING);
 				this.zombieKiller = System.nanoTime();
 			}
-
 		}
 	}
 

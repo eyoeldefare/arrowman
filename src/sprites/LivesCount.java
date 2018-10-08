@@ -37,24 +37,21 @@ public class LivesCount {
 	}
 
 	public void update() {
+
 		if (this.attacked) {
 			if (this.beingAttacked == 0l) {
 				this.beingAttacked = System.nanoTime();
-
 			}
 			long elapsed = (System.nanoTime() - this.beingAttacked) / 1000000;
-
 			if (elapsed > 700) {
 				this.liveCount--;
 				this.beingAttacked = 0l;
 			}
 			this.attacked = false;
 		}
-
 		if (this.liveCount == 0) {
 			this.dead = true;
 		}
-
 	}
 
 	// Setters and getters

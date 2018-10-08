@@ -122,7 +122,6 @@ public abstract class GameLevels {
 	}
 
 	// Every level will update their level according to this super class
-
 	protected void update() {
 		// Get the reference for ground objects (which are lines) from the drawer class
 		// So we can check their collision with the rectangle around the arrowman and
@@ -151,28 +150,8 @@ public abstract class GameLevels {
 		this.arrows.setX(this.arrowMan.getX() + 30);
 		this.arrows.setY(this.arrowMan.getY() + 17);
 
-	}
-
-	// Arrowman must have died - game over
-	public void gameOver() {
-
-		if (this.livesCount.isDead()) {
-			try {
-				this.livesCount = new LivesCount("/standalones/d_heart.gif");
-				this.arrowMan = new ArrowMan();
-				this.arrows = new Arrows(5);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-
-			this.livesCount.setLivesCount(5);
-			this.arrowMan.setPosition(0, 282);
-			this.zombies.gameOver(-0.5);
-			this.arrows.setOkToFire(true);
-			this.arrowMan.setOkToFire(true);
-			this.gameLevelManager.setLevel(0);
-
-		}
+		// manager for game over
+		this.gameLevelManager.setDead(this.livesCount.isDead());
 	}
 
 	// Level Up
@@ -180,7 +159,7 @@ public abstract class GameLevels {
 
 		if (this.zombies.getZombies().isEmpty()) {
 			this.gameLevelManager.setLevel(level);
-			
+
 			try {
 				this.livesCount = new LivesCount("/standalones/d_heart.gif");
 				this.arrowMan = new ArrowMan();
@@ -228,7 +207,6 @@ public abstract class GameLevels {
 		this.zombies.zombieXArrowman(arrowMan, livesCount);
 
 	}
-
 	// arrowman and the zombie made interaction
 
 	protected void zombieXArrow() {
