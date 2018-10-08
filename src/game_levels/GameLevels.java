@@ -145,6 +145,7 @@ public abstract class GameLevels {
 
 		// Arrowman shall not pass
 		this.playerShallNotPass();
+		this.playerShouldNotGoBeyond80();
 
 		// Bow and arrows stuff
 		this.arrows.setX(this.arrowMan.getX() + 30);
@@ -225,6 +226,13 @@ public abstract class GameLevels {
 	// the arrowman shall not pass the zombie
 	protected void playerShallNotPass() {
 		this.zombies.playerShallNotPassZombie(arrowMan);
+	}
+
+	protected void playerShouldNotGoBeyond80() {
+
+		if (this.arrowMan.getX() > 80) {
+			this.arrowMan.setX(80);
+		}
 	}
 
 	protected void setZombieSpeed(double speed) {
