@@ -144,16 +144,16 @@ public class Arrows extends Entities {
 			if (super.dragged) {
 				// Reduced the speed by 79%, you can increase the below multipe to get a faster
 				// arrow speed when playing;
-				this.v0x = v0x * .10;
-				this.v0y = v0y * .10;
+				this.v0x = v0x * .05;
+				this.v0y = v0y * .05;
 				super.dragged = false;
 			}
 
 		if (this.v0x != 0 && this.v0y != 0) {
 			// Limit the speed not to surpass 40 ----> max=40
 			super.dragged = false;
-			if (this.v0y > 40)
-				this.v0y = 40;
+			if (this.v0y > 35)
+				this.v0y = 35;
 			if (this.v0x > 35)
 				this.v0x = 35;
 
@@ -504,6 +504,7 @@ public class Arrows extends Entities {
 		this.resetCoordinates();
 	}
 
+	// Getters and setters
 	public int getArrowX() {
 		return X;
 	}
