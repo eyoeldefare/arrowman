@@ -68,9 +68,7 @@ public class Panel extends JPanel implements Runnable, KeyListener, MouseListene
 		this.graphics = (Graphics2D) this.image.getGraphics();
 		// This instance will manage the level changes of our game
 		
-		
 		this.gameLevelsManager = new GameLevelsManager();
-		
 		
 		// the game has started
 		this.gameStarted = true;

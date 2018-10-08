@@ -152,6 +152,7 @@ public abstract class GameLevels {
 
 		// manager for game over
 		this.gameLevelManager.setDead(this.livesCount.isDead());
+
 	}
 
 	// Level Up
@@ -173,6 +174,13 @@ public abstract class GameLevels {
 			this.arrows.setOkToFire(true);
 			this.arrowMan.setOkToFire(true);
 
+		}
+	}
+
+	// Game over
+	public void gameOver() {
+		if (this.livesCount.isDead()) {
+			this.gameLevelManager.setLevel(0);
 		}
 	}
 
@@ -199,7 +207,6 @@ public abstract class GameLevels {
 	// The zombie made contact with the ground due to gravity
 	protected void zombieXGround() {
 		this.zombies.zombieXGround(ground1, ground2, ground3, ground4);
-
 	}
 
 	// the zombie and arrowman made interaction

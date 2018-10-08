@@ -37,7 +37,7 @@ public class LivesCount {
 	}
 
 	public void update() {
-
+		this.dead = false;
 		if (this.attacked) {
 			if (this.beingAttacked == 0l) {
 				this.beingAttacked = System.nanoTime();
@@ -49,7 +49,7 @@ public class LivesCount {
 			}
 			this.attacked = false;
 		}
-		if (this.liveCount == 0) {
+		if (this.liveCount < 1) {
 			this.dead = true;
 		}
 	}

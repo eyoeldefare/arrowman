@@ -62,11 +62,10 @@ public class GameLevelsManager {
 				this.levels[this.getLevel()].update();
 			}
 		}
-		
-		//For now we will use this as a game over 
+
+		// For now we will use this as a game over
 		if (this.isDead) {
 			this.levels = new GameLevels[4];
-			// Add all the levels
 			this.levels[0] = new LevelZero(this);
 			this.levels[1] = new LevelOne(this);
 			this.levels[2] = new LevelTwo(this);
