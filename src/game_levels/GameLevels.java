@@ -30,8 +30,8 @@ public abstract class GameLevels {
 	protected Line2D ground2;
 	protected Line2D ground3;
 	protected Line2D ground4;
-
-	protected GameLevels(GameLevelsManager gameLevelManager, String bg, String lc, int arrowCount) {
+	
+	protected GameLevels(GameLevelsManager gameLevelManager, String bg, String lc, int arrowCount, int zombieCount) {
 		this.gameLevelManager = gameLevelManager;
 
 		if (bg != null)
@@ -44,7 +44,7 @@ public abstract class GameLevels {
 		this.arrowMan = new ArrowMan();
 		this.arrowMan.setPosition(0, 282);
 
-		this.zombies = new Zombies();
+		this.zombies = new Zombies(zombieCount);
 
 		// bow and arrow
 		this.arrows = new Arrows(arrowCount);

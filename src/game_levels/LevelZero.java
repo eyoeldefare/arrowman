@@ -23,7 +23,7 @@ public class LevelZero extends GameLevels {
 
 	// Constructor
 	public LevelZero(GameLevelsManager gameLevelManager) {
-		super(gameLevelManager, "/background/bg-0.jpg", null, 0);
+		super(gameLevelManager, "/background/bg-0.jpg", null, 0, 0);
 
 		// When we instantiate LevelZero in GameLevelsManager, the GameLevelsManager
 		// constructor will be passed into
@@ -50,7 +50,7 @@ public class LevelZero extends GameLevels {
 	//
 	@Override
 	public void init() {
-	} 
+	}
 
 	@Override
 	public void draw(Graphics2D graphics) {

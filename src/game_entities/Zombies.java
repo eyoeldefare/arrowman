@@ -7,79 +7,41 @@ import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import sprites.Ground;
 import sprites.LivesCount;
 
 public class Zombies extends Entities {
 	private List<Zombie> zombies;
 	private long zombieKiller;
+	private int zombieCount;
 
 	// Constructor
-	public Zombies() {
-		int screenHeight1 = 0, screenHeight2 = 0, screenHeight3 = 0, screenHeight4 = 0;
+	public Zombies(int zombieCount) {
 		Zombie zombie;
-		Point[] points;
+		Point[] points = new Point[zombieCount];
 		// We will randomize these points latter to make the zombies appear at different
 		// places
 		Random random = new Random();
+		int screenHeight = 0;
+
 		this.zombies = new ArrayList<Zombie>();
 
-		int rand1 = random.nextInt(681) + 120;
-		int rand2 = random.nextInt(681) + 120;
-		int rand3 = random.nextInt(681) + 120;
-		int rand4 = random.nextInt(681) + 120;
+		this.zombieCount = zombieCount;
 
-		// RAND1
-		if (rand1 < 350) {
-			screenHeight1 = 300;
-		} else if (rand1 > 350 && rand1 <= 550) {
-			screenHeight1 = 280;
-		} else if (rand1 > 550 && rand1 <= 708) {
-			screenHeight1 = 259;
-		} else if (rand1 > 708 && rand1 <= 800) {
-			screenHeight1 = 259;
+		for (int i = 0; i < this.zombieCount; i++) {
+			int rand = random.nextInt(681) + 120;
+			// RAND CHECK
+			if (rand <= 350) {
+				screenHeight = 300;
+			} else if (rand > 350 && rand <= 550) {
+				screenHeight = 280;
+			} else if (rand > 550 && rand <= 708) {
+				screenHeight = 259;
+			} else if (rand > 708 && rand <= 800) {
+				screenHeight = 259;
+			}
+
+			points[i] = new Point(rand, screenHeight);
 		}
-
-		// RAND2
-		if (rand2 < 350) {
-			screenHeight2 = 300;
-		} else if (rand2 > 350 && rand2 <= 550) {
-			screenHeight2 = 280;
-		} else if (rand2 > 550 && rand2 <= 708) {
-			screenHeight2 = 259;
-		} else if (rand2 > 708 && rand2 <= 800) {
-			screenHeight2 = 259;
-		}
-
-		// RAND3 ---
-		if (rand3 < 350) {
-			screenHeight3 = 300;
-		} else if (rand3 > 350 && rand3 <= 550) {
-			screenHeight3 = 280;
-		} else if (rand3 > 550 && rand3 <= 708) {
-			screenHeight3 = 259;
-		} else if (rand3 > 708 && rand3 <= 800) {
-			screenHeight3 = 259;
-		}
-
-		// RAND4
-		if (rand4 < 350) {
-			screenHeight4 = 300;
-		} else if (rand4 > 350 && rand4 <= 550) {
-			screenHeight4 = 280;
-		} else if (rand4 > 550 && rand4 <= 708) {
-			screenHeight4 = 259;
-		} else if (rand4 > 708 && rand4 <= 800) {
-			screenHeight4 = 259;
-		}
-
-		points = new Point[] {
-
-				new Point(rand1, screenHeight1), new Point(rand2, screenHeight2), new Point(rand3, screenHeight3),
-				new Point(rand4, screenHeight4),
-
-		};
 
 		// Here we are looping the 4 points we have provided so we can create zombie
 		// instances and put those zombie in these areas.
@@ -111,74 +73,29 @@ public class Zombies extends Entities {
 	}
 
 	public void gameOver(double zombieSpeed) {
-		int screenHeight1 = 0, screenHeight2 = 0, screenHeight3 = 0, screenHeight4 = 0;
+		int screenHeight = 0;
 		Zombie zombie;
-		Point[] points;
+		Point[] points = new Point[5];
 		// We will randomize these points latter to make the zombies appear at different
 		// places
 		Random random = new Random();
 		this.zombies = new ArrayList<Zombie>();
 
-		int rand1 = random.nextInt(681) + 120;
-		int rand2 = random.nextInt(681) + 120;
-		int rand3 = random.nextInt(681) + 120;
-		int rand4 = random.nextInt(681) + 120;
+		for (int i = 0; i < 5; i++) {
+			int rand = random.nextInt(681) + 120;
+			// RAND CHECK
+			if (rand <= 350) {
+				screenHeight = 300;
+			} else if (rand > 350 && rand <= 550) {
+				screenHeight = 280;
+			} else if (rand > 550 && rand <= 708) {
+				screenHeight = 259;
+			} else if (rand > 708 && rand <= 800) {
+				screenHeight = 259;
+			}
 
-		// RAND1
-		if (rand1 < 350) {
-			screenHeight1 = 300;
-		} else if (rand1 > 350 && rand1 <= 550) {
-			screenHeight1 = 280;
-		} else if (rand1 > 550 && rand1 <= 708) {
-			screenHeight1 = 259;
-		} else if (rand1 > 708 && rand1 <= 800) {
-			screenHeight1 = 259;
+			points[i] = new Point(rand, screenHeight);
 		}
-
-		// RAND2
-		if (rand2 < 350) {
-			screenHeight2 = 300;
-		} else if (rand2 > 350 && rand2 <= 550) {
-			screenHeight2 = 280;
-		} else if (rand2 > 550 && rand2 <= 708) {
-			screenHeight2 = 259;
-		} else if (rand2 > 708 && rand2 <= 800) {
-			screenHeight2 = 259;
-		}
-
-		// RAND3 ---
-		if (rand3 < 350) {
-			screenHeight3 = 300;
-		} else if (rand3 > 350 && rand3 <= 550) {
-			screenHeight3 = 280;
-		} else if (rand3 > 550 && rand3 <= 708) {
-			screenHeight3 = 259;
-		} else if (rand3 > 708 && rand3 <= 800) {
-			screenHeight3 = 259;
-		}
-
-		// RAND4
-		if (rand4 < 350) {
-			screenHeight4 = 300;
-		} else if (rand4 > 350 && rand4 <= 550) {
-			screenHeight4 = 280;
-		} else if (rand4 > 550 && rand4 <= 708) {
-			screenHeight4 = 259;
-		} else if (rand4 > 708 && rand4 <= 800) {
-			screenHeight4 = 259;
-		}
-
-		points = new Point[] {
-
-				new Point(rand1, screenHeight1), 
-				new Point(rand2, screenHeight2), 
-				new Point(rand3, screenHeight3),
-				new Point(rand4, screenHeight4),
-
-		};
-
-		// clears out the collection to be reused
-		this.zombies.clear();
 
 		for (int i = 0; i < points.length; i++) {
 			zombie = new Zombie();

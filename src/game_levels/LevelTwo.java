@@ -8,7 +8,7 @@ public class LevelTwo extends GameLevels {
 
 	// Constructor
 	public LevelTwo(GameLevelsManager gameLevelManager) {
-		super(gameLevelManager, "/background/bg-1.jpg", "/standalones/d_heart.gif", 7);
+		super(gameLevelManager, "/background/bg-1.jpg", "/standalones/d_heart.gif", 7, 7);
 		super.setZombieSpeed(-0.7);
 		super.livesCount.setLivesCount(5);
 
