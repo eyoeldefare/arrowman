@@ -17,12 +17,16 @@ public class GameLevelsManager {
 	// Constructor
 	public GameLevelsManager() {
 		// The levels will store all the game levels
-		this.levels = new GameLevels[4];
+		this.levels = new GameLevels[8];
 		// Add all the levels
 		this.levels[0] = new LevelZero(this);
 		this.levels[1] = new LevelOne(this);
 		this.levels[2] = new LevelTwo(this);
 		this.levels[3] = new LevelThree(this);
+		this.levels[4] = new LevelFour(this);
+		this.levels[5] = new LevelFive(this);
+		this.levels[6] = new LevelSix(this);
+		this.levels[7] = new LevelSeven(this);
 	}
 
 	// We will need a way to set the level eg. when finishing a level
@@ -65,11 +69,16 @@ public class GameLevelsManager {
 
 		// For now we will use this as a game over
 		if (this.isDead) {
-			this.levels = new GameLevels[4];
+			this.levels = new GameLevels[8];
+			
 			this.levels[0] = new LevelZero(this);
 			this.levels[1] = new LevelOne(this);
 			this.levels[2] = new LevelTwo(this);
 			this.levels[3] = new LevelThree(this);
+			this.levels[4] = new LevelFour(this);
+			this.levels[5] = new LevelFive(this);
+			this.levels[6] = new LevelSix(this);
+			this.levels[7] = new LevelSeven(this);
 		}
 
 	}

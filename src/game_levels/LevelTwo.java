@@ -27,7 +27,7 @@ public class LevelTwo extends GameLevels {
 	public void update() {
 		super.update();
 		super.gameOver();
-		super.levelUp(3, -0.7, 7);
+		super.levelUp(3, -0.9, 9);
 	}
 
 }

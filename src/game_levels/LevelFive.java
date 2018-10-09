@@ -4,12 +4,12 @@ import java.awt.Graphics2D;
 
 //We will only define level specific properties and methods in each level and let the 
 //super class GameLevels handle every other common thing levels share
-public class LevelThree extends GameLevels {
+public class LevelFive extends GameLevels {
 
 	// Constructor
-	public LevelThree(GameLevelsManager gameLevelManager) {
-		super(gameLevelManager, "/background/bg-1.jpg", "/standalones/d_heart.gif", 9, 9);
-		super.setZombieSpeed(-0.9);
+	public LevelFive(GameLevelsManager gameLevelManager) {
+		super(gameLevelManager, "/background/bg-1.jpg", "/standalones/d_heart.gif", 13, 13);
+		super.setZombieSpeed(-1.3);
 		super.livesCount.setLivesCount(5);
 
 	}
@@ -27,7 +27,7 @@ public class LevelThree extends GameLevels {
 	public void update() {
 		super.update();
 		super.gameOver();
-		super.levelUp(4, -1.1, 11);
+		super.levelUp(6, -1.5, 15);
 	}
 
 }

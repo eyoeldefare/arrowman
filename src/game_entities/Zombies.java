@@ -172,14 +172,25 @@ public class Zombies extends Entities {
 			double difference = rZombie.getX() - rArrowman.getX();
 			// System.out.println(difference);
 			// System.out.println(rArrow.getY());
+
+			if (this.zombies.get(i).getAction() == Actions.DYING) {
+				rZombie = null;
+				continue;
+			}
+
 			if (rArrow.intersects(rZombie) && difference > 75) {
+
 				/*
 				 * kill the zombie
 				 */
 				arrows.removeCollisionArrows();
+				if (this.zombies.get(i).getAction() != Actions.DYING)
+					this.zombies.get(i).setAction(Actions.DYING);
 
-				this.zombies.get(i).setAction(Actions.DYING);
 				this.zombieKiller = System.nanoTime();
+			}
+			if (this.zombies.get(i).getAction() == Actions.DYING && rArrow.intersects(rZombie)) {
+
 			}
 		}
 	}
