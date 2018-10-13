@@ -151,7 +151,7 @@ public class Zombies extends Entities {
 				 */
 				long elapsed = (System.nanoTime() - this.zombieKiller) / 1000000;
 				// 873 ms is found with experiment for the frame to complete
-				if (elapsed > 870) { // 873
+				if (elapsed > 830) { // 873
 					this.zombies.remove(this.zombies.get(i));
 				}
 			}
